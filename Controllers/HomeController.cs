@@ -30,3 +30,15 @@ namespace ThreeFriends.Controllers
         }
     }
 }
+
+// You can send data from view to controller using Get or Post method.
+// Get is sending data through the URL in the query string.
+// Fields with attribute name are sent to the controller.
+// Example : url?name=John&age=25
+// Post is sending data through the body of the request. (Hidden and secure)
+// Also you can send data using the anchor tag  --> url?name=John&age=25
+// Also you can send using ajax0
+
+
+//  Model Binding in ASP.NET Core
+//  Model binding is the process of mapping the HTTP request data to the action method parameters.
