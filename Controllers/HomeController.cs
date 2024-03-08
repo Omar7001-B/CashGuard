@@ -23,6 +23,13 @@ namespace ThreeFriends.Controllers
             return View();
         }
 
+        public IActionResult UsersData()
+        {
+            DB db = new DB();
+            List<User> users = db.Users.ToList();
+			return View(users);
+		}
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<!---Coding By CoderGirl | www.codinglabweb.com--->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!---Custom CSS File--->
+  <link rel="stylesheet" href="/css/registration.css">
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Login</header>
+      <form action="#">
+        <input type="text" placeholder="Enter your email">
+        <input type="password" placeholder="Enter your password">
+        <a href="#">Forgot password?</a>
+        <input type="button" class="button" value="Login">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <label for="check">Signup</label>
+        </span>
+      </div>
+    </div>
+    <div class="registration form">
+      <header>Signup</header>
+      <form action="/Registration/SignUp" method="get">
+		<input type="text" name="FirstName" placeholder="Enter your first name">
+		<input type="text" name="LastName" placeholder="Enter your last name">
+		<input type="text" name="Username" placeholder="Choose a username">
+		<input type="email" name="Email" placeholder="Enter your email">
+		<input type="password" name="Password" placeholder="Create a password">
+		<input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check">Login</label>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
