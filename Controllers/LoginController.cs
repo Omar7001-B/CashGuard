@@ -7,7 +7,7 @@ namespace ThreeFriends.Controllers
     {
         Appdbcontxt entity = new Appdbcontxt();
 
-       // [HttpPost]
+        //[HttpPost]
 
         public IActionResult Index(string UserName, string Password)
         {
