@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ThreeFriends.Models
 {
@@ -24,8 +25,8 @@ namespace ThreeFriends.Models
         public string Phone_Number { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public DateTime Sign_Up_Date { get; set; }
+        [AllowNull]
+        public DateTime? Sign_Up_Date { get; set; }
         public string? Bank_Account_ID {  get; set; }
     }
 }
