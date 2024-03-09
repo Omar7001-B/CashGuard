@@ -7,9 +7,13 @@ namespace ThreeFriends.Controllers
     {
         Appdbcontxt entity = new Appdbcontxt();
 
-        [HttpPost]
+       // [HttpPost]
         public IActionResult Index(string UserName, string Password)
         {
+            if(UserName == null)
+            {
+                return View();
+            }
             var user = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
             if (user == null)
             {
