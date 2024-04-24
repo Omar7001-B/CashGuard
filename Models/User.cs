@@ -13,7 +13,7 @@ namespace ThreeFriends.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(TypeName = "int")]
         public int Id { get; set; }
-        [Required]
+        [Required] 
         public string User_Name { get; set; }
         [Required]
         public string First_Name { get; set; }
@@ -28,5 +28,6 @@ namespace ThreeFriends.Models
         [AllowNull]
         public DateTime? Sign_Up_Date { get; set; }
         public string? Bank_Account_ID {  get; set; }
+        // image path (image in www root)
     }
 }

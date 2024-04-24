@@ -114,7 +114,7 @@
     <div id="particles-js"></div>
 
     
-    <form action="/Login/index" method="post">
+    <form action="/Login/check_sign" method="post">
     <div class="login-container">
         <h2>Login</h2>
         <div class="input-box">
@@ -126,8 +126,13 @@
             <label>Password</label>
         </div>
         <button type="submit">Log In</button>
+            <div style="margin-top: 20px; transition: opacity 0.5s;">
+                <a href="/Login/signup" style="color: #fff; font-weight: bold; transition: color 0.5s;">&nbsp;&nbsp;&nbsp;&nbsp;Don't have an account? Sign up!</a>
+            </div>
+
     </div>
     </form>
+
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
