@@ -27,6 +27,19 @@ namespace ThreeFriends.Controllers
             }
         }
 
+        // submit button , store data in the database 
+        [HttpPost]
+        public IActionResult AddNew(User Nuser)
+        { 
+            if(SharedValues.IsUser(Nuser.User_Name,Nuser.Password))
+            {
+                return Content("User Already Exists");
+            }
+            entity.Users.Add(Nuser);
+            entity.SaveChanges();
+            return View("Index");
+            
+        }
         // open empty form 
         public IActionResult Index()
         { 
@@ -39,17 +52,5 @@ namespace ThreeFriends.Controllers
             return View();  
         }
 
-        // submit button , store data in the database 
-        [HttpPost]
-        public IActionResult AddNew(User Nuser)
-        { 
-            if(SharedValues.IsUser(Nuser.User_Name,Nuser.Password))
-            {
-                return Content("User Already Exists");
-            }
-            entity.Users.Add(Nuser);
-            entity.SaveChanges();
-            return View("Index");
-        }
     }
 }
