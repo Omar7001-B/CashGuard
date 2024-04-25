@@ -15,7 +15,7 @@ namespace ThreeFriends.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("index", "Login");
         }
 
         public IActionResult Privacy()
