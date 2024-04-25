@@ -28,6 +28,7 @@ namespace ThreeFriends.Models
         [AllowNull]
         public DateTime? Sign_Up_Date { get; set; }
         public string? Bank_Account_ID {  get; set; }
+
         // image path (image in www root)
     }
 }

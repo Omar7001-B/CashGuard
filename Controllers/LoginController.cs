@@ -8,7 +8,7 @@ namespace ThreeFriends.Controllers
         Appdbcontxt entity = new Appdbcontxt();
 
         // submit button 
-        [HttpPost]
+        [HttpPost] // query string
         public IActionResult check_sign(string UserName, string Password)
         {
             if (UserName == null || string.IsNullOrEmpty(UserName) || string.IsNullOrWhiteSpace(UserName))
@@ -42,16 +42,9 @@ namespace ThreeFriends.Controllers
         // submit button , store data in the database 
         [HttpPost]
         public IActionResult AddNew(User Nuser)
-        {
-            // validation function needed in class user
-            // tempdata["user"] = nuser ; 
-            // user.ini
-            string UserName = Nuser.User_Name;
-            string Password = Nuser.Password;
-            // 
-            if(SharedValues.IsUser(UserName, Password))
+        { 
+            if(SharedValues.IsUser(Nuser.User_Name,Nuser.Password))
             {
-                RedirectToAction("signup");
                 return Content("User Already Exists");
             }
             entity.Users.Add(Nuser);
