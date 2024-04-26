@@ -16,7 +16,7 @@ namespace ThreeFriends.Controllers
                 return View("Index");
             }
             //var user = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
-            SharedValues.SetCurUser(UserName, Password);
+            SharedValues.CurUser.SetCurUser(UserName, Password);
             if (SharedValues.CurUser == null)
             {
                 return Content("User Not Found");
@@ -31,7 +31,7 @@ namespace ThreeFriends.Controllers
         [HttpPost]
         public IActionResult AddNew(User Nuser)
         { 
-            if(SharedValues.IsUser(Nuser.User_Name,Nuser.Password))
+            if(Nuser.IsUser(Nuser.User_Name,Nuser.Password))
             {
                 return Content("User Already Exists");
             }

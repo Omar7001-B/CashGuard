@@ -30,5 +30,19 @@ namespace ThreeFriends.Models
         public string? Bank_Account_ID {  get; set; }
 
         // image path (image in www root)
+        [NotMapped]
+        private Appdbcontxt entity;
+        [NotMapped]
+        User CCur; 
+        public bool IsUser(string UserName, string Password)
+        {
+            entity = new Appdbcontxt();
+            CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
+            return CCur != null;
+        }
+        public void SetCurUser(string UserName, string Password)
+        {
+            SharedValues.CurUser = IsUser(UserName, Password) ? CCur : null;
+        }
     }
 }
