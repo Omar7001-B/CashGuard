@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using ThreeFriends.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+/*
+builder.Services.AddDbContext<Appdbcontxt>(options =>
+	options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+*/
+
+
 
 var app = builder.Build();
 
