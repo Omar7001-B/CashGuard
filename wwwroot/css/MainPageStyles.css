@@ -94,7 +94,7 @@
     height: 50px ;
     width: 90% ;
     margin: 0.8rem auto ;
-    line-height: 50px ;
+    line-height: 1px ;
 }
 
 .sidebar ul li a{
@@ -129,7 +129,7 @@
 
 .sidebar ul li .tooltip{
     position: absolute ;
-    left: 125px ; 
+    left: 60px ; 
     top : 10% ;
     transform: translate(-50%-50%) ; 
     box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2) ; 
@@ -150,17 +150,16 @@
 
 .main-content{
     position: relative ; 
+    background-color: #eee ; 
+    min-height : 100vh ;
     top: 0 ; 
     left: 80px ; 
-    width: calc(100% - 80px) ; 
-    height: 100vh ; 
-    background-color: #eee ; 
     transition: all 0.5s ease ; 
-    min-height : 100vh ;
+    width: calc(100% - 80px) ; 
     padding:1rem ; 
 }
 
 .container{
-    display:flex ; 
-    justify-content : space-between;
+    display: flex ;
+    justify-content: space-between ; 
 }

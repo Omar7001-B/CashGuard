@@ -1,21 +1,130 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] Cash Guard</title>
-    
+    @{
+        if (SharedValues.CurUser.User_Name != null)
+        {
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+            <link rel="stylesheet" href="/css/MainPageStyles.css">
+        }
+    }
+    <script type="text/javascript">
+        window.onload = function () {
+            if (window.history.replaceState) {
+                // Replace the current history entry with the login page URL
+                window.history.replaceState(null, null, '/Home/index');
+            }
+        }
+    </script>
+
 </head>
 <body>
-   
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
- 
-   
+    @{
+        if (SharedValues.CurUser.User_Name != null)
+        {
+            <div class="sidebar">
+                <div class="top">
+                    <div class="logo">
+                        <i class="bx bxl-codepen"></i>
+                        <span>Cash Guard</span>
+                    </div>
+                    <i class="bx bx-menu" id="btn"></i>
+                </div>
+                <div class="user">
+                    <img src="/OIP.jpeg" alt="me" class="user-img">
+                    <div>
+                        <p class="bold">@SharedValues.CurUser.First_Name</p>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="bx bxs-grid-alt"></i>
+                            <span class="nav-item">Dashboard</span>
+                        </a>
+                        <span class="tooltip">Dashboard</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bxs-add-to-queue"></i>
+                            <span class="nav-item">Fund</span>
+                        </a>
+                        <span class="tooltip">Fund</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bxs-grid-alt"></i>
+                            <span class="nav-item">Expense</span>
+                        </a>
+                        <span class="tooltip">Expense</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bx-history"></i>
+                            <span class="nav-item">History</span>
+                        </a>
+                        <span class="tooltip">History</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bxs-user-account"></i>
+                            <span class="nav-item">User Settings</span>
+                        </a>
+                        <span class="tooltip">User Settings</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bx-cog"></i>
+                            <span class="nav-item">General Settings</span>
+                        </a>
+                        <span class="tooltip">General Settings</span>
+                    </li>
+                    <li>
+                        <a href="/Login/index">
+                            <i class="bx bx-log-out"></i>
+                            <span class="nav-item">Log Out</span>
+                        </a>
+                        <span class="tooltip">Log Out</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+
+            <script>
+                let btn = document.querySelector("#btn");
+                let sidebar = document.querySelector(".sidebar");
+
+                btn.onclick = function () {
+                    sidebar.classList.toggle("active");
+                }
+            </script>
+        }
+    }
+    @{
+        if (SharedValues.CurUser.User_Name == null)
+        {
+            <div class="main-content">
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+
+        }
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

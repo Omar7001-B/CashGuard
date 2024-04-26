@@ -8,13 +8,16 @@ namespace ThreeFriends.Controllers
         Appdbcontxt entity = new Appdbcontxt();
 
         // submit button 
+        
         [HttpPost] 
         public IActionResult check_sign(string UserName, string Password)
         {
+           
             if (UserName == null || string.IsNullOrEmpty(UserName) || string.IsNullOrWhiteSpace(UserName))
             {
                 return View("Index");
             }
+            
             SharedValues.CurUser.SetCurUser(UserName, Password);
             if (SharedValues.CurUser == null)
             {
@@ -41,11 +44,13 @@ namespace ThreeFriends.Controllers
         }
         // open empty form 
         public IActionResult Index()
-        { 
+        {
+            if (SharedValues.CurUser.User_Name != null)
+            {
+                return RedirectToAction("index", "Home");
+            }
             return View();
         }
-
        
-
     }
 }
