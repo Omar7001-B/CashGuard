@@ -8,14 +8,13 @@ namespace ThreeFriends.Controllers
         Appdbcontxt entity = new Appdbcontxt();
 
         // submit button 
-        [HttpPost] // query string
+        [HttpPost] 
         public IActionResult check_sign(string UserName, string Password)
         {
             if (UserName == null || string.IsNullOrEmpty(UserName) || string.IsNullOrWhiteSpace(UserName))
             {
                 return View("Index");
             }
-            //var user = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
             SharedValues.CurUser.SetCurUser(UserName, Password);
             if (SharedValues.CurUser == null)
             {
@@ -46,11 +45,7 @@ namespace ThreeFriends.Controllers
             return View();
         }
 
-        // open empty form 
-        public IActionResult Signup()
-        {
-            return View();  
-        }
+       
 
     }
 }

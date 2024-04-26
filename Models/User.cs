@@ -30,6 +30,7 @@ namespace ThreeFriends.Models
         public string? Bank_Account_ID {  get; set; }
 
         // image path (image in www root)
+
         [NotMapped]
         private Appdbcontxt entity;
         [NotMapped]
