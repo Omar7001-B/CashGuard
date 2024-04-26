@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Gaurd</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Include your CSS file -->
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post" action="/Login/AddNew">
+                <h1>Create Account</h1>
+
+                <span></span>
+                <pre></pre>
+                <pre></pre>
+                <pre></pre>
+                <pre></pre>
+
+                <input type="text"      name="User_Name"       placeholder="User Name"               required="" />
+                <input type="text"      name="First_Name"      placeholder="First Name"              required="" />
+                <input type="text"      name="Last_Name"       placeholder="Last Name"               required="" />
+                <input type="email"     name="Email"           placeholder="Email"                   required="" />
+                <input type="text"      name="Phone_Number"    placeholder="Phone Number"            required="" />
+                <input type="text"      name="Bank_Account_ID" placeholder="Bank Account"            required="" />
+                <input type="password"  name="Password"        placeholder="Password"                required="" />
+                <input type="password"                         placeholder="Confirm your password"   required="" />
+
+                <pre></pre>
+                <pre></pre>
+                <button type="submit">Sign Up</button>
+                <pre></pre>
+                <button type="reset"> reset  </button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post" action="/Login/check_sign">
+                <h1>Sign in</h1>
+
+                <pre> </pre>
+                <input type="text" name="username" placeholder="Email / User Name " />
+                <input type="password" name="password" placeholder="Password" />
+                <pre> </pre>
+                <a href="#">Forgot your password?</a>
+
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>
+                        Don't have account !
+                    </h1>
+                    <pre> </pre>
+                    <p>Don't worry it is easy to have an account with us, we just need to know more about you !</p>
+                    <pre> </pre>
+                    <pre> </pre>
+                    <pre> </pre>
+                    <pre> </pre>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="/js/login.js"></script> <!-- Include your JavaScript file -->
+
+</body>
+</html>

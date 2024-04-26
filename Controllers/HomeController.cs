@@ -15,7 +15,12 @@ namespace ThreeFriends.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if(SharedValues.CurUser.User_Name != null)
+            {
+                SharedValues.CurUser = new User();
+                return RedirectToAction("index", "Login");
+            }
+            return RedirectToAction("index", "Login");
         }
 
         public IActionResult Privacy()
