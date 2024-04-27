@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ThreeFriends.Models;
 
 namespace ThreeFriends.Controllers
@@ -22,6 +23,23 @@ namespace ThreeFriends.Controllers
         // GET: Category/Create
         public ActionResult Create()
         {
+            // Define the icons folder path
+            string iconsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "icons");
+
+            // Get all files in the icons folder
+            string[] iconFiles = Directory.GetFiles(iconsFolderPath);
+
+            // Extract file names
+            List<SelectListItem> iconList = new List<SelectListItem>();
+            foreach (var iconFile in iconFiles)
+            {
+                string iconName = Path.GetFileName(iconFile);
+                iconList.Add(new SelectListItem { Text = iconName, Value = iconName });
+            }
+
+            // Set ViewBag.IconList
+            ViewBag.IconList = iconList;
+
             return View();
         }
 
