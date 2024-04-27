@@ -11,7 +11,7 @@ namespace ThreeFriends.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(TypeName = "int")]
+        [Column(TypeName = "INTEGER")]
         public int Id { get; set; }
         [Required] 
         public string User_Name { get; set; }
