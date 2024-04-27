@@ -1,0 +1,258 @@
+﻿
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+
+
+
+
+
+button {
+    border-radius: 20px;
+    border: 1px solid #8d99ae;
+    background-color: #023047;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin-top: 400px;
+    width: 50%;
+   
+
+}
+
+    button:active {
+        transform: scale(0.95);
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    button.ghost {
+        background-color: transparent;
+        border-color: #FFFFFF;
+    }
+
+form {
+    background-color: #edf2f4;
+    display: flex;
+    justify-content: normal;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+    border-radius: 50px;
+}
+
+
+
+input {
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 80%;
+    -moz-border-radius: inherit;
+    -webkit-border-radius: inherit;
+    border-radius: inherit;
+}
+
+
+
+/**/
+/* Initial state: no blur */
+.DateRangeContainer, .CurrencyContainer, .OldDataContainer {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    transform: scale(1);
+    filter: none;
+}
+
+    /* When one container is hovered, it zooms in */
+    .DateRangeContainer:hover, .CurrencyContainer:hover, .OldDataContainer:hover {
+        transform: scale(1.1);
+        z-index: 2;
+    }
+
+/* Apply blur and scale down to the other containers when one is hovered */
+.container:hover .DateRangeContainer:not(:hover),
+.container:hover .CurrencyContainer:not(:hover),
+.container:hover .OldDataContainer:not(:hover) {
+    filter: blur(4px);
+    transform: scale(0.9);
+}
+
+
+
+
+.DateRangeContainer {
+    
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    bottom: 50px;
+    border-radius: 300px;
+    width: 30%;
+    z-index: 1;
+    
+}
+
+
+
+.container {
+    background: #023047;
+    background: #003049;
+    background: -webkit-linear-gradient(to right, #8d99ae, #12c73f);
+    background: linear-gradient(to right, #8d99ae, #003049);
+    border-color: #8d99ae;
+    border-radius: 40px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 1800px;
+    height: 900px;
+    max-width: 100%;
+}
+
+.CurrencyContainer {
+    position: absolute;
+    left: 630px;
+    top: 50px;
+    bottom: 50px;
+    border-radius: 300px;
+    width: 30%;
+    z-index: 1;
+  
+}
+
+
+
+.OldDataContainer {
+    position: absolute;
+    left: 1210px;
+    top: 50px;
+    bottom: 50px;
+    border-radius: 300px;
+    width: 30%;
+    z-index: 1;
+   
+}
+
+
+
+
+
+
+
+/* Custom dropdown styles */
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border-radius: 50px;
+}
+
+    .custom-select select {
+        display: none; /* Hide default select list */
+    }
+
+.select-selected {
+    background-color: #0d3f5c;
+    color: #0d3f5c;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+    .select-selected:after {
+        position: absolute;
+        content: '';
+        top: 50%;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #071c29 transparent transparent transparent;
+        transform: translateY(-50%);
+    }
+
+
+.select-items div, .select-selected {
+    color: #e8e8e9;
+    padding: 12px 15px;
+    border: 1px solid #c5c6cc;
+    cursor: pointer;
+    user-select: none;
+}
+
+    .select-items div:hover, .same-as-selected {
+        background-color: #0a131a;
+    }
+
+
+.select-hide {
+    display: none;
+}
+
+.select-items {
+    position: absolute;
+    background-color: #173c4b;
+    opacity: 50%;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(22, 6, 65, 0.2);
+}
+
+
+
+.DateRangeContainer form,
+.CurrencyContainer form,
+.OldDataContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    height: 100%; /* Ensure the form takes full height of container */
+}
+
+
+
+
+.DateRangeContainer h1{
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.DateRangeContainer h5 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.DateRangeContainer h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+
+
+.DateRangeContainer .spacer {
+    height: 20px; /* Adjust height as needed */
+}
+
+
+.DateRangeContainer button {
+   
+    margin-top: 30px;
+    margin-bottom: 10px; 
+    width: 60%; 
+    
+}
