@@ -11,7 +11,7 @@ namespace ThreeFriends.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(TypeName = "int")]
+        [Column(TypeName = "INTEGER")]
         public int Id { get; set; }
         [Required] 
         public string User_Name { get; set; }
@@ -28,10 +28,12 @@ namespace ThreeFriends.Models
         [AllowNull]
         public DateTime? Sign_Up_Date { get; set; }
         public string? Bank_Account_ID {  get; set; }
+        [AllowNull]
+		public string? Image_Path { get; set; }
 
-        // image path (image in www root)
+		// image path (image in www root)
 
-        [NotMapped]
+		[NotMapped]
         private Appdbcontxt entity;
         [NotMapped]
         User CCur; 

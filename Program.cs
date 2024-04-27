@@ -12,6 +12,12 @@ builder.Services.AddDbContext<Appdbcontxt>(options =>
 */
 
 
+builder.Services.AddDbContext<Appdbcontxt>(options =>
+{
+    // Configure the DbContext to use SQLite with the connection string
+    options.UseSqlite("Data Source=DataBase\\CoinGuard.db");
+});
+
 
 var app = builder.Build();
 

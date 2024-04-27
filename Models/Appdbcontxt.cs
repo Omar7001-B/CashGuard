@@ -3,27 +3,30 @@ namespace ThreeFriends.Models
 {
     public class Appdbcontxt : DbContext
     {
-      //  private readonly IConfiguration _configuration ;
         public Appdbcontxt(DbContextOptions<Appdbcontxt> options) : base(options) { }
         public Appdbcontxt() { }
-		//public Appdbcontxt(){ }
 		public DbSet<User>Users { get; set; }
-
-
-		//public Appdbcontxt():base() { }
+		public DbSet<HistoryItem>History { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-				optionsBuilder.UseSqlite("Data Source=mydatabase.db");
+				optionsBuilder.UseSqlite("Data Source=DataBase\\CoinGuard.db");
         }
 
-        /*
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                .Property(u => u.Password)
-                .IsRequired();
-        }
-        */
     }
 }
+
+/*
+// Archive
+
+//public Appdbcontxt():base() { }
+//public Appdbcontxt(){ }
+//  private readonly IConfiguration _configuration ;
+/*
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+	modelBuilder.Entity<User>()
+		.Property(u => u.Password)
+		.IsRequired();
+}
+*/
