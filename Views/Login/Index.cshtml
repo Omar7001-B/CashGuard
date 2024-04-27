@@ -14,14 +14,17 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form method="post" action="/Login/AddNew">
+            <form method="post" action="/Login/AddNew" enctype="multipart/form-data">
                 <h1>Create Account</h1>
 
                 <span></span>
-                <pre></pre>
-                <pre></pre>
-                <pre></pre>
-                <pre></pre>
+
+
+                <div class="profile-pic-container">
+                    <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden />
+                    <div class="profile-pic" id="photoPreview"></div>
+                    <label for="photoUpload" class="upload-icon">+</label>
+                </div>
 
                 <input type="text"      name="User_Name"       placeholder="User Name"               required="" />
                 <input type="text"      name="First_Name"      placeholder="First Name"              required="" />
@@ -34,6 +37,7 @@
 
                 <pre></pre>
                 <pre></pre>
+                <input type="hidden" name="file" >
                 <button type="submit">Sign Up</button>
                 <pre></pre>
                 <button type="reset"> reset  </button>

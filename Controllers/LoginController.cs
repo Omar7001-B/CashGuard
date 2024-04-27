@@ -6,7 +6,11 @@ namespace ThreeFriends.Controllers
     public class LoginController : Controller
     {
         Appdbcontxt entity = new Appdbcontxt();
-
+        private readonly IWebHostEnvironment _webHost; 
+        public LoginController(IWebHostEnvironment webHost)
+        {
+            _webHost = webHost;
+        }
         // submit button 
         
         [HttpPost] 
@@ -31,16 +35,28 @@ namespace ThreeFriends.Controllers
 
         // submit button , store data in the database 
         [HttpPost]
-        public IActionResult AddNew(User Nuser)
+        public async Task<IActionResult> AddNew(User Nuser , IFormFile file)
         { 
             if(Nuser.IsUser(Nuser.User_Name,Nuser.Password))
             {
                 return Content("User Already Exists");
             }
+            string uploadsFolder = Path.Combine(_webHost.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+            string fileName = Path.GetFileName(file.FileName);
+            string filePath = Path.Combine(uploadsFolder, fileName);
+
+            using(FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+            Nuser.photoPath = Nuser.GetPhotoPath(filePath);
             entity.Users.Add(Nuser);
             entity.SaveChanges();
             return View("Index");
-            
         }
         // open empty form 
         public IActionResult Index()
