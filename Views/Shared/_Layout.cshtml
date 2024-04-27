@@ -43,7 +43,7 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Index", "Home")">
                             <i class="bx bxs-grid-alt"></i>
                             <span class="nav-item">Dashboard</span>
                         </a>
@@ -64,13 +64,14 @@
                         <span class="tooltip">Expense</span>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Index", "Category")">
                             <i class="bx bx-category-alt"></i>
                             <span class="nav-item">Add Category</span>
                         </a>
                         <span class="tooltip">Add Category</span>
                     </li>
                     <li>
+
                         <a href="#">
                             <i class="bx bxs-filter-alt"></i>
                             <span class="nav-item">Filttering</span>
@@ -83,6 +84,13 @@
                             <span class="nav-item">History</span>
                         </a>
                         <span class="tooltip">History</span>
+
+                        <a href="@Url.Action("History", "Home")">
+							<i class="bx bx-history"></i>
+							<span class="nav-item">History</span>
+						</a>
+						<span class="tooltip">History</span>
+
                     </li>
                     <li>
                         <a href="#">

@@ -13,7 +13,10 @@ namespace ThreeFriends.Controllers
         }
         // submit button 
         
-        [HttpPost] 
+    
+		// submit button 
+
+	   	[HttpPost] 
         public IActionResult check_sign(string UserName, string Password)
         {
            
@@ -66,11 +69,6 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("index", "Home");
             }
             return View();
-        }
-
-        public IActionResult test()
-        {
-           return View();
         }
        
     }

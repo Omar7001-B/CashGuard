@@ -7,11 +7,13 @@ namespace ThreeFriends.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        Appdbcontxt entity = new Appdbcontxt();
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+			entity.Database.EnsureCreated();
+		}
 
         public IActionResult Index()
         {
@@ -19,12 +21,19 @@ namespace ThreeFriends.Controllers
             if(SharedValues.CurUser.User_Name != null)
             {
                 SharedValues.CurUser = new User();
-                return RedirectToAction("index", "Login");
+                return RedirectToAction("index", "Home");
             }
             return RedirectToAction("index", "Login");
         }
 
-        public IActionResult Privacy()
+
+        public ActionResult History()
+        {
+            var historyItems = entity.History.ToList(); // Fetch all history items from the database
+            return View(historyItems);
+        }
+
+		public IActionResult Privacy()
         {
             return View();
         }
