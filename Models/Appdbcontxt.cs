@@ -7,6 +7,7 @@ namespace ThreeFriends.Models
         public Appdbcontxt() { }
 		public DbSet<User>Users { get; set; }
 		public DbSet<HistoryItem>History { get; set; }
+		public DbSet<Category>Categories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
