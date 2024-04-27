@@ -21,7 +21,7 @@ namespace ThreeFriends.Controllers
             if(SharedValues.CurUser.User_Name != null)
             {
                 SharedValues.CurUser = new User();
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("index", "Login");
             }
             return RedirectToAction("index", "Login");
         }
