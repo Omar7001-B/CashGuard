@@ -6,20 +6,23 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .user-img{
-    width: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 100% ; 
     border: 1px solid #eee;
 }
 
-.sidebar{
-    position: absolute ; 
-    top : 0 ; 
-    left: 0 ; 
-    height: 100vh ;
-    width: 80px ; 
-    background-color : #0f1133 ;
-    padding: 0.4rem 0.8rem ; 
-    transition : all 0.5s ease ; 
+.sidebar {
+    background: -webkit-linear-gradient(to right, #170544, #8d99ae);
+    background: linear-gradient(to right, #000000, #0a304f);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.5s ease;
 }
 
 .sidebar.active ~ .main-content{

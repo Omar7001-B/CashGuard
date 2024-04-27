@@ -17,6 +17,7 @@ namespace ThreeFriends.Controllers
 
         public IActionResult Index()
         {
+            SharedValues.CurUser = new User();
             if(SharedValues.CurUser.User_Name != null)
             {
                 SharedValues.CurUser = new User();

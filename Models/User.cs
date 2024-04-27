@@ -28,12 +28,12 @@ namespace ThreeFriends.Models
         [AllowNull]
         public DateTime? Sign_Up_Date { get; set; }
         public string? Bank_Account_ID {  get; set; }
-        [AllowNull]
-		public string? Image_Path { get; set; }
 
-		// image path (image in www root)
+        [Required]
+        public string photoPath { get; set; }
 
-		[NotMapped]
+
+	     	[NotMapped]
         private Appdbcontxt entity;
         [NotMapped]
         User CCur; 
@@ -46,6 +46,12 @@ namespace ThreeFriends.Models
         public void SetCurUser(string UserName, string Password)
         {
             SharedValues.CurUser = IsUser(UserName, Password) ? CCur : null;
+        }
+        public string GetPhotoPath(string filePath)
+        {
+           List<string> Path = filePath.Split("\\").ToList();
+           string PhotoPath = "/" + Path[Path.Count - 2] + "/" + Path[Path.Count - 1];
+           return PhotoPath;
         }
     }
 }

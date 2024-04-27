@@ -36,7 +36,7 @@
                     <i class="bx bx-menu" id="btn"></i>
                 </div>
                 <div class="user">
-                    <img src="/OIP.jpeg" alt="me" class="user-img">
+                    <img src="@SharedValues.CurUser.photoPath" alt="me" class="user-img">
                     <div>
                         <p class="bold">@SharedValues.CurUser.First_Name</p>
                     </div>
@@ -71,11 +71,26 @@
                         <span class="tooltip">Add Category</span>
                     </li>
                     <li>
+
+                        <a href="#">
+                            <i class="bx bxs-filter-alt"></i>
+                            <span class="nav-item">Filttering</span>
+                        </a>
+                        <span class="tooltip">Filttering</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bx-history"></i>
+                            <span class="nav-item">History</span>
+                        </a>
+                        <span class="tooltip">History</span>
+
                         <a href="@Url.Action("History", "Home")">
 							<i class="bx bx-history"></i>
 							<span class="nav-item">History</span>
 						</a>
 						<span class="tooltip">History</span>
+
                     </li>
                     <li>
                         <a href="#">
@@ -95,7 +110,7 @@
                     <li></li>
                     <li></li>
                     <li></li>
-                    <li></li>
+                   
                  
                     <li>
                         <a href="/Login/index">
