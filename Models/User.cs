@@ -11,25 +11,33 @@ namespace ThreeFriends.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(TypeName = "int")]
         public int Id { get; set; }
+        [DataType("varchar(100)")]
         [Required] 
         public string User_Name { get; set; }
         [Required]
+        [DataType("varchar(100)")]
         public string First_Name { get; set; }
         [Required]
+        [DataType("varchar(100)")]
         public string Last_Name { get; set; }
         [Required]
+        [DataType("varchar(100)")]
         public string Email { get; set; }
         [Required]
+        [DataType("varchar(100)")]
         public string Phone_Number { get; set; }
         [Required]
+        [DataType("varchar(100)")]
         public string Password { get; set; }
-        [AllowNull]
-        public DateTime? Sign_Up_Date { get; set; }
-        public string? Bank_Account_ID {  get; set; }
-
-        // image path (image in www root)
+        [Required]
+        public DateTime Sign_Up_Date { get; set; }
+        [Required]
+        [DataType("varchar(100)")]
+        public string Bank_Account_ID {  get; set; }
+        [Required]
+        [DataType("varchar(250)")]
+        public string ImagePath { get; set; }
 
         [NotMapped]
         private Appdbcontxt entity;

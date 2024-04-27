@@ -2,6 +2,19 @@
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
 
+function previewPhoto(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('photoPreview').style.backgroundImage = 'url(' + e.target.result + ')';
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+
+
 signUpButton.addEventListener('click', () => {
 	container.classList.add("right-panel-active");
 });
@@ -9,3 +22,4 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
+

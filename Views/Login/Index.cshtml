@@ -17,11 +17,17 @@
             <form method="post" action="/Login/AddNew">
                 <h1>Create Account</h1>
 
-                <span></span>
                 <pre></pre>
-                <pre></pre>
-                <pre></pre>
-                <pre></pre>
+
+
+                <div class="profile-pic-container">
+                    <div class="profile-pic" id="photoPreview" ;"></div>
+                    <input type="file" id="photoUpload" name="photo" accept="image/*" onchange="previewPhoto(this)" hidden />
+                    <label for="photoUpload" class="upload-icon">+</label>
+                </div>
+
+
+
 
                 <input type="text"      name="User_Name"       placeholder="User Name"               required="" />
                 <input type="text"      name="First_Name"      placeholder="First Name"              required="" />
@@ -31,7 +37,6 @@
                 <input type="text"      name="Bank_Account_ID" placeholder="Bank Account"            required="" />
                 <input type="password"  name="Password"        placeholder="Password"                required="" />
                 <input type="password"                         placeholder="Confirm your password"   required="" />
-
                 <pre></pre>
                 <pre></pre>
                 <button type="submit">Sign Up</button>
