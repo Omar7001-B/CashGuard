@@ -36,8 +36,7 @@ namespace ThreeFriends.Models
         [DataType("varchar(100)")]
         public string Bank_Account_ID {  get; set; }
         [Required]
-        [DataType("varchar(250)")]
-        public string ImagePath { get; set; }
+        public byte[] Photo { get; set; }
 
         [NotMapped]
         private Appdbcontxt entity;
