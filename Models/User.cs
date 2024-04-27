@@ -33,7 +33,7 @@ namespace ThreeFriends.Models
         public string photoPath { get; set; }
 
 
-	     	[NotMapped]
+		[NotMapped]
         private Appdbcontxt entity;
         [NotMapped]
         User CCur; 

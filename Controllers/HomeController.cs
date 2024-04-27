@@ -15,6 +15,24 @@ namespace ThreeFriends.Controllers
 			entity.Database.EnsureCreated();
 		}
 
+        public IActionResult Test() // Test Icons
+        {
+            // Define the icons folder path
+            string iconsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "icons");
+
+            List<string> iconNames = new List<string>();
+
+            // Get all files in the icons folder
+            string[] iconFiles = Directory.GetFiles(iconsFolderPath);
+
+            // Extract file names
+            foreach (var iconFile in iconFiles)
+            {
+                iconNames.Add(Path.GetFileName(iconFile));
+            }
+            return View(iconNames);
+        }
+
         public IActionResult Index()
         {
             SharedValues.CurUser = new User();
