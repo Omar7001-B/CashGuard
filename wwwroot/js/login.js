@@ -13,6 +13,7 @@ function previewPhoto(input) {
 }
 
 
+
 signUpButton.addEventListener('click', () => {
 	container.classList.add("right-panel-active");
 });
