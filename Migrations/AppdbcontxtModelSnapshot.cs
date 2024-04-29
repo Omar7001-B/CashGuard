@@ -109,6 +109,7 @@ namespace ThreeFriends.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Bank_Account_ID")
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -131,7 +132,7 @@ namespace ThreeFriends.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("Sign_Up_Date")
+                    b.Property<DateTime>("Sign_Up_Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("User_Name")

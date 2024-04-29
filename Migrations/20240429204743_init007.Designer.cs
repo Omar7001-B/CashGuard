@@ -11,8 +11,8 @@ using ThreeFriends.Models;
 namespace ThreeFriends.Migrations
 {
     [DbContext(typeof(Appdbcontxt))]
-    [Migration("20240429091438_init001")]
-    partial class init001
+    [Migration("20240429204743_init007")]
+    partial class init007
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,6 +111,7 @@ namespace ThreeFriends.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Bank_Account_ID")
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -133,7 +134,7 @@ namespace ThreeFriends.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("Sign_Up_Date")
+                    b.Property<DateTime>("Sign_Up_Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("User_Name")
