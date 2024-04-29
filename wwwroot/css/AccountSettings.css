@@ -13,6 +13,7 @@ h1 {
     font-size: 40px;
 }
 
+
 h2 {
     text-align: center;
 }
@@ -188,4 +189,23 @@ input {
     width: 500px; /* Each input takes up half of the container's width with some spacing */
     text-align: center; /* Center text horizontally */
     border-radius: 20px;
+}
+/* Add white space between elements */
+.space {
+    margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+/* Add white space to the top */
+.top-space {
+    margin-top: 20px; /* Adjust the value as needed */
+}
+
+/* Add white space to the left */
+.left-space {
+    margin-left: 20px; /* Adjust the value as needed */
+}
+
+/* Add white space to the right */
+.right-space {
+    margin-right: 20px; /* Adjust the value as needed */
 }
