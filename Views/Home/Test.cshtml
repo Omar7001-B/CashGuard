@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Test";
+}
+
+@model List<string>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icons</title>
+</head>
+<body>
+    <h1>Icons</h1>
+    <div>
+        @foreach (var iconName in Model)
+        {
+            <img src="~/icons/@iconName" alt="@iconName" />
+        }
+    </div>
+</body>
+</html>
+

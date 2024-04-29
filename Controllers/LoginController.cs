@@ -32,7 +32,7 @@ namespace ThreeFriends.Controllers
             }
             else
             {
-                return View("MainPage", SharedValues.CurUser);
+                return RedirectToAction("Index", "Transaction");
             }
         }
 
