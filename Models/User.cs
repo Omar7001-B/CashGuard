@@ -44,6 +44,7 @@ namespace ThreeFriends.Models
         [NotMapped]
         User CCur; 
         // plase dont make confilicts
+        //teset puthsmaster
         public bool IsUser(string UserName, string Password)
         {
             entity = new Appdbcontxt();
