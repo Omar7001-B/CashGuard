@@ -2,55 +2,77 @@
     ViewData["Title"] = "History";
 }
 
-<h1>History</h1>
+<style>
+    /* Center the content on the page */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f8f9fa; /* Set a light background color */
+    }
 
-<table id="history-table" class="table">
-    <thead>
-        <tr>
-            <th>Operation Type</th>
-            <th>Details</th>
-            <th>Timestamp</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.OperationType</td>
-                <td>@item.Details</td>
-                <td>@item.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    /* Style for the table container */
+    .table-container {
+        width: 100%; /* Adjust the width as needed */
+        max-width: 1500px; /* Set a maximum width */
+        margin: auto; /* Center the container horizontally */
+    }
 
-    <script>
-        // Add some basic styling to the table
-        $(document).ready(function () {
-            $('#history-table').addClass('table table-striped');
-        });
-    </script>
+    /* Improved styling for the table */
+    .table-responsive {
+        overflow-x: auto;
+        margin-bottom: 20px; /* Add some bottom margin for spacing */
+    }
 
-    <style>
-        /* Add some basic styling to the table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    #history-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 8px; /* Add rounded corners to the table */
+        overflow: hidden; /* Hide overflowing content */
+    }
 
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    #history-table th, #history-table td {
+        padding: 20px; /* Increase padding for better spacing */
+        text-align: center; /* Center-align table content */
+        border: 1px solid #dee2e6; /* Set border color */
+    }
 
-        th {
-            background-color: #f2f2f2;
-        }
+    #history-table th {
+        background-color: #343a40; /* Set header background color */
+        color: #ffffff; /* Set header text color */
+        font-weight: bold;
+    }
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-    </style>
-}
+    #history-table tbody tr:hover {
+        background-color: #e9ecef; /* Set hover background color */
+    }
+</style>
+
+<h1 class="text-center mb-4">History</h1>
+<br />
+<div class="table-container">
+    <div class="table-responsive">
+        <table id="history-table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Operation Type</th>
+                    <th>Details</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.OperationType</td>
+                        <td>@item.Details</td>
+                        <td>@item.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 

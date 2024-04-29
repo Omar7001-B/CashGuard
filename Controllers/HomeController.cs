@@ -48,6 +48,7 @@ namespace ThreeFriends.Controllers
         public ActionResult History()
         {
             var historyItems = entity.History.ToList(); // Fetch all history items from the database
+            historyItems.Reverse(); // Reverse the list to show the latest history items first
             return View(historyItems);
         }
 
