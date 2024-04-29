@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model User
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,14 +13,23 @@
 </head>
 <body>
 
-
-    <div class="container" id="container">
+    @{
+        string containerplce;
+        if(Model==null)
+        {
+            containerplce = "container";
+        }
+        else
+        {
+            containerplce = "container right-panel-active";
+        }
+    }
+    <div class="@containerplce" id="container">
         <div class="form-container sign-up-container">
             <form method="post" action="/Login/AddNew" enctype="multipart/form-data">
                 <h1>Create Account</h1>
 
                 <span></span>
-
 
                 <div class="profile-pic-container">
                     <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden />
@@ -26,23 +37,49 @@
                     <label for="photoUpload" class="upload-icon">+</label>
                 </div>
 
-                <input type="text"      name="User_Name"       placeholder="User Name"               required="" />
-                <input type="text"      name="First_Name"      placeholder="First Name"              required="" />
-                <input type="text"      name="Last_Name"       placeholder="Last Name"               required="" />
-                <input type="email"     name="Email"           placeholder="Email"                   required="" />
-                <input type="text"      name="Phone_Number"    placeholder="Phone Number"            required="" />
-                <input type="text"      name="Bank_Account_ID" placeholder="Bank Account"            required="" />
-                <input type="password"  name="Password"        placeholder="Password"                required="" />
-                <input type="password"                         placeholder="Confirm your password"   required="" />
+                <!-- User Name -->
+                <input asp-for="User_Name" name="User_Name" placeholder="User Name" required="" />
+                <span asp-validation-for="User_Name" class="text-danger" style="color: red;"></span>
 
+                <!-- First Name -->
+                <input asp-for="First_Name" name="First_Name" placeholder="First Name" required="" />
+                <span asp-validation-for="First_Name" class="text-danger" style="color: red;"></span>
+
+                <!-- Last Name -->
+                <input asp-for="Last_Name" name="Last_Name" placeholder="Last Name" required="" />
+                <span asp-validation-for="Last_Name" class="text-danger" style="color: red;"></span>
+
+                <!-- Email -->
+                <input asp-for="Email" name="Email" placeholder="Email" required="" />
+                <span asp-validation-for="Email" class="text-danger" style="color: red;"></span>
+
+                <!-- Phone Number -->
+                <input asp-for="Phone_Number" name="Phone_Number" placeholder="Phone Number" required="" />
+                <span asp-validation-for="Phone_Number" class="text-danger" style="color: red;"></span>
+
+                <!-- Bank Account ID -->
+                <input asp-for="Bank_Account_ID" name="Bank_Account_ID" placeholder="Bank Account" required="" />
+                <span asp-validation-for="Bank_Account_ID" class="text-danger" style="color: red;"></span>
+
+                <!-- Password -->
+                <input asp-for="Password" name="Password" placeholder="Password" required="" />
+                <span asp-validation-for="Password" class="text-danger" style="color: red;"></span>
+
+                <!-- Confirm Password -->
+                <input type="password" name="Confirm_Password" placeholder="Confirm your password" required="" />
+
+                <!-- Hidden input for file -->
+                <input type="hidden" name="file" />
+
+                <!-- Submit and reset buttons -->
                 <pre></pre>
                 <pre></pre>
-                <input type="hidden" name="file" >
                 <button type="submit">Sign Up</button>
                 <pre></pre>
                 <button type="reset"> reset  </button>
             </form>
         </div>
+
         <div class="form-container sign-in-container">
             <form method="post" action="/Login/check_sign">
                 <h1>Sign in</h1>

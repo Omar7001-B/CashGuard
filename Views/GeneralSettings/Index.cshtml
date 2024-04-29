@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cash Gaurd</title>
+    <link rel="stylesheet" href="/css/GeneralSettingsStyle.css" />
+    <!-- Include your CSS file -->
+
+    <style></style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container"></div>
+        <div class="form-container DateRangeContainer">
+            <form method="get" action="/GeneralSettings/index">
+                <h1>Select Date Range</h1>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <h5>
+                    After selecing Data Range everything in the app will change
+                    according to your chooise
+                </h5>
+               
+            
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <h2>From</h2>
+                <input type="date" name="DataRangeFrom" />
+                <h2>To</h2>
+                <input type="date" name="DateRangeTo" />
+                <!-- Calendar input for selecting date -->
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>    <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+
+        <!-- Currency Dropdown HTML -->
+        <div class="form-container CurrencyContainer">
+            <form method="get" action="/GeneralSettings/index">
+                <h1>Select Your Currency</h1>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <h5>Select your Country Currency or your Region Currency</h5>
+               <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <div class="custom-select">
+                    <select name="Currency">
+                        <option value="0">Select currency:</option>
+                        <option value="USD">United States Dollar (USD)</option>
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="JPY">Japanese Yen (JPY)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                        <option value="AUD">Australian Dollar (AUD)</option>
+                        <!-- Add more currencies as needed -->
+                    </select>
+                </div>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <button type="submit">Save</button>
+ 
+            </form>
+        </div>
+
+
+        <div class="form-container OldDataContainer">
+            <form method="post" action="/GeneralSettings/index">
+                <div class="spacer"></div>
+                <h1>Earase Old Data</h1>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <div class="spacer"></div>
+                <h5>Select Date and all data from your regeister untill the selected date will be deleted</h5>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <div class="spacer"></div><div class="spacer"></div>
+                <h2>From</h2>
+                <input type="date" name="DeleteOldTo" />
+                
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+                <!-- Calendar input for selecting date -->
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/GeneralSettings.js"></script>
+    <!-- Include your JavaScript file -->
+</body>
+</html>

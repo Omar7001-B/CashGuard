@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Gaurd</title>
+    <link rel="stylesheet" href="/css/AccountSettings.css"> <!-- Include your CSS file -->
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post" action="/Login/AddNew" enctype="multipart/form-data">
+                <h1>Edit Account info</h1>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="profile-pic-container">
+                    <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden />
+                    <div class="profile-pic" id="photoPreview"></div>
+                    <label for="photoUpload" class="upload-icon">+</label>
+                </div>
+                <div class="space"></div><div class="space"></div>
+                <pre></pre>
+                <div class="input-row">
+                    <input type="text" name="User_Name" placeholder="User Name" required="" />
+                    <input type="text" name="First_Name" placeholder="First Name" required="" />
+                </div>
+                <div class="input-row">
+                    <input type="text" name="Last_Name" placeholder="Last Name" required="" />
+                    <input type="email" name="Email" placeholder="Email" required="" />
+                </div>
+                <div class="input-row">
+                    <input type="text" name="Phone_Number" placeholder="Phone Number" required="" />
+                    <input type="text" name="Bank_Account_ID" placeholder="Bank Account" required="" />
+                </div>
+                <div class="input-row">
+                    <input type="password" name="Password" placeholder="Password" required="" />
+                    <input type="password" placeholder="Confirm your password" required="" />
+                </div>
+                <input type="hidden" name="file">
+                <pre></pre><pre></pre><pre></pre>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="space" style="margin-bottom: 20px;"></div>
+                <div class="space" style="margin-bottom: 20px;"></div>
+
+                <div class="button-row">
+                    <button type="submit">Save Changes</button>
+                    <button type="reset">Reset</button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="/js/AccountSettings.js"></script> <!-- Include your JavaScript file -->
+
+</body>
+</html>

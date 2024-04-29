@@ -6,18 +6,17 @@ function previewPhoto(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             document.getElementById('photoPreview').style.backgroundImage = 'url(' + e.target.result + ')';
-            document.getElementById('photoPath').value = e.target.result; // Set photo path to hidden input
+            document.getElementById('photoPath').value = e.target.result; 
         };
         reader.readAsDataURL(input.files[0]);
     }
 }
 
 
-
 signUpButton.addEventListener('click', () => {
-	container.classList.add("right-panel-active");
+    container.classList.add("right-panel-active");
 });
 
 signInButton.addEventListener('click', () => {
-	container.classList.remove("right-panel-active");
+    container.classList.remove("right-panel-active");
 });
