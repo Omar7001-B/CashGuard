@@ -11,8 +11,8 @@ using ThreeFriends.Models;
 namespace ThreeFriends.Migrations
 {
     [DbContext(typeof(Appdbcontxt))]
-    [Migration("20240427143542_init")]
-    partial class init
+    [Migration("20240429091438_init001")]
+    partial class init001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,43 @@ namespace ThreeFriends.Migrations
                     b.ToTable("History");
                 });
 
+            modelBuilder.Entity("ThreeFriends.Models.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Info")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TransactionType")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("ThreeFriends.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -110,6 +147,22 @@ namespace ThreeFriends.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("ThreeFriends.Models.Transaction", b =>
+                {
+                    b.HasOne("ThreeFriends.Models.Category", "Category")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ThreeFriends.Models.Category", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

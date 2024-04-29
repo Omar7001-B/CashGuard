@@ -5,17 +5,24 @@ namespace ThreeFriends.Models
     {
         public Appdbcontxt(DbContextOptions<Appdbcontxt> options) : base(options) { }
         public Appdbcontxt() { }
-		public DbSet<User>Users { get; set; }
-		public DbSet<HistoryItem>History { get; set; }
-		public DbSet<Category>Categories { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public DbSet<User> Users { get; set; }
+		public DbSet<HistoryItem> History { get; set; }
+		public DbSet<Category> Categories { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { optionsBuilder.UseSqlite("Data Source=DataBase\\CoinGuard.db"); }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Transaction>()
+                .HasKey(t => t.Id); // Specify the primary key
 
-            // optionsBuilder.UseSqlServer("Data Source=DESKTOP-1ULGF16\\SQLEXPRESS;Initial Catalog = CashGaurd ;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            // Define the relationship between Transaction and Category
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Category)
+                .WithMany(c => c.Transactions)
+                .HasForeignKey(t => t.CategoryId)
+                .IsRequired();
 
-	         	optionsBuilder.UseSqlite("Data Source=DataBase\\CoinGuard.db");
-
+            base.OnModelCreating(modelBuilder);
         }
 
     }
@@ -34,4 +41,5 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 		.Property(u => u.Password)
 		.IsRequired();
 }
+// optionsBuilder.UseSqlServer("Data Source=DESKTOP-1ULGF16\\SQLEXPRESS;Initial Catalog = CashGaurd ;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 */
