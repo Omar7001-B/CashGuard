@@ -43,21 +43,21 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="@Url.Action("Index", "Home")">
+                        <a href="@Url.Action("Index", "Transaction")">
                             <i class="bx bxs-grid-alt"></i>
                             <span class="nav-item">Dashboard</span>
                         </a>
                         <span class="tooltip">Dashboard</span>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Income", "Transaction")">
                             <i class="bx bxs-add-to-queue"></i>
-                            <span class="nav-item">Fund</span>
+                            <span class="nav-item">Income</span>
                         </a>
-                        <span class="tooltip">Fund</span>
+                        <span class="tooltip">Income</span>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Expense", "Transaction")">
                             <i class="bx bxs-grid-alt"></i>
                             <span class="nav-item">Expense</span>
                         </a>
@@ -89,7 +89,7 @@
 
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("EditInfo", "AccountSettings")">
                             <i class="bx bxs-user-account"></i>
                             <span class="nav-item">User Settings</span>
                         </a>
@@ -109,7 +109,7 @@
                    
                  
                     <li>
-                        <a href="/Login/index">
+                        <a href="@Url.Action("index", "Logout")">
                             <i class="bx bx-log-out"></i>
                             <span class="nav-item">Log Out</span>
                         </a>

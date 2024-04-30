@@ -1,0 +1,169 @@
+﻿@model IEnumerable<ThreeFriends.Models.Transaction>
+
+@* Calculate and display the current balance *@
+@{
+	var totalIncome = Model.Where(t => t.TransactionType == "Income").Sum(t => t.Amount);
+	var totalExpense = Model.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount);
+	var currentBalance = totalIncome - totalExpense;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Transaction Dashboard</title>
+    <style>
+        /* Add custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            /*  max-width: 1200px; */
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            float: left;
+            width: 48%;
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .section:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .section-header {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .action-links a {
+            margin-right: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+	<h1>Transaction Dashboard</h1>
+	<div class="total-amount" style="margin-top: 20px;">Current Balance: @currentBalance</div>
+    <div class="container">
+        <div class="section">
+            <div class="section-header">Income Transactions</div>
+            <div class="total-amount">Total Income Amount: @Model.Where(t => t.TransactionType == "Income").Sum(t => t.Amount)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Info</th>
+                        <th>Timestamp</th>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(t => t.TransactionType == "Income"))
+                    {
+                        <tr>
+                            <td><img src="~/icons/@item.Category.Icon" alt="@item.Category.Icon" width="50" height="50" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Info)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                            <td class="action-links">
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Expense Transactions</div>
+            <div class="total-amount">Total Expense Amount: @Model.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Info</th>
+                        <th>Timestamp</th>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(t => t.TransactionType == "Expense"))
+                    {
+                        <tr>
+                            <td><img src="~/icons/@item.Category.Icon" alt="@item.Category.Icon" width="50" height="50" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Info)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                            <td class="action-links">
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="clear:both"></div>
+
+    </div>
+</body>
+</html>
+

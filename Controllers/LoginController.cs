@@ -26,20 +26,25 @@ namespace ThreeFriends.Controllers
             }
             
             SharedValues.CurUser.SetCurUser(UserName, Password);
-            if (SharedValues.CurUser == null)
+            if (SharedValues.CurUser.User_Name == null)
             {
                 return Content("User Not Found");
             }
             else
             {
-                return View("MainPage", SharedValues.CurUser);
+                return RedirectToAction("Index", "Transaction");
             }
         }
 
         // submit button , store data in the database 
         [HttpPost]
         public async Task<IActionResult> AddNew(User Nuser , IFormFile file)
-        { 
+        {
+            ModelState.Remove("photoPath");
+            if (!ModelState.IsValid)
+            {
+                return View("Index",Nuser);
+            }
             if(Nuser.IsUser(Nuser.User_Name,Nuser.Password))
             {
                 return Content("User Already Exists");
@@ -57,9 +62,10 @@ namespace ThreeFriends.Controllers
                 await file.CopyToAsync(fileStream);
             }
             Nuser.photoPath = Nuser.GetPhotoPath(filePath);
+            Nuser.Sign_Up_Date = DateTime.Now;
             entity.Users.Add(Nuser);
             entity.SaveChanges();
-            return View("Index");
+            return RedirectToAction("index", "Login");
         }
         // open empty form 
         public IActionResult Index()

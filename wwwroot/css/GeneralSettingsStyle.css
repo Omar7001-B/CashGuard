@@ -256,3 +256,68 @@ input {
     width: 60%; 
     
 }
+
+
+
+.CurrencyContainer h1 {
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.CurrencyContainer h5 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.CurrencyContainer h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+
+
+.CurrencyContainer .spacer {
+    height: 20px; /* Adjust height as needed */
+}
+
+
+.CurrencyContainer button {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+
+.OldDataContainer h1 {
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.OldDataContainer h5 {
+    text-align: center;
+    margin-top: -50px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.OldDataContainer h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+
+
+.OldDataContainer .spacer {
+    height: 20px; /* Adjust height as needed */
+}
+
+
+.OldDataContainer button {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 60%;
+}
