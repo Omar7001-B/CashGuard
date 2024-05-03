@@ -240,6 +240,7 @@
                     <input type="text" name="Email" value=@Model.Email />
 
                 </div>
+                @Html.ValidationMessage("correctEmail", "", new { @class = "text-danger" })
                
 
                 <input type="hidden" name="file">

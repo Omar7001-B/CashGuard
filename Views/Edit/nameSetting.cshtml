@@ -239,13 +239,19 @@
                     
                     <input type="text" name="First_Name"  value=@Model.First_Name />
                     
+                    
                 </div>
+                @Html.ValidationMessage("correctFirstName", "", new { @class = "text-danger" })
+
                 <h5 style=" margin-left: 0px; color: #023047;">Last Name</h5>
                 <div class="input-row">
                     
                     <input type="text" name="Last_Name"  value=@Model.Last_Name />
                     
                 </div>
+                @Html.ValidationMessage("correctLastName", "", new { @class = "text-danger" })
+                @Html.ValidationMessage("correctBothName", "", new { @class = "text-danger" })
+                @Html.ValidationMessage("both_empty", "", new { @class = "text-danger" })
 
                 <input type="hidden" name="file">
                 <pre></pre><pre></pre><pre></pre>
