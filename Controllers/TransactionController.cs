@@ -12,38 +12,41 @@ namespace ThreeFriends.Controllers
     {
         private readonly Appdbcontxt _context;
 
-        public TransactionController(Appdbcontxt context)
+        public TransactionController(Appdbcontxt context) { _context = context; }
+
+        List<Transaction> GetUserTransactions(string type)
         {
-            _context = context;
+            List<Transaction> transactions;
+            if (type == "Income")
+                transactions = _context.Transactions .Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income") .ToList(); 
+            else if(type == "Expense")
+                transactions = _context.Transactions .Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense") .ToList();
+            else
+                transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id).ToList();
+
+            foreach (var transaction in transactions) _context.Entry(transaction).Reference(t => t.Category).Load();
+            return transactions;
+        }
+
+        List<Category> GetUserCategories()
+        {
+            return _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
         }
 
         // GET: Transaction
         public IActionResult Index()
         {
-             var transactions = _context.Transactions
-                                .Include(t => t.Category) // Eager loading
-                                .ToList();
+            var transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id).ToList();
             foreach (var transaction in transactions)
-            {
                 _context.Entry(transaction).Reference(t => t.Category).Load();
-            }
             return View(transactions);
         }
         // GET: Transaction/Income
         [HttpGet]
         public IActionResult Income()
         {
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-            var transactions = _context.Transactions
-                                .Where(t => t.TransactionType == "Income")
-                                .Include(t => t.Category) // Eager loading
-                                .ToList();
-
-            foreach (var transaction in transactions)
-            {
-                _context.Entry(transaction).Reference(t => t.Category).Load();
-            }
-            ViewBag.Transactions = transactions;
+            ViewBag.Transactions = GetUserTransactions("Income");
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             return View();
         }
 
@@ -52,18 +55,7 @@ namespace ThreeFriends.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Income(Transaction transactionToCreate)
         {
-            // Check if the provided CategoryId is valid
-            var category = _context.Categories.Find(transactionToCreate.CategoryId);
-            if (category == null)
-            {
-                ModelState.AddModelError(nameof(transactionToCreate.CategoryId), "Invalid category.");
-            }
-            else
-            {
-                transactionToCreate.Category = category;
-                ModelState.Remove(nameof(transactionToCreate.Category));
-            }
-
+            transactionToCreate.UserId = SharedValues.CurUser.Id;
             if (ModelState.IsValid)
             {
                 _context.Transactions.Add(transactionToCreate);
@@ -71,27 +63,8 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("Index", "Transaction");
             }
 
-            // If ModelState is not valid, collect error messages
-            var errorMessage = string.Join(", ", ModelState.Values
-                                                    .SelectMany(v => v.Errors)
-                                                    .Select(e => e.ErrorMessage));
-
-            // Send error message back to the view
-            ViewBag.ErrorMessage = errorMessage;
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", transactionToCreate.CategoryId);
-
-            // Reload transactions to display in the view
-            var transactions = _context.Transactions
-                                .Where(t => t.TransactionType == "Income")
-                                .Include(t => t.Category)
-                                .ToList();
-
-            foreach (var trans in transactions)
-            {
-                _context.Entry(trans).Reference(t => t.Category).Load();
-            }
-
-            ViewBag.Transactions = transactions;
+            ViewBag.Categoriesa = GetUserCategories();
+            ViewBag.Transactions = GetUserTransactions("Expense");
             return View();
         }
 
@@ -99,17 +72,8 @@ namespace ThreeFriends.Controllers
         [HttpGet]
         public IActionResult Expense()
         {
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-            var transactions = _context.Transactions
-                                .Where(t => t.TransactionType == "Expense")
-                                .Include(t => t.Category) // Eager loading
-                                .ToList();
-
-            foreach (var transaction in transactions)
-            {
-                _context.Entry(transaction).Reference(t => t.Category).Load();
-            }
-            ViewBag.Transactions = transactions;
+            ViewBag.Transactions = GetUserTransactions("Income");
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             return View();
         }
 
@@ -118,18 +82,7 @@ namespace ThreeFriends.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Expense(Transaction transactionToCreate)
         {
-            // Check if the provided CategoryId is valid
-            var category = _context.Categories.Find(transactionToCreate.CategoryId);
-            if (category == null)
-            {
-                ModelState.AddModelError(nameof(transactionToCreate.CategoryId), "Invalid category.");
-            }
-            else
-            {
-                transactionToCreate.Category = category;
-                ModelState.Remove(nameof(transactionToCreate.Category));
-            }
-
+            transactionToCreate.UserId = SharedValues.CurUser.Id;
             if (ModelState.IsValid)
             {
                 _context.Transactions.Add(transactionToCreate);
@@ -137,48 +90,11 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("Index", "Transaction");
             }
 
-            // If ModelState is not valid, collect error messages
-            var errorMessage = string.Join(", ", ModelState.Values
-                                                    .SelectMany(v => v.Errors)
-                                                    .Select(e => e.ErrorMessage));
-
-            // Send error message back to the view
-            ViewBag.ErrorMessage = errorMessage;
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", transactionToCreate.CategoryId);
-
-            // Reload transactions to display in the view
-            var transactions = _context.Transactions
-                                .Where(t => t.TransactionType == "Expense")
-                                .Include(t => t.Category)
-                                .ToList();
-
-            foreach (var trans in transactions)
-            {
-                _context.Entry(trans).Reference(t => t.Category).Load();
-            }
-
-            ViewBag.Transactions = transactions;
+            ViewBag.Categoriesa = GetUserCategories();
+            ViewBag.Transactions = GetUserTransactions("Expense");
             return View();
         }
 
-
-
-        /*
-        public IActionResult Income()
-        {
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-             var transactions = _context.Transactions
-                                .Where(t => t.TransactionType == "Income")
-                                .Include(t => t.Category) // Eager loading
-                                .ToList();
-
-            foreach (var transaction in transactions)
-            {
-                _context.Entry(transaction).Reference(t => t.Category).Load();
-            }
-            return View(transactions);
-        }
-        */
 
         // GET: Transaction/Create
         public IActionResult Create()
@@ -191,35 +107,13 @@ namespace ThreeFriends.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Transaction transaction)
         {
-            // Check if the provided CategoryId is valid
-            var category = _context.Categories.Find(transaction.CategoryId);
-            if (category == null)
-            {
-                ModelState.AddModelError(nameof(transaction.CategoryId), "Invalid category.");
-            }
-            else
-            {
-                transaction.Category = category;
-                ModelState.Remove(nameof(transaction.Category));
-            }
-
             if (ModelState.IsValid)
             {
                 _context.Transactions.Add(transaction);
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Transaction");
             }
-
-            // If ModelState is not valid, collect error messages and transaction data
-            var errorMessage = string.Join(", ", ModelState.Values
-                                                    .SelectMany(v => v.Errors)
-                                                    .Select(e => e.ErrorMessage));
-            var transactionData = Newtonsoft.Json.JsonConvert.SerializeObject(transaction);
-
-            // Send error message and transaction data back to the view
-            ViewBag.ErrorMessage = errorMessage;
-            ViewBag.TransactionData = transactionData;
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", transaction.CategoryId);
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             return View(transaction);
         }
 
@@ -228,13 +122,9 @@ namespace ThreeFriends.Controllers
         public IActionResult Edit(int id)
         {
 
-            var errors = ModelState .Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             var transaction = _context.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", transaction.CategoryId);
+            if (transaction == null) return NotFound();
+            ViewBag.Categories = GetUserCategories();
             return View(transaction);
         }
 
@@ -249,7 +139,7 @@ namespace ThreeFriends.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", transaction.CategoryId);
+            ViewBag.Categories = GetUserCategories();
             return View(transaction);
         }
 
@@ -288,3 +178,21 @@ namespace ThreeFriends.Controllers
     }
 }
 
+
+
+/*
+public IActionResult Income()
+{
+    ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
+     var transactions = _context.Transactions
+                        .Where(t => t.TransactionType == "Income")
+                        .Include(t => t.Category) // Eager loading
+                        .ToList();
+
+    foreach (var transaction in transactions)
+    {
+        _context.Entry(transaction).Reference(t => t.Category).Load();
+    }
+    return View(transactions);
+}
+*/
