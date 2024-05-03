@@ -9,7 +9,7 @@ namespace ThreeFriends.Controllers
         {
             SharedValues.SetAllNull();
             HttpContext.Session.Clear();
-            return RedirectToAction("LogOut", "Login");
+            return RedirectToAction("index", "Login");
         }
     }
 }
