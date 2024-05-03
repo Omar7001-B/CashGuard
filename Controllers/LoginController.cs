@@ -17,14 +17,16 @@ namespace ThreeFriends.Controllers
         private void SetSessionData(string username , string password)
         {
             User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username);
+            SharedValues.CurUser = CurUser;
             HttpContext.Session.SetString("UserName", CurUser.User_Name);
-            HttpContext.Session.SetString("Password", CurUser.Password);
+            HttpContext.Session.SetString("Password", password);
             HttpContext.Session.SetString("FirsName", CurUser.First_Name);
             HttpContext.Session.SetString("LastName", CurUser.Last_Name);
             HttpContext.Session.SetString("PhotoPath", CurUser.photoPath);
             HttpContext.Session.SetString("DateIn", CurUser.Sign_Up_Date.ToString());
             HttpContext.Session.SetString("Email", CurUser.Email);
             HttpContext.Session.SetString("PhoneNumber", CurUser.Phone_Number);
+            HttpContext.Session.SetString("Id", CurUser.Id.ToString());
         }
         [HttpPost] 
         public IActionResult check_sign(string UserName, string Password)
