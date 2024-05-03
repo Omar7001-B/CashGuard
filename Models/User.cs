@@ -39,21 +39,14 @@ namespace ThreeFriends.Models
         [MaxLength(50, ErrorMessage = "Bank Account ID cannot exceed 50 characters")]
         public string? Bank_Account_ID { get; set; }
         public string photoPath { get; set; }
-        [NotMapped]
-        private Appdbcontxt entity;
-        [NotMapped]
-        User CCur; 
-        // plase dont make confilicts
-        //teset puthsmaster
+       
+
+
         public bool IsUser(string UserName, string Password)
         {
-            entity = new Appdbcontxt();
-            CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
+            Appdbcontxt entity = new Appdbcontxt();
+            User CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
             return CCur != null;
-        }
-        public void SetCurUser(string UserName, string Password)
-        {
-            SharedValues.CurUser = IsUser(UserName, Password) ? CCur : new User();
         }
         public string GetPhotoPath(string filePath)
         {
