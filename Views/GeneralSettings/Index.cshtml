@@ -89,7 +89,7 @@
             <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
             <div class="spacer"></div><div class="spacer"></div>
             <h2>From</h2>
-            <input type="date" name="DeleteOldTo" />
+            <input type="date" name="DeleteOldTo" min="@SharedValues.CurUser.Sign_Up_Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" value="@SharedValues.CurUser.Sign_Up_Date.ToString("yyyy-MM-dd")" />
 
             <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
             <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>

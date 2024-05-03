@@ -14,7 +14,7 @@ namespace ThreeFriends.Controllers
             {
                 GeneralSettings.DataRangeFrom = DataRangeFrom;
             }
-            if ( DateRangeTo != default(DateTime))
+            if (DateRangeTo != default(DateTime))
             {
                 GeneralSettings.DataRangeTo = DateRangeTo;
             }
@@ -27,17 +27,25 @@ namespace ThreeFriends.Controllers
                 GeneralSettings.DeleteOldTo = DeleteOldTo;
             }
 
-            if(DataRangeFrom > DateRangeTo)
+
+            if (DataRangeFrom > DateRangeTo)
             {
+
                 ModelState.AddModelError("DataRangeFrom", "Date From must be less than Date To");
-                GeneralSettings.DataRangeFrom = SharedValues.CurUser.Sign_Up_Date;
-                GeneralSettings.DataRangeTo = @DateTime.Now;
                 return View();
             }
             ModelState.Remove("DataRangeFrom");
             return View();
         }
 
-       
+        // Function to delete old data
+        // get user all gategories
+        // get all transactions
+        // delte all categories and transactions from the user regeiste date till the date he choose
+        // update the model lists of the all categories and transactions
+        // update the database from the model lists
+
+
+
     }
 }
