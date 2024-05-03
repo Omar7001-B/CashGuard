@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ThreeFriends.Migrations
 {
-<<<<<<<< HEAD:Migrations/20240503152848_inti0.cs
-    public partial class inti0 : Migration
-========
-    public partial class DirectRel007 : Migration
->>>>>>>> origin/Omar_FixingDataBase:Migrations/20240503150740_DirectRel007.cs
+    public partial class init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

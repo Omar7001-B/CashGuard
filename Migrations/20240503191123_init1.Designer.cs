@@ -11,8 +11,8 @@ using ThreeFriends.Models;
 namespace ThreeFriends.Migrations
 {
     [DbContext(typeof(Appdbcontxt))]
-    [Migration("20240503150740_DirectRel007")]
-    partial class DirectRel007
+    [Migration("20240503191123_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
