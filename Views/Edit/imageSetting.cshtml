@@ -240,6 +240,8 @@
                     <div class="profile-pic" id="photoPreview"></div>
                     <label for="photoUpload" class="upload-icon">+</label>
                 </div>
+                @Html.ValidationMessage("wrongImageFile", "", new { @class = "text-danger" })
+                @Html.ValidationMessage("noImageFile", "", new { @class = "text-danger" })
 
 
                 <input type="hidden" name="file">

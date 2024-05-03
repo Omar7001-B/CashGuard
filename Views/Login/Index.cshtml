@@ -27,47 +27,58 @@
     }
     <div class="@containerplce" id="container">
         <div class="form-container sign-up-container">
-            <form method="post" action="/Login/AddNew" enctype="multipart/form-data">
+            <form id="uploadForm" method="post" action="/Login/AddNew" enctype="multipart/form-data">
                 <h1>Create Account</h1>
 
                 <span></span>
                 <div class="profile-pic-container">
-                    <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden required="" />
+                    <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden  />
                     <div class="profile-pic" id="photoPreview"></div>
                     <label for="photoUpload" class="upload-icon">+</label>
                 </div>
+                <span asp-validation-for="photoPath" class="text-danger" style="color: red;"></span>
 
                 <!-- User Name -->
-                <input asp-for="User_Name" name="User_Name" placeholder="User Name" required="" />
+                <input asp-for="User_Name" name="User_Name" id="User_Name" onkeypress="return preventSpace(event)" placeholder="User Name" required="" />
                 <span asp-validation-for="User_Name" class="text-danger" style="color: red;"></span>
 
                 <!-- First Name -->
-                <input asp-for="First_Name" name="First_Name" placeholder="First Name" required="" />
+                <input asp-for="First_Name" name="First_Name" id="First_Name" onkeypress="return preventSpace(event)" placeholder="First Name" required="" />
                 <span asp-validation-for="First_Name" class="text-danger" style="color: red;"></span>
 
                 <!-- Last Name -->
-                <input asp-for="Last_Name" name="Last_Name" placeholder="Last Name" required="" />
+                <input asp-for="Last_Name" name="Last_Name" id="Last_Name" onkeypress="return preventSpace(event)" placeholder="Last Name" required="" />
                 <span asp-validation-for="Last_Name" class="text-danger" style="color: red;"></span>
 
                 <!-- Email -->
-                <input asp-for="Email" name="Email" placeholder="Email" required="" />
+                <input asp-for="Email" name="Email" id="Email" onkeypress="return preventSpace(event)" placeholder="Email" required="" />
                 <span asp-validation-for="Email" class="text-danger" style="color: red;"></span>
 
                 <!-- Phone Number -->
-                <input asp-for="Phone_Number" name="Phone_Number" placeholder="Phone Number" required="" />
+                <input asp-for="Phone_Number" name="Phone_Number" id="Phone_Number" onkeypress="return preventSpace(event)" placeholder="Phone Number" required="" />
                 <span asp-validation-for="Phone_Number" class="text-danger" style="color: red;"></span>
 
                 <!-- Bank Account ID -->
-                <input asp-for="Bank_Account_ID" name="Bank_Account_ID" placeholder="Bank Account" required="" />
-                <span asp-validation-for="Bank_Account_ID" class="text-danger" style="color: red;"></span>
+                <div class="custom-select">
+                    <select name="Currency">
+                        <option value="0">Select currency:</option>
+                        <option value="USD">United States Dollar (USD)</option>
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="JPY">Japanese Yen (JPY)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                        <option value="AUD">Australian Dollar (AUD)</option>
+                        <!-- Add more currencies as needed -->
+                    </select>
+                </div>
+                
 
                 <!-- Password -->
-                <input asp-for="Password" name="Password" placeholder="Password" required="" />
+                <input asp-for="Password" name="Password" id="Password" onkeypress="return preventSpace(event)" placeholder="Password" required="" />
                 <span asp-validation-for="Password" class="text-danger" style="color: red;"></span>
 
                 <!-- Confirm Password -->
-                <input type="password" name="Confirm_Password" placeholder="Confirm your password" required="" />
-
+                <input type="password" name="Confirm_Password" id="Confirm_Password" onkeypress="return preventSpace(event)" placeholder="Confirm your password" required="" />
+                @Html.ValidationMessage("confirm_Password", "", new { @class = "text-danger"  })
                 <!-- Hidden input for file -->
                 <input type="hidden" name="file" />
 

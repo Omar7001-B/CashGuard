@@ -39,24 +39,30 @@ namespace ThreeFriends.Controllers
         [HttpPost]
         public IActionResult saveEmailSetting(User test)
         {
+
             var CurUser = GetCurrentSessionUser();
             if (IsValidEmail(test.Email))
+
             {
                 CurUser.Email = test.Email;
                 UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
             }
             else
+
+
             {
                 ModelState.AddModelError("Email", "Please enter a valid email address.");
                 return View("emailSetting", test);
             }
+
         }
 
         public IActionResult passwordSetting()
         {
             return View(new User());
         }
+
 
         [HttpPost]
         public IActionResult savePasswordSetting(User test, string confirmPass)
@@ -67,18 +73,23 @@ namespace ThreeFriends.Controllers
                 CurUser.Password = test.Password;
                 UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
+
             }
             else
             {
+
                 ModelState.AddModelError("Password", "Please enter a valid password and ensure both passwords match.");
                 return View("passwordSetting", test);
+
             }
         }
+
 
         public IActionResult nameSetting()
         {
             return View(new User());
         }
+
 
         [HttpPost]
         public IActionResult saveNameSetting(User test)
@@ -114,6 +125,8 @@ namespace ThreeFriends.Controllers
             var CurUser = GetCurrentSessionUser();
             if (ImageFile != null && ImageFile.Length > 0 && ImageFile.ContentType.StartsWith("image"))
             {
+
+
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
@@ -123,6 +136,7 @@ namespace ThreeFriends.Controllers
                     ImageFile.CopyTo(fileStream);
                 }
 
+
                 string imagePath = "/images/" + uniqueFileName;
                 CurUser.photoPath = imagePath;
                 UpdateUser(CurUser);
@@ -130,8 +144,10 @@ namespace ThreeFriends.Controllers
             }
             else
             {
+
                 ModelState.AddModelError("ImageFile", "Please upload a valid image.");
                 return View("imageSetting", test);
+
             }
         }
 

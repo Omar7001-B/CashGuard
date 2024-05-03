@@ -256,3 +256,180 @@ input {
     .upload-icon:hover {
         background-color: #f0f0f0;
     }
+.text-danger {
+    color: red;
+}
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border-radius: 50px;
+}
+
+    .custom-select select {
+        display: none; /* Hide default select list */
+    }
+
+.select-selected {
+    background-color: #0d3f5c;
+    color: #0d3f5c;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+    .select-selected:after {
+        position: absolute;
+        content: '';
+        top: 50%;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #071c29 transparent transparent transparent;
+        transform: translateY(-50%);
+    }
+
+
+.select-items div, .select-selected {
+    color: #e8e8e9;
+    padding: 12px 15px;
+    border: 1px solid #c5c6cc;
+    cursor: pointer;
+    user-select: none;
+}
+
+    .select-items div:hover, .same-as-selected {
+        background-color: #0a131a;
+    }
+
+
+.select-hide {
+    display: none;
+}
+
+.select-items {
+    position: absolute;
+    background-color: #173c4b;
+    opacity: 50%;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(22, 6, 65, 0.2);
+}
+
+
+
+.DateRangeContainer form,
+.CurrencyContainer form,
+.OldDataContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    height: 100%; /* Ensure the form takes full height of container */
+}
+
+
+
+
+.DateRangeContainer h1 {
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.DateRangeContainer h5 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.DateRangeContainer h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+
+
+.DateRangeContainer .spacer {
+    height: 20px; /* Adjust height as needed */
+}
+
+
+.DateRangeContainer button {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+
+
+.CurrencyContainer h1 {
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.CurrencyContainer h5 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.CurrencyContainer h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+
+
+.CurrencyContainer .spacer {
+    height: 20px; /* Adjust height as needed */
+}
+
+
+.CurrencyContainer button {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+
+.OldDataContainer h1 {
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.OldDataContainer h5 {
+    text-align: center;
+    margin-top: -50px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+.OldDataContainer h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add some space between headings and inputs */
+}
+
+
+
+.OldDataContainer .spacer {
+    height: 20px; /* Adjust height as needed */
+}
+
+
+.OldDataContainer button {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 60%;
+}

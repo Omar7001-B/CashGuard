@@ -9,6 +9,7 @@ namespace ThreeFriends.Models
     [Table("User")]
     public class User
     {
+       
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,9 +20,11 @@ namespace ThreeFriends.Models
         public string User_Name { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
+        [RegularExpression(@"^[a-zA-Z][a-zA-Z][a-zA-Z]*$", ErrorMessage = "First name must be alphabets only and 2 letters and more")]
         public string First_Name { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
+        [RegularExpression(@"^[a-zA-Z][a-zA-Z][a-zA-Z]*$", ErrorMessage = "Last name must be alphabets only and 2 letters and more")]
         public string Last_Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
@@ -39,6 +42,7 @@ namespace ThreeFriends.Models
 
         [MaxLength(50, ErrorMessage = "Bank Account ID cannot exceed 50 characters")]
         public string? Bank_Account_ID { get; set; }
+        
         public string photoPath { get; set; }
 
 
