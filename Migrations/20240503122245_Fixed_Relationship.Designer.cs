@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThreeFriends.Models;
 
@@ -10,9 +11,10 @@ using ThreeFriends.Models;
 namespace ThreeFriends.Migrations
 {
     [DbContext(typeof(Appdbcontxt))]
-    partial class AppdbcontxtModelSnapshot : ModelSnapshot
+    [Migration("20240503122245_Fixed_Relationship")]
+    partial class Fixed_Relationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.27");
@@ -172,7 +174,7 @@ namespace ThreeFriends.Migrations
             modelBuilder.Entity("ThreeFriends.Models.HistoryItem", b =>
                 {
                     b.HasOne("ThreeFriends.Models.User", "User")
-                        .WithMany("History")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -199,8 +201,6 @@ namespace ThreeFriends.Migrations
             modelBuilder.Entity("ThreeFriends.Models.User", b =>
                 {
                     b.Navigation("Categories");
-
-                    b.Navigation("History");
                 });
 #pragma warning restore 612, 618
         }
