@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using System.Diagnostics.CodeAnalysis;
+using ThreeFriends.Controllers;
 
 namespace ThreeFriends.Models
 {
@@ -43,21 +44,26 @@ namespace ThreeFriends.Models
         public string? Bank_Account_ID { get; set; }
         
         public string photoPath { get; set; }
-        [NotMapped]
-        private Appdbcontxt entity;
-        [NotMapped]
-        User CCur; 
-        // plase dont make confilicts
-        //teset puthsmaster
+
+
+
+
+
+        public virtual ICollection<Category> Categories { get; set; } = new List<Category>(); 
+        public virtual ICollection<HistoryItem> History { get; set; } = new List<HistoryItem>();
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+
         public bool IsUser(string UserName, string Password)
         {
-            entity = new Appdbcontxt();
-            CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
-            return CCur != null;
-        }
-        public void SetCurUser(string UserName, string Password)
-        {
-            SharedValues.CurUser = IsUser(UserName, Password) ? CCur : new User();
+            Appdbcontxt entity = new Appdbcontxt();
+            User CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName);
+            if (CCur == null)
+            {
+                return false; 
+            }
+            bool flag = Hashing.ValidatePassword(Password, CCur.Password);
+            return flag;
         }
         public string GetPhotoPath(string filePath)
         {

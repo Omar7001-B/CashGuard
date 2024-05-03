@@ -1,216 +1,136 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ThreeFriends.Models;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.WebEncoders.Testing;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace ThreeFriends.Controllers
 {
     public class EditController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly Appdbcontxt _dbContext;
 
-        public EditController(IWebHostEnvironment webHostEnvironment)
+        public EditController(IWebHostEnvironment webHostEnvironment, Appdbcontxt dbContext)
         {
             _webHostEnvironment = webHostEnvironment;
+            _dbContext = dbContext;
         }
-        Appdbcontxt db = new Appdbcontxt();
-        
-      /*  public IActionResult Index()
-        {
-            
-            List<User> userList = db.Users.ToList();
-            return View(userList);
-        }*/
-        [HttpPost]
-        /*public IActionResult testLogin(User testUser)
-        {
-            List<User> users = db.Users.ToList();
-            foreach (User user in users)
-            {
-                if (user.UserName == testUser.UserName && user.Password == testUser.Password)
-                {
-                    currentUser = user;
 
-                    return RedirectToAction("WelcomePage");
-                }
-               
-            }
-            return View("Login" , testUser);
-        }*/
-        public IActionResult Login() 
-        { 
+        public IActionResult Login()
+        {
             return View(new User());
-        
         }
-     /*   public IActionResult WelcomePage() 
-        {
 
-            return View(SharedValuecurrentUser);
-        }*/
         public IActionResult AccountSettingPage()
         {
-            return View(SharedValues.CurUser);
+            var CurUser = GetCurrentSessionUser();
+            return View(CurUser);
         }
-        
-         public IActionResult emailSetting()
-         {
-             return View(new User());
-         }
+
+        public IActionResult emailSetting()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
         public IActionResult saveEmailSetting(User test)
         {
-            Regex r = new Regex(@"(^[a-zA-z]+[0-9]*@[a-z]+\.[a-z]{3}$)");
-            bool testE = !string.IsNullOrEmpty(test.Email) && r.Match(test.Email).Success;
-            if (testE)
+
+            var CurUser = GetCurrentSessionUser();
+            if (IsValidEmail(test.Email))
+
             {
-                SharedValues.CurUser.Email = test.Email;
-                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                userToUpdate.Email = SharedValues.CurUser.Email;
-                db.SaveChanges();
+                CurUser.Email = test.Email;
+                UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
             }
             else
+
+
             {
-                ModelState.AddModelError("correctEmail", "Enter a proper email address");
+                ModelState.AddModelError("Email", "Please enter a valid email address.");
                 return View("emailSetting", test);
             }
-        }
-       public IActionResult passwordSetting() { return View(new User()); }
-        public IActionResult savePasswordSetting(User test , string confirmPass)
-        {
-            
-            Regex r = new Regex(@"(^(?=.*[A-Z])(?=.*[\d])(?=.*[\W_]).{8,}$)");
-            bool testP = !string.IsNullOrEmpty(test.Password) && r.Match(test.Password).Success;
-            bool testCP = !string.IsNullOrEmpty(confirmPass) && r.Match(confirmPass).Success;
-            //dd
 
-            if (testP&&testCP&&(test.Password==confirmPass))
+        }
+
+        public IActionResult passwordSetting()
+        {
+            return View(new User());
+        }
+
+
+        [HttpPost]
+        public IActionResult savePasswordSetting(User test, string confirmPass)
+        {
+            var CurUser = GetCurrentSessionUser();
+            if (IsValidPassword(test.Password) && test.Password == confirmPass)
             {
-                SharedValues.CurUser.Password = test.Password;
-                
-                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                userToUpdate.Password = SharedValues.CurUser.Password;
-                db.SaveChanges();
+                CurUser.Password = test.Password;
+                UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
-            }
-            else if ((!testP&&(test.Password==confirmPass))||(!testP&&(test.Password!=confirmPass)))
-            {
-                ModelState.AddModelError("correctPass", "Enter a proper password");
-                return View("passwordSetting", test);
-            }
-            else if (testP && (testCP||!testCP) && (test.Password != confirmPass))
-            {
-                ModelState.AddModelError("correctConfirmPass", "Confirm password is not matched");
-                return View("passwordSetting", test);
-            }
-            else { return View("passwordSetting", test); }
-        }
-        public IActionResult nameSetting() { return View(new User()); }
-        public IActionResult saveNameSetting(User test)
-        {
-            Regex r = new Regex(@"(^[a-zA-Z][a-zA-Z][a-zA-Z]*$)");
-
-            bool testfn = !string.IsNullOrEmpty(test.First_Name) && r.Match(test.First_Name).Success;
-            bool testln = !string.IsNullOrEmpty(test.Last_Name) && r.Match(test.Last_Name).Success;
-            if (string.IsNullOrWhiteSpace(test.First_Name) && string.IsNullOrWhiteSpace(test.Last_Name))
-            {
-                ModelState.AddModelError("both_empty", "please fill either first name or last name");
-                return View("nameSetting", test);
-            }
-            if(test.First_Name != null && string.IsNullOrWhiteSpace(test.Last_Name))
-            {
-                if (testfn==true)
-                {
-                    SharedValues.CurUser.First_Name = test.First_Name;
-                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                    userToUpdate.First_Name = SharedValues.CurUser.First_Name;
-                    db.SaveChanges();
-                    return RedirectToAction("AccountSettingPage");
-
-                }
-                else
-                {
-                    ModelState.AddModelError("correctFirstName", "First name should alphabets only and 2 or more characters");
-                    return View("nameSetting", test);
-                }
-               
-            }
-            if(test.Last_Name != null && string.IsNullOrWhiteSpace(test.First_Name))
-            {
-                if (testln == true)
-                { 
-
-                    SharedValues.CurUser.Last_Name = test.Last_Name;
-                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                    userToUpdate.Last_Name = SharedValues.CurUser.Last_Name;
-                    db.SaveChanges();
-                    return RedirectToAction("AccountSettingPage");
-
-                }
-                else
-                {
-                    ModelState.AddModelError("correctLastName", "First name should alphabets only and 2 or more characters");
-                    return View("nameSetting", test);
-                }
-            }
-            if (test.Last_Name != null && test.First_Name != null)
-            {
-                if ((testfn==true) && (testln==true))
-                {
-                    SharedValues.CurUser.Last_Name = test.Last_Name;
-                    SharedValues.CurUser.First_Name = test.First_Name;
-                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                    userToUpdate.First_Name = SharedValues.CurUser.First_Name;
-                    userToUpdate.Last_Name = SharedValues.CurUser.Last_Name;
-                    db.SaveChanges();
-                    return RedirectToAction("AccountSettingPage");
-
-
-                }
-                else
-                {
-                    ModelState.AddModelError("correctBothName", "First and Last name should alphabets only and 2 or more characters");
-                    return View("nameSetting", test);
-                }
 
             }
             else
-                return View("nameSetting", test);
+            {
+
+                ModelState.AddModelError("Password", "Please enter a valid password and ensure both passwords match.");
+                return View("passwordSetting", test);
+
+            }
+        }
+
+
+        public IActionResult nameSetting()
+        {
+            return View(new User());
+        }
+
+
+        [HttpPost]
+        public IActionResult saveNameSetting(User test)
+        {
+            var CurUser = GetCurrentSessionUser();
+            CurUser.First_Name = test.First_Name;
+            CurUser.Last_Name = test.Last_Name;
+            UpdateUser(CurUser);
+            return RedirectToAction("AccountSettingPage");
         }
 
         [HttpPost]
         public IActionResult deleteAccount()
         {
-            db.Users.Remove(SharedValues.CurUser);
-            db.SaveChanges();
-            SharedValues.CurUser = new User();
-            return RedirectToAction("index","LogOut");
+            var CurUser = GetCurrentSessionUser();
+            if (CurUser != null)
+            {
+                _dbContext.Users.Remove(CurUser);
+                _dbContext.SaveChanges();
+                HttpContext.Session.Clear();
+            }
+            return RedirectToAction("index", "LogOut");
         }
 
         public IActionResult imageSetting()
         {
             return View(new User());
         }
+
+        [HttpPost]
         public IActionResult saveImageSetting(User test, IFormFile ImageFile)
         {
-            if (ImageFile != null && ImageFile.Length > 0)
+            var CurUser = GetCurrentSessionUser();
+            if (ImageFile != null && ImageFile.Length > 0 && ImageFile.ContentType.StartsWith("image"))
             {
-                if (!ImageFile.ContentType.StartsWith("image"))
-                {
-                    ModelState.AddModelError("wrongImageFile", "Please upload a valid image file.");
-                    return View("imageSetting", test);
-                }
 
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-
-                // Check if the directory exists, create it if it doesn't
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
 
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     ImageFile.CopyTo(fileStream);
@@ -218,18 +138,41 @@ namespace ThreeFriends.Controllers
 
 
                 string imagePath = "/images/" + uniqueFileName;
-                SharedValues.CurUser.photoPath = imagePath;
-                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                userToUpdate.photoPath = SharedValues.CurUser.photoPath;
-                db.SaveChanges();
+                CurUser.photoPath = imagePath;
+                UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
             }
             else
             {
-                ModelState.AddModelError("noImageFile", "Please upload an image.");
-                return View("ImageSetting", test);
+
+                ModelState.AddModelError("ImageFile", "Please upload a valid image.");
+                return View("imageSetting", test);
+
             }
         }
 
+        private User GetCurrentSessionUser()
+        {
+            var username = HttpContext.Session.GetString("UserName");
+            var password = SharedValues.CurUser.Password;
+            return _dbContext.Users.FirstOrDefault(U => U.User_Name == username);
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            Regex r = new Regex(@"(^[a-zA-z]+[0-9]*@[a-z]+\.[a-z]{3}$)");
+            return !string.IsNullOrEmpty(email) && r.Match(email).Success;
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            Regex r = new Regex(@"(^(?=.*[A-Z])(?=.*[\d])(?=.*[\W_]).{8,}$)");
+            return !string.IsNullOrEmpty(password) && r.Match(password).Success;
+        }
+
+        private void UpdateUser(User user)
+        {
+            _dbContext.SaveChanges();
+        }
     }
 }

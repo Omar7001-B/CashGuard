@@ -13,9 +13,54 @@
         /* Add custom CSS styles here */
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            /* max-width: 800px; */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-height: 100vh;
+            overflow-y: auto;
         }
         h1 {
             color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="datetime-local"], /* Changed to datetime-local for combined date & time input */
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
         }
         table {
             width: 100%;
@@ -29,6 +74,7 @@
         }
         th {
             background-color: #f5f5f5;
+            font-weight: bold;
         }
         tr:hover {
             background-color: #f9f9f9;
@@ -38,90 +84,97 @@
             color: #007bff;
             text-decoration: none;
         }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .text-danger{
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <h1>Create Expense</h1>
-
-    @if(!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-    {
-        <div class="alert alert-danger" role="alert">
-            Error(s): @Html.Raw(ViewBag.ErrorMessage)
-        </div>
-    }
-
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Expense">
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TransactionType" class="control-label"></label>
-                    <input asp-for="TransactionType" class="form-control" value="Expense" readonly />
-                    <span asp-validation-for="TransactionType" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Amount" class="control-label"></label>
-                    <input asp-for="Amount" class="form-control" />
-                    <span asp-validation-for="Amount" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Info" class="control-label"></label>
-                    <input asp-for="Info" class="form-control" />
-                    <span asp-validation-for="Info" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label"></label>
-                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
 
     <h1>Expense List</h1>
-    <p>
-        <a asp-action="Expense">Create New</a>
-    </p>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Transaction Type</th>
-                <th>Amount</th>
-                <th>Info</th>
-                <th>Timestamp</th>
-                <th>Category ID</th>
-                <th>Category Name</th> <!-- New column for category name -->
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Transaction item in ViewBag.Transactions)
-            {
+    <div class="container">
+		 <table>
+            <thead>
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                    <td>@Html.DisplayFor(modelItem => item.TransactionType)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Amount)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Info)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Category.Name)</td> <!-- Display category name -->
-                    <td class="action-links">
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
+                    <th>Category Image</th>
+                    <th>Category Name</th>
+                    <th>Title</th>
+                    <th>Transaction Type</th>
+                    <th>Info</th>
+                    <th>Amount</th>
+                    <th>Timestamp</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (Transaction item in ViewBag.Transactions)
+                {
+                    <tr>
+                        <td><img src="~/icons/@item.Category.Icon" alt="Category Icon" width="50" height="50"></td>
+                        <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TransactionType)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Info)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <h1>Create Expense</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-action="Expense">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label">Title:</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TransactionType" class="control-label">Transaction Type:</label>
+                        <input asp-for="TransactionType" class="form-control" value="Expense" readonly />
+                        <span asp-validation-for="TransactionType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label">Amount:</label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Info" class="control-label">Info:</label>
+                        <input asp-for="Info" class="form-control" />
+                        <span asp-validation-for="Info" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="control-label">Category:</label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Timestamp" class="control-label">Date & Time:</label>
+                        <input asp-for="Timestamp" class="form-control" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                        <span asp-validation-for="Timestamp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 using ThreeFriends.Models;
 
 namespace ThreeFriends.Controllers
@@ -6,42 +8,70 @@ namespace ThreeFriends.Controllers
     public class LoginController : Controller
     {
         Appdbcontxt entity = new Appdbcontxt();
-        private readonly IWebHostEnvironment _webHost; 
+        private readonly IWebHostEnvironment _webHost;
         public LoginController(IWebHostEnvironment webHost)
         {
             _webHost = webHost;
         }
-        // submit button 
-        
-    
-		// submit button 
 
-	   	[HttpPost] 
+        private void SetSessionData(string username, string password)
+        {
+            User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username);
+            SharedValues.CurUser = CurUser;
+            SharedValues.CurUser.Password = password;
+            if (HttpContext.Session.GetString("LastName") == null)
+            {
+                HttpContext.Session.SetString("UserName", CurUser.User_Name);
+                HttpContext.Session.SetString("Password", password);
+                HttpContext.Session.SetString("FirsName", CurUser.First_Name);
+                HttpContext.Session.SetString("LastName", CurUser.Last_Name);
+                HttpContext.Session.SetString("PhotoPath", CurUser.photoPath);
+                HttpContext.Session.SetString("DateIn", CurUser.Sign_Up_Date.ToString());
+                HttpContext.Session.SetString("Email", CurUser.Email);
+                HttpContext.Session.SetString("PhoneNumber", CurUser.Phone_Number);
+                HttpContext.Session.SetString("Id", CurUser.Id.ToString());
+            }
+            else
+            {
+                return;
+            }
+        }
+        [HttpPost]
         public IActionResult check_sign(string UserName, string Password)
         {
-           
+            // if user is already logged in redirect to the main page
+            if (HttpContext.Session.GetString("UserName") != null)
+            {
+                return RedirectToAction("Index", "Transaction");
+            }
             if (UserName == null || string.IsNullOrEmpty(UserName) || string.IsNullOrWhiteSpace(UserName))
             {
                 return View("Index");
             }
-            
-            SharedValues.CurUser.SetCurUser(UserName, Password);
-            if (SharedValues.CurUser.User_Name == null)
+
+            User ChkUser = new User();
+            bool is_user = ChkUser.IsUser(UserName, Password);
+            if (!is_user)
             {
-                return Content("User Not Found");
+                return View("Check_sign");
             }
             else
             {
+                SetSessionData(UserName, Password);
                 return RedirectToAction("Index", "Transaction");
             }
+
+
         }
 
         // submit button , store data in the database 
     
         [HttpPost]
+
 public async Task<IActionResult> AddNew(User Nuser, IFormFile file , string Confirm_Password)
 {
             ModelState.Remove("file");
+
             ModelState.Remove("photoPath");
     if(Confirm_Password != Nuser.Password)
     {
@@ -61,11 +91,13 @@ public async Task<IActionResult> AddNew(User Nuser, IFormFile file , string Conf
 
             if (file == null || file.Length == 0)
             {
+
                 Nuser.photoPath = "/uploads/blank-profile-picture-973460_1280.png";
 
             }
 
             else if (file != null && !IsImage(file))
+
             {
                 ModelState.AddModelError("photoPath", "Please upload an image file (jpg, jpeg, png, gif, bmp).");
                 return View("Index", Nuser);
@@ -78,6 +110,7 @@ public async Task<IActionResult> AddNew(User Nuser, IFormFile file , string Conf
                     Directory.CreateDirectory(uploadsFolder);
                 }
 
+
                 string fileName = Path.GetFileName(file.FileName);
                 string filePath = Path.Combine(uploadsFolder, fileName);
 
@@ -88,6 +121,7 @@ public async Task<IActionResult> AddNew(User Nuser, IFormFile file , string Conf
 
                 Nuser.photoPath = Nuser.GetPhotoPath(filePath);
             }
+    Nuser.Password = Hashing.HashPassword(Nuser.Password);
     Nuser.Sign_Up_Date = DateTime.Now;
     entity.Users.Add(Nuser);
     entity.SaveChanges();
@@ -107,15 +141,35 @@ private bool IsImage(IFormFile file)
     return false;
 }
 
-        // open empty form 
+         
+
+ 
+
+        // this fuction is zero refernce but it is important and used in the _layout line 19
+        public IActionResult IsUserLogin()
+        {
+            if (HttpContext.Session.GetString("UserName") != null)
+            {
+                return RedirectToAction("Index", "Transaction");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+
         public IActionResult Index()
         {
-            if (SharedValues.CurUser.User_Name != null)
+            if (HttpContext.Session.GetString("UserName") != null)
             {
                 return RedirectToAction("index", "Home");
             }
-            return View();
+            else
+            {
+                return View();
+            }
         }
-       
+
     }
 }
