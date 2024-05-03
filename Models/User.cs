@@ -41,6 +41,7 @@ namespace ThreeFriends.Models
         public string photoPath { get; set; }
         public virtual ICollection<Category> Categories { get; set; } = new List<Category>(); 
         public virtual ICollection<HistoryItem> History { get; set; } = new List<HistoryItem>();
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
 
 
