@@ -18,6 +18,7 @@ namespace ThreeFriends.Controllers
         {
             User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username);
             SharedValues.CurUser = CurUser;
+            SharedValues.CurUser.Password = password;
             if (HttpContext.Session.GetString("LastName") == null)
             {
                 HttpContext.Session.SetString("UserName", CurUser.User_Name);

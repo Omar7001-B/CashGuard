@@ -138,8 +138,8 @@ namespace ThreeFriends.Controllers
         private User GetCurrentSessionUser()
         {
             var username = HttpContext.Session.GetString("UserName");
-            var password = HttpContext.Session.GetString("Password");
-            return _dbContext.Users.FirstOrDefault(U => U.User_Name == username && U.Password == password);
+            var password = SharedValues.CurUser.Password;
+            return _dbContext.Users.FirstOrDefault(U => U.User_Name == username);
         }
 
         private bool IsValidEmail(string email)
