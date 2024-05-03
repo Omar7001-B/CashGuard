@@ -20,6 +20,7 @@ namespace ThreeFriends.Controllers
             _dbContext = dbContext;
         }
 
+
         public IActionResult Login()
         {
             return View(new User());
