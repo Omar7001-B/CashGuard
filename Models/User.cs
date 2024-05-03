@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using System.Diagnostics.CodeAnalysis;
+using ThreeFriends.Controllers;
 
 namespace ThreeFriends.Models
 {
@@ -39,14 +40,19 @@ namespace ThreeFriends.Models
         [MaxLength(50, ErrorMessage = "Bank Account ID cannot exceed 50 characters")]
         public string? Bank_Account_ID { get; set; }
         public string photoPath { get; set; }
-       
+
 
 
         public bool IsUser(string UserName, string Password)
         {
             Appdbcontxt entity = new Appdbcontxt();
-            User CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName && u.Password == Password);
-            return CCur != null;
+            User CCur = entity.Users.FirstOrDefault(u => u.User_Name == UserName);
+            if (CCur == null)
+            {
+                return false; 
+            }
+            bool flag = Hashing.ValidatePassword(Password, CCur.Password);
+            return flag;
         }
         public string GetPhotoPath(string filePath)
         {
