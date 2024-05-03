@@ -9,19 +9,22 @@ namespace ThreeFriends.Controllers
     public class EditController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        Appdbcontxt db = new Appdbcontxt();
+        private User? CurUser;
+      
 
         public EditController(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnvironment = webHostEnvironment;
         }
-        Appdbcontxt db = new Appdbcontxt();
-        
-      /*  public IActionResult Index()
-        {
-            
-            List<User> userList = db.Users.ToList();
-            return View(userList);
-        }*/
+
+
+        /*  public IActionResult Index()
+          {
+
+              List<User> userList = db.Users.ToList();
+              return View(userList);
+          }*/
         [HttpPost]
         /*public IActionResult testLogin(User testUser)
         {
@@ -38,78 +41,77 @@ namespace ThreeFriends.Controllers
             }
             return View("Login" , testUser);
         }*/
-        public IActionResult Login() 
-        { 
-            return View(new User());
-        
-        }
-     /*   public IActionResult WelcomePage() 
+        public IActionResult Login()
         {
+            return View(new User());
 
-            return View(SharedValuecurrentUser);
-        }*/
+        }
+       
         public IActionResult AccountSettingPage()
         {
-            return View(SharedValues.CurUser);
+            CurUser = db.Users.FirstOrDefault(U => U.User_Name == HttpContext.Session.GetString("UserName")
+                                                                   && U.Password == HttpContext.Session.GetString("Password"));
+            
+            return View(CurUser);
         }
-        
-         public IActionResult emailSetting()
-         {
-             return View(new User());
-         }
+
+        public IActionResult emailSetting()
+        {
+            return View(new User());
+        }
         public IActionResult saveEmailSetting(User test)
         {
             Regex r = new Regex(@"(^[a-zA-z]+[0-9]*@[a-z]+\.[a-z]{3}$)");
             bool testE = !string.IsNullOrEmpty(test.Email) && r.Match(test.Email).Success;
-            if(testE)
+            if (testE)
             {
-                SharedValues.CurUser.Email = test.Email;
-                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                userToUpdate.Email = SharedValues.CurUser.Email;
+                CurUser.Email = test.Email;
+                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == CurUser.Id);
+                userToUpdate.Email = CurUser.Email;
                 db.SaveChanges();
                 return RedirectToAction("AccountSettingPage");
             }
             else
-                return View("emailSetting",test);
+                return View("emailSetting", test);
         }
-       public IActionResult passwordSetting() { return View(new User()); }
-        public IActionResult savePasswordSetting(User test , string confirmPass)
+        public IActionResult passwordSetting() { return View(new User()); }
+        public IActionResult savePasswordSetting(User test, string confirmPass)
         {
-            
+
             Regex r = new Regex(@"(^(?=.*[A-Z])(?=.*[\d])(?=.*[\W_]).{8,}$)");
             bool testP = !string.IsNullOrEmpty(test.Password) && r.Match(test.Password).Success;
             bool testCP = !string.IsNullOrEmpty(confirmPass) && r.Match(confirmPass).Success;
             //dd
 
-            if (testP&&testCP&&(test.Password==confirmPass))
+            if (testP && testCP && (test.Password == confirmPass))
             {
-                SharedValues.CurUser.Password = test.Password;
-                
-                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                userToUpdate.Password = SharedValues.CurUser.Password;
+                CurUser.Password = test.Password;
+
+                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == CurUser.Id);
+                userToUpdate.Password = CurUser.Password;
                 db.SaveChanges();
                 return RedirectToAction("AccountSettingPage");
             }
-            else return View("passwordSetting", test );
+            else return View("passwordSetting", test);
         }
         public IActionResult nameSetting() { return View(new User()); }
         public IActionResult saveNameSetting(User test)
         {
+            CurUser = db.Users.FirstOrDefault(U => U.User_Name == HttpContext.Session.GetString("UserName")
+                                                                  && U.Password == HttpContext.Session.GetString("Password"));
             Regex r = new Regex(@"(^[a-zA-Z][a-zA-Z][a-zA-Z]*$)");
 
             bool testfn = !string.IsNullOrEmpty(test.First_Name) && r.Match(test.First_Name).Success;
             bool testln = !string.IsNullOrEmpty(test.Last_Name) && r.Match(test.Last_Name).Success;
             if (string.IsNullOrWhiteSpace(test.First_Name) && string.IsNullOrWhiteSpace(test.Last_Name))
             {
-                return View ("nameSetting", test);
+                return View("nameSetting", test);
             }
-            if(test.First_Name != null && string.IsNullOrWhiteSpace(test.Last_Name))
+            if (test.First_Name != null && string.IsNullOrWhiteSpace(test.Last_Name))
             {
-                if (testfn==true)
+                if (testfn == true)
                 {
-                    SharedValues.CurUser.First_Name = test.First_Name;
-                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                    userToUpdate.First_Name = SharedValues.CurUser.First_Name;
+                    CurUser.First_Name = test.First_Name;
                     db.SaveChanges();
                     return RedirectToAction("AccountSettingPage");
 
@@ -118,15 +120,15 @@ namespace ThreeFriends.Controllers
                 {
                     return View("nameSetting", test);
                 }
-               
+
             }
-            if(test.Last_Name != null && string.IsNullOrWhiteSpace(test.First_Name))
+            if (test.Last_Name != null && string.IsNullOrWhiteSpace(test.First_Name))
             {
                 if (testln == true)
                 {
-                    SharedValues.CurUser.Last_Name = test.Last_Name;
-                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                    userToUpdate.Last_Name = SharedValues.CurUser.Last_Name;
+                    CurUser.Last_Name = test.Last_Name;
+                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == CurUser.Id);
+                    userToUpdate.Last_Name = CurUser.Last_Name;
                     db.SaveChanges();
                     return RedirectToAction("AccountSettingPage");
 
@@ -138,13 +140,13 @@ namespace ThreeFriends.Controllers
             }
             if (test.Last_Name != null && test.First_Name != null)
             {
-                if ((testfn==true) && (testln==true))
+                if ((testfn == true) && (testln == true))
                 {
-                    SharedValues.CurUser.Last_Name = test.Last_Name;
-                    SharedValues.CurUser.First_Name = test.First_Name;
-                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                    userToUpdate.First_Name = SharedValues.CurUser.First_Name;
-                    userToUpdate.Last_Name = SharedValues.CurUser.Last_Name;
+                    CurUser.Last_Name = test.Last_Name;
+                    CurUser.First_Name = test.First_Name;
+                    User userToUpdate = db.Users.FirstOrDefault(u => u.Id == CurUser.Id);
+                    userToUpdate.First_Name = CurUser.First_Name;
+                    userToUpdate.Last_Name = CurUser.Last_Name;
                     db.SaveChanges();
                     return RedirectToAction("AccountSettingPage");
 
@@ -163,10 +165,13 @@ namespace ThreeFriends.Controllers
         [HttpPost]
         public IActionResult deleteAccount()
         {
-            db.Users.Remove(SharedValues.CurUser);
+            CurUser = db.Users.FirstOrDefault(U => U.User_Name == HttpContext.Session.GetString("UserName")
+                                                                   && U.Password == HttpContext.Session.GetString("Password"));
+            db.Users.Remove(CurUser);
             db.SaveChanges();
-            SharedValues.CurUser = new User();
-            return RedirectToAction("index","LogOut");
+            CurUser = new User();
+            HttpContext.Session.Clear();
+            return RedirectToAction("index", "LogOut");
         }
 
         public IActionResult imageSetting()
@@ -199,9 +204,9 @@ namespace ThreeFriends.Controllers
                 }
 
                 string imagePath = "/images/" + uniqueFileName;
-                SharedValues.CurUser.photoPath = imagePath;
-                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
-                userToUpdate.photoPath = SharedValues.CurUser.photoPath;
+                CurUser.photoPath = imagePath;
+                User userToUpdate = db.Users.FirstOrDefault(u => u.Id == CurUser.Id);
+                userToUpdate.photoPath = CurUser.photoPath;
                 db.SaveChanges();
                 return RedirectToAction("AccountSettingPage");
             }
