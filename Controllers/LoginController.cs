@@ -16,7 +16,7 @@ namespace ThreeFriends.Controllers
 
         private void SetSessionData(string username , string password)
         {
-            User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username && U.Password == password);
+            User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username);
             HttpContext.Session.SetString("UserName", CurUser.User_Name);
             HttpContext.Session.SetString("Password", CurUser.Password);
             HttpContext.Session.SetString("FirsName", CurUser.First_Name);
@@ -79,13 +79,13 @@ namespace ThreeFriends.Controllers
                 await file.CopyToAsync(fileStream);
             }
 
+            Nuser.Password = Hashing.HashPassword(Nuser.Password);
             Nuser.photoPath = Nuser.GetPhotoPath(filePath);
             Nuser.Sign_Up_Date = DateTime.Now;
             entity.Users.Add(Nuser);
             entity.SaveChanges();
             return RedirectToAction("index", "Login");
         }
-
 
         // this fuction is zero refernce but it is important and used in the _layout line 19
         public IActionResult IsUserLogin() 
