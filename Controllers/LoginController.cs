@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ThreeFriends.Models;
 
 namespace ThreeFriends.Controllers
@@ -11,29 +12,33 @@ namespace ThreeFriends.Controllers
         {
             _webHost = webHost;
         }
-        // submit button 
-        
-    
-		// submit button 
 
 	   	[HttpPost] 
         public IActionResult check_sign(string UserName, string Password)
         {
-           
+            // if user is already logged in redirect to the main page
+            if(HttpContext.Session.GetString("UserName") != null)
+            {
+                return RedirectToAction("Index", "Transaction");
+            }
             if (UserName == null || string.IsNullOrEmpty(UserName) || string.IsNullOrWhiteSpace(UserName))
             {
                 return View("Index");
             }
-            
-            SharedValues.CurUser.SetCurUser(UserName, Password);
-            if (SharedValues.CurUser.User_Name == null)
+            User ChkUser = new User();
+            bool is_user = ChkUser.IsUser(UserName, Password);
+            if (!is_user)
             {
-                return Content("User Not Found");
+                return View("Check_sign");
             }
             else
             {
+                HttpContext.Session.SetString("UserName", UserName);
+                HttpContext.Session.SetString("Password", Password);
                 return RedirectToAction("Index", "Transaction");
             }
+
+            
         }
 
         // submit button , store data in the database 
@@ -67,10 +72,27 @@ namespace ThreeFriends.Controllers
             entity.SaveChanges();
             return RedirectToAction("index", "Login");
         }
-        // open empty form 
+
+
+        // this fuction is zero refernce but it is important and used in the _layout line 19
+        public IActionResult IsUserLogin() 
+        {
+            if(HttpContext.Session.GetString("UserName") != null)
+            {
+                return RedirectToAction("Index", "Transaction");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+        public IActionResult LogOut()
+        { 
+            return RedirectToAction("Index", "Login");
+        }
         public IActionResult Index()
         {
-            if (SharedValues.CurUser.User_Name != null)
+            if (HttpContext.Session.GetString("UserName") != null)
             {
                 return RedirectToAction("index", "Home");
             }
