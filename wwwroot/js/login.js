@@ -1,6 +1,7 @@
 ﻿const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
+
 function previewPhoto(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -11,8 +12,6 @@ function previewPhoto(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
-
 
 signUpButton.addEventListener('click', () => {
 	container.classList.add("right-panel-active");
