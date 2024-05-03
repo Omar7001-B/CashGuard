@@ -72,7 +72,7 @@ namespace ThreeFriends.Controllers
         [HttpGet]
         public IActionResult Expense()
         {
-            ViewBag.Transactions = GetUserTransactions("Income");
+            ViewBag.Transactions = GetUserTransactions("Expense");
             ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             return View();
         }
