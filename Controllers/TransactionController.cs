@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -60,6 +60,7 @@ namespace ThreeFriends.Controllers
             {
                 _context.Transactions.Add(transactionToCreate);
                 _context.SaveChanges();
+                LogToHistory("Income Addition", $"Income '{transactionToCreate.Title}' added.");
                 return RedirectToAction("Index", "Transaction");
             }
 
@@ -87,6 +88,7 @@ namespace ThreeFriends.Controllers
             {
                 _context.Transactions.Add(transactionToCreate);
                 _context.SaveChanges();
+                LogToHistory("Expense Addition", $"Expense '{transactionToCreate.Title}' added.");
                 return RedirectToAction("Index", "Transaction");
             }
 
@@ -175,8 +177,23 @@ namespace ThreeFriends.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        private void LogToHistory(string operationType, string details)
+        {
+            var historyItem = new HistoryItem
+            {
+                OperationType = operationType,
+                Details = details,
+                Timestamp = DateTime.Now,
+                UserId = SharedValues.CurUser.Id,
+            };
+
+            _context.History.Add(historyItem);
+            _context.SaveChanges();
+        }
     }
 }
+
 
 
 
