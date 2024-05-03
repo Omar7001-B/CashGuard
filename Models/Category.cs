@@ -19,7 +19,7 @@ namespace ThreeFriends.Models
         // Foreign key to User
         public int UserId { get; set; }
         // Navigation property to User
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
         // Navigation property to Transaction
         public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
