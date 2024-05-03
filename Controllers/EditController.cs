@@ -61,7 +61,7 @@ namespace ThreeFriends.Controllers
         {
             Regex r = new Regex(@"(^[a-zA-z]+[0-9]*@[a-z]+\.[a-z]{3}$)");
             bool testE = !string.IsNullOrEmpty(test.Email) && r.Match(test.Email).Success;
-            if(testE)
+            if (testE)
             {
                 SharedValues.CurUser.Email = test.Email;
                 User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
@@ -70,7 +70,10 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("AccountSettingPage");
             }
             else
-                return View("emailSetting",test);
+            {
+                ModelState.AddModelError("correctEmail", "Enter a proper email address");
+                return View("emailSetting", test);
+            }
         }
        public IActionResult passwordSetting() { return View(new User()); }
         public IActionResult savePasswordSetting(User test , string confirmPass)
@@ -90,7 +93,17 @@ namespace ThreeFriends.Controllers
                 db.SaveChanges();
                 return RedirectToAction("AccountSettingPage");
             }
-            else return View("passwordSetting", test );
+            else if ((!testP&&(test.Password==confirmPass))||(!testP&&(test.Password!=confirmPass)))
+            {
+                ModelState.AddModelError("correctPass", "Enter a proper password");
+                return View("passwordSetting", test);
+            }
+            else if (testP && (testCP||!testCP) && (test.Password != confirmPass))
+            {
+                ModelState.AddModelError("correctConfirmPass", "Confirm password is not matched");
+                return View("passwordSetting", test);
+            }
+            else { return View("passwordSetting", test); }
         }
         public IActionResult nameSetting() { return View(new User()); }
         public IActionResult saveNameSetting(User test)
@@ -101,7 +114,8 @@ namespace ThreeFriends.Controllers
             bool testln = !string.IsNullOrEmpty(test.Last_Name) && r.Match(test.Last_Name).Success;
             if (string.IsNullOrWhiteSpace(test.First_Name) && string.IsNullOrWhiteSpace(test.Last_Name))
             {
-                return View ("nameSetting", test);
+                ModelState.AddModelError("both_empty", "please fill either first name or last name");
+                return View("nameSetting", test);
             }
             if(test.First_Name != null && string.IsNullOrWhiteSpace(test.Last_Name))
             {
@@ -116,6 +130,7 @@ namespace ThreeFriends.Controllers
                 }
                 else
                 {
+                    ModelState.AddModelError("correctFirstName", "First name should alphabets only and 2 or more characters");
                     return View("nameSetting", test);
                 }
                
@@ -123,7 +138,8 @@ namespace ThreeFriends.Controllers
             if(test.Last_Name != null && string.IsNullOrWhiteSpace(test.First_Name))
             {
                 if (testln == true)
-                {
+                { 
+
                     SharedValues.CurUser.Last_Name = test.Last_Name;
                     User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
                     userToUpdate.Last_Name = SharedValues.CurUser.Last_Name;
@@ -133,6 +149,7 @@ namespace ThreeFriends.Controllers
                 }
                 else
                 {
+                    ModelState.AddModelError("correctLastName", "First name should alphabets only and 2 or more characters");
                     return View("nameSetting", test);
                 }
             }
@@ -152,6 +169,7 @@ namespace ThreeFriends.Controllers
                 }
                 else
                 {
+                    ModelState.AddModelError("correctBothName", "First and Last name should alphabets only and 2 or more characters");
                     return View("nameSetting", test);
                 }
 
@@ -179,7 +197,7 @@ namespace ThreeFriends.Controllers
             {
                 if (!ImageFile.ContentType.StartsWith("image"))
                 {
-                    ModelState.AddModelError("ImageFile", "Please upload a valid image file.");
+                    ModelState.AddModelError("wrongImageFile", "Please upload a valid image file.");
                     return View("imageSetting", test);
                 }
 
@@ -198,6 +216,7 @@ namespace ThreeFriends.Controllers
                     ImageFile.CopyTo(fileStream);
                 }
 
+
                 string imagePath = "/images/" + uniqueFileName;
                 SharedValues.CurUser.photoPath = imagePath;
                 User userToUpdate = db.Users.FirstOrDefault(u => u.Id == SharedValues.CurUser.Id);
@@ -207,7 +226,7 @@ namespace ThreeFriends.Controllers
             }
             else
             {
-                ModelState.AddModelError("ImageFile", "Please upload an image.");
+                ModelState.AddModelError("noImageFile", "Please upload an image.");
                 return View("ImageSetting", test);
             }
         }
