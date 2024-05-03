@@ -22,6 +22,21 @@ namespace ThreeFriends.Models
                 .HasForeignKey(t => t.CategoryId)
                 .IsRequired();
 
+            // Define the relationship between the User and the Category 
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Categories)
+                .HasForeignKey(c => c.UserId)
+                .IsRequired();
+
+            // Define the relationship between the User and the HistoryItem
+            modelBuilder.Entity<HistoryItem>()
+                .HasOne(h => h.User)
+                .WithMany(u => u.History)
+                .HasForeignKey(h => h.UserId)
+                .IsRequired();
+
+
             base.OnModelCreating(modelBuilder);
         }
 
