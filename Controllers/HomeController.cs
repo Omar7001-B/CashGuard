@@ -35,8 +35,7 @@ namespace ThreeFriends.Controllers
 
         public IActionResult Index()
         {
-            SharedValues.SetAllNull();
-            if(SharedValues.CurUser.User_Name != null)
+            if (HttpContext.Session.GetString("UserName") != null)
             {
                 return RedirectToAction("index", "Login");
             }
