@@ -11,8 +11,8 @@ using ThreeFriends.Models;
 namespace ThreeFriends.Migrations
 {
     [DbContext(typeof(Appdbcontxt))]
-    [Migration("20240503125219_Fixed_Relationship3")]
-    partial class Fixed_Relationship3
+    [Migration("20240503150740_DirectRel007")]
+    partial class DirectRel007
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,9 +107,14 @@ namespace ThreeFriends.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -190,7 +195,15 @@ namespace ThreeFriends.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ThreeFriends.Models.User", "User")
+                        .WithMany("Transactions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ThreeFriends.Models.Category", b =>
@@ -203,6 +216,8 @@ namespace ThreeFriends.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("History");
+
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

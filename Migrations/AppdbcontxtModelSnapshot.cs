@@ -105,9 +105,14 @@ namespace ThreeFriends.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -188,7 +193,15 @@ namespace ThreeFriends.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ThreeFriends.Models.User", "User")
+                        .WithMany("Transactions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ThreeFriends.Models.Category", b =>
@@ -201,6 +214,8 @@ namespace ThreeFriends.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("History");
+
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
