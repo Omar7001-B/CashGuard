@@ -43,6 +43,13 @@ namespace ThreeFriends.Models
 
 
 
+
+
+        public virtual ICollection<Category> Categories { get; set; } = new List<Category>(); 
+        public virtual ICollection<HistoryItem> History { get; set; } = new List<HistoryItem>();
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+
         public bool IsUser(string UserName, string Password)
         {
             Appdbcontxt entity = new Appdbcontxt();

@@ -17,12 +17,11 @@ namespace ThreeFriends.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            var categories = _context.Categories.ToList();
+            var categories = _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
             return View(categories);
         }
 
-        // GET: Category/Create
-        public ActionResult Create()
+        List<SelectListItem> GetIconList()
         {
             // Define the icons folder path
             string iconsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "icons");
@@ -38,9 +37,17 @@ namespace ThreeFriends.Controllers
                 iconList.Add(new SelectListItem { Text = iconName, Value = iconName });
             }
 
-            // Set ViewBag.IconList
-            ViewBag.IconList = iconList;
+            return iconList;
 
+        }
+
+        // GET: Category/Create
+        public ActionResult Create()
+        {
+            ViewBag.IconList = GetIconList();
+
+            Category category = new Category();
+            category.UserId = SharedValues.CurUser.Id;
             return View();
         }
 
@@ -49,18 +56,19 @@ namespace ThreeFriends.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
         {
+            ModelState.Remove("User");
             if (ModelState.IsValid)
             {
                 LogToHistory("Category Addition", $"Category '{category.Name}' added.");
-
-                // Add the line below to populate the Transactions property
-                category.Transactions = new List<Transaction>();
+                category.UserId = SharedValues.CurUser.Id;
 
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
+            ViewBag.IconList = GetIconList();
             return View(category);
         }
 
@@ -159,7 +167,8 @@ namespace ThreeFriends.Controllers
             {
                 OperationType = operationType,
                 Details = details,
-                Timestamp = DateTime.Now
+                Timestamp = DateTime.Now,
+                UserId = SharedValues.CurUser.Id,
             };
 
             _context.History.Add(historyItem);

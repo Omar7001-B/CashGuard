@@ -22,12 +22,17 @@ namespace ThreeFriends.Models
         public string Info { get; set; }
 
         public DateTime Timestamp { get; set; } = DateTime.Now;
+        // -------- User --------
+        // Navigation property to User
+        public virtual User? User { get; set; }
+        //  Foreign key for User
+        public int UserId { get; set; }
 
+        // -------- Category --------
         // Foreign key for Category
         public int CategoryId { get; set; }
-
         // Navigation property to Category
-        public virtual Category Category { get; set; }
+        public virtual Category? Category { get; set; }
 
     }
 }
