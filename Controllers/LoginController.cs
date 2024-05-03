@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 using ThreeFriends.Models;
 
 namespace ThreeFriends.Controllers
@@ -13,7 +14,19 @@ namespace ThreeFriends.Controllers
             _webHost = webHost;
         }
 
-	   	[HttpPost] 
+        private void SetSessionData(string username , string password)
+        {
+            User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username && U.Password == password);
+            HttpContext.Session.SetString("UserName", CurUser.User_Name);
+            HttpContext.Session.SetString("Password", CurUser.Password);
+            HttpContext.Session.SetString("FirsName", CurUser.First_Name);
+            HttpContext.Session.SetString("LastName", CurUser.Last_Name);
+            HttpContext.Session.SetString("PhotoPath", CurUser.photoPath);
+            HttpContext.Session.SetString("DateIn", CurUser.Sign_Up_Date.ToString());
+            HttpContext.Session.SetString("Email", CurUser.Email);
+            HttpContext.Session.SetString("PhoneNumber", CurUser.Phone_Number);
+        }
+        [HttpPost] 
         public IActionResult check_sign(string UserName, string Password)
         {
             // if user is already logged in redirect to the main page
@@ -33,8 +46,7 @@ namespace ThreeFriends.Controllers
             }
             else
             {
-                HttpContext.Session.SetString("UserName", UserName);
-                HttpContext.Session.SetString("Password", Password);
+                SetSessionData(UserName, Password);
                 return RedirectToAction("Index", "Transaction");
             }
 
@@ -66,6 +78,7 @@ namespace ThreeFriends.Controllers
             {
                 await file.CopyToAsync(fileStream);
             }
+
             Nuser.photoPath = Nuser.GetPhotoPath(filePath);
             Nuser.Sign_Up_Date = DateTime.Now;
             entity.Users.Add(Nuser);
