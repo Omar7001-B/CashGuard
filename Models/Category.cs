@@ -4,10 +4,6 @@ namespace ThreeFriends.Models
 {
     public class Category
     {
-        public Category()
-        {
-            Transactions = new List<Transaction>(); // Initialize Transactions list
-        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
@@ -19,7 +15,12 @@ namespace ThreeFriends.Models
 
         [StringLength(50, ErrorMessage = "Icon length can't be more than 50 characters")]
         public string Icon { get; set; }
+
+        // Foreign key to User
+        public int UserId { get; set; }
+        // Navigation property to User
+        public virtual User User { get; set; }
         // Navigation property to Transaction
-        public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 }
