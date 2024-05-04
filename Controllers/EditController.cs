@@ -85,11 +85,26 @@ namespace ThreeFriends.Controllers
         public IActionResult saveNameSetting(User test)
         {
             var CurUser = GetCurrentSessionUser();
+
+            if (!IsValidName(test.First_Name))
+            {
+                ModelState.AddModelError("First_Name", "First name must contain only alphabetic characters.");
+                return View("nameSetting", test); 
+            }
+
+            if (!IsValidName(test.Last_Name))
+            {
+                ModelState.AddModelError("Last_Name", "Last name must contain only alphabetic characters.");
+                return View("nameSetting", test); 
+            }
+
             CurUser.First_Name = test.First_Name;
             CurUser.Last_Name = test.Last_Name;
             UpdateUser(CurUser);
+
             return RedirectToAction("AccountSettingPage");
         }
+
 
         [HttpPost]
         public IActionResult deleteAccount()
@@ -158,6 +173,12 @@ namespace ThreeFriends.Controllers
         private void UpdateUser(User user)
         {
             _dbContext.SaveChanges();
+        }
+
+        private bool IsValidName(string name)
+        {
+            Regex r = new Regex(@"^[a-zA-Z]+$");
+            return !string.IsNullOrEmpty(name) && r.IsMatch(name);
         }
     }
 }
