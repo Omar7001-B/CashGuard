@@ -30,7 +30,8 @@ namespace ThreeFriends.Controllers
 
         List<Category> GetUserCategories()
         {
-            return _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
+            List<Category> categories = _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
+            return categories;
         }
 
         // GET: Transaction
@@ -45,8 +46,8 @@ namespace ThreeFriends.Controllers
         [HttpGet]
         public IActionResult Income()
         {
-            ViewBag.Transactions = GetUserTransactions("Income");
             ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            ViewBag.Transactions = GetUserTransactions("Income");
             return View();
         }
 
@@ -64,9 +65,9 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("Index", "Transaction");
             }
 
-            ViewBag.Categoriesa = GetUserCategories();
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             ViewBag.Transactions = GetUserTransactions("Expense");
-            return View();
+            return View(transactionToCreate);
         }
 
         // GET: Transaction/Expense
@@ -92,9 +93,9 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("Index", "Transaction");
             }
 
-            ViewBag.Categoriesa = GetUserCategories();
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             ViewBag.Transactions = GetUserTransactions("Expense");
-            return View();
+            return View(transactionToCreate);
         }
 
 
