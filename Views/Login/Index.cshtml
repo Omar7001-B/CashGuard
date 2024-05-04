@@ -30,7 +30,7 @@
 
                 <span></span>
                 <div class="profile-pic-container">
-                    <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden  />
+                    <input type="file" name="file" id="photoUpload" accept="image/*" onchange="previewPhoto(this)" hidden />
                     <div class="profile-pic" id="photoPreview"></div>
                     <label for="photoUpload" class="upload-icon">+</label>
                 </div>
@@ -56,29 +56,30 @@
                 <input asp-for="Phone_Number" name="Phone_Number" id="Phone_Number" onkeypress="return preventSpace(event)" placeholder="Phone Number" required="" />
                 <span asp-validation-for="Phone_Number" class="text-danger" style="color: red;"></span>
 
-                <!-- Bank Account ID -->
-                <div class="custom-select">
-                    <select name="Currency">
-                        <option value="0">Select currency:</option>
-                        <option value="USD">United States Dollar (USD)</option>
-                        <option value="EUR">Euro (EUR)</option>
-                        <option value="JPY">Japanese Yen (JPY)</option>
-                        <option value="GBP">British Pound (GBP)</option>
-                        <option value="AUD">Australian Dollar (AUD)</option>
-                        <!-- Add more currencies as needed -->
-                    </select>
-                </div>
-                
+
 
                 <!-- Password -->
-                <input asp-for="Password" name="Password" id="Password" onkeypress="return preventSpace(event)" placeholder="Password" required="" />
+                <input asp-for="Password" name="Password" id="Password" type="password" onkeypress="return preventSpace(event)" placeholder="Password" required="" />
+
                 <span asp-validation-for="Password" class="text-danger" style="color: red;"></span>
 
                 <!-- Confirm Password -->
                 <input type="password" name="Confirm_Password" id="Confirm_Password" onkeypress="return preventSpace(event)" placeholder="Confirm your password" required="" />
-                @Html.ValidationMessage("confirm_Password", "", new { @class = "text-danger"  })
+                @Html.ValidationMessage("confirm_Password", "", new { @class = "text-danger" })
                 <!-- Hidden input for file -->
                 <input type="hidden" name="file" />
+                <!-- Gender -->
+                <div class="custom-select">
+                    <div >
+                        <select name="Gender">
+                            <option value="">Select Gender:</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger" style="text-align: center;"></span>
+                    </div>
+
+                </div>
 
                 <!-- Submit and reset buttons -->
                 <pre></pre>
