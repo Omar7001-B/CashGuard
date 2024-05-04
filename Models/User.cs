@@ -37,14 +37,10 @@ namespace ThreeFriends.Models
         [Required(ErrorMessage = "Password is required")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$", ErrorMessage = "Password must have at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long")]
         public string Password { get; set; }
-
         public DateTime Sign_Up_Date { get; set; }
-
-        [MaxLength(50, ErrorMessage = "Bank Account ID cannot exceed 50 characters")]
-        public string? Bank_Account_ID { get; set; }
-
+        [Required(ErrorMessage ="Gender is required")]
+        public string Gender { get; set; }
         [Required(ErrorMessage = "Please upload a photo")]
-
         public string photoPath { get; set; }
 
 
