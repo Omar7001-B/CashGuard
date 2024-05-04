@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ThreeFriends.Models
 {
@@ -17,6 +18,7 @@ namespace ThreeFriends.Models
         public string Icon { get; set; }
 
         // Foreign key to User
+        [ForeignKey("User")]
         public int UserId { get; set; }
         // Navigation property to User
         public virtual User? User { get; set; }
