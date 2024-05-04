@@ -7,7 +7,7 @@ namespace ThreeFriends.Controllers
     {
         public IActionResult index()
         {
-            SharedValues.SetAllNull();
+            GeneralSettings.SetAllNull();
             HttpContext.Session.Clear();
             return RedirectToAction("index", "Login");
         }

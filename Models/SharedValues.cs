@@ -2,20 +2,7 @@
 {
     public static class SharedValues
     {
-        
-        public static DateTime DataRangeFrom = default(DateTime);
-        public static DateTime DataRangeTo = default(DateTime);
-        public static string Currency = null;
-        public static DateTime DeleteOldTo = default(DateTime);
         public static User CurUser = null;
-        public static void SetAllNull()
-        {
-            SharedValues.DataRangeFrom = default(DateTime);
-            SharedValues.DataRangeTo = default(DateTime);
-            SharedValues.Currency = null;
-            SharedValues.DeleteOldTo = default(DateTime);
-        }
-
-       
+ 
     }
 }
