@@ -45,9 +45,6 @@ namespace ThreeFriends.Controllers
         public ActionResult Create()
         {
             ViewBag.IconList = GetIconList();
-
-            Category category = new Category();
-            category.UserId = SharedValues.CurUser.Id;
             return View();
         }
 
