@@ -7,9 +7,11 @@
     @{
         if (context.HttpContext.Session.GetString("UserName") != null)
         {
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-            <link rel="stylesheet" href="/css/MainPageStyles.css">
+            
+            <!-- Boxicons -->
+            <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+            <!-- My CSS -->
+            <link rel="stylesheet" href="/css/NewBar.css">
         }
     }
 
@@ -25,96 +27,60 @@
     @{
         if (context.HttpContext.Session.GetString("UserName") != null)
         {
-            <div class="sidebar">
-                <div class="top">
-                    <div class="logo">
-                        <i class="bx bxl-codepen"></i>
-                        <span>Cash Guard</span>
-                    </div>
-                    <i class="bx bx-menu" id="btn"></i>
-                </div>
-                <div class="user">
-                    <img src="@context.HttpContext.Session.GetString("PhotoPath")" alt="me" class="user-img">
-                    <div>
-                        <p class="bold">@context.HttpContext.Session.GetString("FirsName")</p>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <a href="@Url.Action("Index", "Transaction")">
-                            <i class="bx bxs-grid-alt"></i>
-                            <span class="nav-item">Dashboard</span>
-                        </a>
-                        <span class="tooltip">Dashboard</span>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Income", "Transaction")">
-                            <i class="bx bxs-add-to-queue"></i>
-                            <span class="nav-item">Income</span>
-                        </a>
-                        <span class="tooltip">Income</span>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Expense", "Transaction")">
-                            <i class="bx bxs-grid-alt"></i>
-                            <span class="nav-item">Expense</span>
-                        </a>
-                        <span class="tooltip">Expense</span>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "Category")">
-                            <i class="bx bx-category-alt"></i>
-                            <span class="nav-item">Add Category</span>
-                        </a>
-                        <span class="tooltip">Add Category</span>
-                    </li>
-                    <li>
-
-                        <a href="@Url.Action("Index", "Analytics")">
-                            <i class="bx bxs-filter-alt"></i>
-                            <span class="nav-item">Filttering</span>
-                        </a>
-                        <span class="tooltip">Filttering</span>
-                    </li>
-                    <li>
-                        <span class="tooltip">History</span>
-
-                        <a href="@Url.Action("History", "Home")">
-							<i class="bx bx-history"></i>
-							<span class="nav-item">History</span>
-						</a>
-						<span class="tooltip">History</span>
-
-                    </li>
-                    <li>
-                        <a href="/Edit/accountSettingPage">
-                            <i class="bx bxs-user-account"></i>
-                            <span class="nav-item">User Settings</span>
-                        </a>
-                        <span class="tooltip">User Settings</span>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("index", "GeneralSettings")">
-                            <i class="bx bx-cog"></i>
-                            <span class="nav-item">General Settings</span>
-                        </a>
-                        <span class="tooltip">General Settings</span>
-                    </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                   
-                 
-                    <li>
-                        <a href="/Logout/index">
-                            <i class="bx bx-log-out"></i>
-                            <span class="nav-item">Log Out</span>
-                        </a>
-                        <span class="tooltip">Log Out</span>
-                    </li>
-                </ul>
-            </div>
+            
+                <section id="sidebar">
+                    <a href="#" class="brand">
+                        <i class='bx bxs-smile'></i>
+                        <span class="text">AdminHub</span>
+                    </a>
+                    <ul class="side-menu top">
+                        <li class="active">
+                            <a href="#">
+                                <i class='bx bxs-dashboard'></i>
+                                <span class="text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-shopping-bag-alt'></i>
+                                <span class="text">My Store</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-doughnut-chart'></i>
+                                <span class="text">Analytics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-message-dots'></i>
+                                <span class="text">Message</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-group'></i>
+                                <span class="text">Team</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="side-menu">
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-cog'></i>
+                                <span class="text">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="logout">
+                                <i class='bx bxs-log-out-circle'></i>
+                                <span class="text">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section> 
+            
 
             <div class="main-content">
                 <div class="container">
@@ -124,14 +90,7 @@
                 </div>
             </div>
 
-            <script>
-                let btn = document.querySelector("#btn");
-                let sidebar = document.querySelector(".sidebar");
-
-                btn.onclick = function () {
-                    sidebar.classList.toggle("active");
-                }
-            </script>
+            <script src="/js/NewSideBar.js"></script>
         }
     }
     @{
