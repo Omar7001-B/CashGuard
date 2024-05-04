@@ -122,11 +122,20 @@ namespace ThreeFriends.Controllers
 
                 Nuser.photoPath = Nuser.GetPhotoPath(filePath);
             }
-
-            LogToHistory("User Registration", $"User '{Nuser.User_Name}' registered.");
             Nuser.Password = Hashing.HashPassword(Nuser.Password);
             Nuser.Sign_Up_Date = DateTime.Now;
             entity.Users.Add(Nuser);
+            entity.SaveChanges();
+
+            HistoryItem historyItem = new HistoryItem
+            {
+                OperationType = "User Registration",
+                Details = $"User '{Nuser.User_Name}' registered.",
+                Timestamp = DateTime.Now,
+                UserId = Nuser.Id,
+            };
+
+            entity.History.Add(historyItem);
             entity.SaveChanges();
             return RedirectToAction("Index", "Login");
         }
@@ -172,21 +181,5 @@ namespace ThreeFriends.Controllers
                 return View();
             }
         }
-
-
-        private void LogToHistory(string operationType, string details)
-        {
-            var historyItem = new HistoryItem
-            {
-                OperationType = operationType,
-                Details = details,
-                Timestamp = DateTime.Now,
-                UserId = SharedValues.CurUser.Id,
-            };
-            entity.History.Add(historyItem);
-            entity.SaveChanges();
-        }
-
-
     }
 }
