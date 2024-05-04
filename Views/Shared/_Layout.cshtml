@@ -7,7 +7,7 @@
     @{
         if (context.HttpContext.Session.GetString("UserName") != null)
         {
-            
+
             <!-- Boxicons -->
             <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
             <!-- My CSS -->
@@ -27,68 +27,105 @@
     @{
         if (context.HttpContext.Session.GetString("UserName") != null)
         {
-            
-                <section id="sidebar">
-                    <a href="#" class="brand">
-                        <i class='bx bxs-smile'></i>
-                        <span class="text">AdminHub</span>
-                    </a>
-                    <ul class="side-menu top">
-                        <li class="active">
-                            <a href="#">
-                                <i class='bx bxs-dashboard'></i>
-                                <span class="text">Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bxs-shopping-bag-alt'></i>
-                                <span class="text">My Store</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bxs-doughnut-chart'></i>
-                                <span class="text">Analytics</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bxs-message-dots'></i>
-                                <span class="text">Message</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bxs-group'></i>
-                                <span class="text">Team</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="side-menu">
-                        <li>
-                            <a href="#">
-                                <i class='bx bxs-cog'></i>
-                                <span class="text">Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="logout">
-                                <i class='bx bxs-log-out-circle'></i>
-                                <span class="text">Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </section> 
-            
 
-            <div class="main-content">
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+            <section id="sidebar">
+                <a href="#" class="brand">
+                    <i class='bx bxs-wallet'></i>
+                    <span class="text">Cash Guard</span>
+                </a>
+                <div>
+                <ul class="side-menu top">
+                    <li class="active">
+                        <a href="@Url.Action("Index", "Transaction")">
+                            <i class='bx bxs-dashboard'></i>
+                            <span class="text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Expense", "Transaction")">
+                            <i class='bx bxs-shopping-bag-alt'></i>
+                            <span class="text">Expenses</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Income", "Transaction")">
+                            <i class='bx bxs-shopping-bag-alt'></i>
+                            <span class="text">Income</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=" @Url.Action("Index", "Category")">
+                            <i class='bx bxs-shopping-bag-alt'></i>
+                            <span class="text">Add Category</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bxs-doughnut-chart'></i>
+                            <span class="text">Analytics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("History", "Home")">
+                            <i class='bx bxs-history'></i>
+                            <span class="text">History</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Edit/accountSettingPage">
+                            <i class='bx bxs-user-account'></i>
+                            <span class="text">User Settings</span>
+                        </a>
+                    </li>
+                </ul>
                 </div>
-            </div>
+                <ul class="side-menu">
+                    <li>
+                        <a href="@Url.Action("index", "GeneralSettings")">
+                            <i class='bx bxs-cog'></i>
+                            <span class="text">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Logout/index" class="logout">
+                            <i class='bx bxs-log-out-circle'></i>
+                            <span class="text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="content">
+                <!-- NAVBAR -->
+                <nav>
+                    <i class='bx bx-menu'></i>
+                    <a href="#" class="profile">
+                        <img src="@SharedValues.CurUser.photoPath">
+                    </a>
+                    <h1>@SharedValues.CurUser.First_Name @SharedValues.CurUser.Last_Name</h1>
+                </nav>
+
+                <main>
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+
+
+                    <div class="main-content">
+                        <div class="container">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                    </div>
+
+                </main>
+            </section>
+
 
             <script src="/js/NewSideBar.js"></script>
         }
