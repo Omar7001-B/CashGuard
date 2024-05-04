@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography.Xml;
 
 namespace ThreeFriends.Models
 {
@@ -26,10 +28,12 @@ namespace ThreeFriends.Models
         // Navigation property to User
         public virtual User? User { get; set; }
         //  Foreign key for User
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
         // -------- Category --------
         // Foreign key for Category
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
         // Navigation property to Category
         public virtual Category? Category { get; set; }
