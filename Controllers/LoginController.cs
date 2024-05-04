@@ -91,7 +91,7 @@ namespace ThreeFriends.Controllers
             // need another view
             if (Nuser.IsUser(Nuser.User_Name, Nuser.Password))
             {
-                return Content("User already exists");
+                return View("UserExist");
             }
 
             if (file == null || file.Length == 0)
