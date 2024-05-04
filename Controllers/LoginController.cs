@@ -65,29 +65,29 @@ namespace ThreeFriends.Controllers
         }
 
         // submit button , store data in the database 
-    
+
         [HttpPost]
 
-public async Task<IActionResult> AddNew(User Nuser, IFormFile file , string Confirm_Password)
-{
+        public async Task<IActionResult> AddNew(User Nuser, IFormFile file, string Confirm_Password)
+        {
             ModelState.Remove("file");
 
             ModelState.Remove("photoPath");
-    if(Confirm_Password != Nuser.Password)
-    {
+            if (Confirm_Password != Nuser.Password)
+            {
                 ModelState.AddModelError("Confirm_Password", "Enter confirm password same as password");
-                
-    }
-    
-    if (!ModelState.IsValid)
-    {
-                return View("Index", Nuser); 
-    }
 
-    if (Nuser.IsUser(Nuser.User_Name, Nuser.Password))
-    {
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Index", Nuser);
+            }
+
+            if (Nuser.IsUser(Nuser.User_Name, Nuser.Password))
+            {
                 return Content("User already exists");
-    }
+            }
 
             if (file == null || file.Length == 0)
             {
@@ -121,29 +121,30 @@ public async Task<IActionResult> AddNew(User Nuser, IFormFile file , string Conf
 
                 Nuser.photoPath = Nuser.GetPhotoPath(filePath);
             }
-    Nuser.Password = Hashing.HashPassword(Nuser.Password);
-    Nuser.Sign_Up_Date = DateTime.Now;
-    entity.Users.Add(Nuser);
-    entity.SaveChanges();
-    return RedirectToAction("Index", "Login");
-}
 
-private bool IsImage(IFormFile file)
-{
-    if (file.ContentType.ToLower() == "image/jpg" ||
-        file.ContentType.ToLower() == "image/jpeg" ||
-        file.ContentType.ToLower() == "image/png" ||
-        file.ContentType.ToLower() == "image/gif" ||
-        file.ContentType.ToLower() == "image/bmp")
-    {
-        return true;
-    }
-    return false;
-}
+            LogToHistory("User Registration", $"User '{Nuser.User_Name}' registered.");
+            Nuser.Password = Hashing.HashPassword(Nuser.Password);
+            Nuser.Sign_Up_Date = DateTime.Now;
+            entity.Users.Add(Nuser);
+            entity.SaveChanges();
+            return RedirectToAction("Index", "Login");
+        }
+
+        private bool IsImage(IFormFile file)
+        {
+            if (file.ContentType.ToLower() == "image/jpg" ||
+                file.ContentType.ToLower() == "image/jpeg" ||
+                file.ContentType.ToLower() == "image/png" ||
+                file.ContentType.ToLower() == "image/gif" ||
+                file.ContentType.ToLower() == "image/bmp")
+            {
+                return true;
+            }
+            return false;
+        }
 
          
 
- 
 
         // this fuction is zero refernce but it is important and used in the _layout line 19
         public IActionResult IsUserLogin()
@@ -170,6 +171,21 @@ private bool IsImage(IFormFile file)
                 return View();
             }
         }
+
+
+        private void LogToHistory(string operationType, string details)
+        {
+            var historyItem = new HistoryItem
+            {
+                OperationType = operationType,
+                Details = details,
+                Timestamp = DateTime.Now,
+                UserId = SharedValues.CurUser.Id,
+            };
+            entity.History.Add(historyItem);
+            entity.SaveChanges();
+        }
+
 
     }
 }
