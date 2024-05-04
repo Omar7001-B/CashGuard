@@ -7,8 +7,12 @@ namespace ThreeFriends.Controllers
 {
     public class GeneralSettingsController : Controller
     {
-        // i can send class as binding butt the class is static ):
-        public IActionResult Index(DateTime DataRangeFrom, DateTime DateRangeTo, string Currency, DateTime DeleteOldTo)
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult SetDateRange(DateTime DataRangeFrom, DateTime DateRangeTo)
         {
             if (DataRangeFrom != default(DateTime))
             {
@@ -18,24 +22,38 @@ namespace ThreeFriends.Controllers
             {
                 GeneralSettings.DataRangeTo = DateRangeTo;
             }
-            if (GeneralSettings.Currency == null)
-            {
-                GeneralSettings.Currency = Currency;
-            }
-            if (DeleteOldTo != default(DateTime))
-            {
-                GeneralSettings.DeleteOldTo = DeleteOldTo;
-            }
-
-
             if (DataRangeFrom > DateRangeTo)
             {
-
                 ModelState.AddModelError("DataRangeFrom", "Date From must be less than Date To");
                 return View();
             }
-            ModelState.Remove("DataRangeFrom");
-            return View();
+
+            if (ModelState["DataRangeFrom"] != null)
+                ModelState.Remove("DataRangeFrom");
+
+            return View("index", "GeneralSettings");
+        }
+
+        public IActionResult SetCurrency(string Currency)
+        {
+            if (Currency != null)
+            {
+                GeneralSettings.Currency = Currency;
+            }
+            return View("index" , "GeneralSettings");
+        }
+
+        public IActionResult SetDeleteOldTo(DateTime DeleteOldTo)
+        {
+            if (DeleteOldTo != default(DateTime)) // 00/00/0001 00:00:00
+            {
+                GeneralSettings.DeleteOldTo = DeleteOldTo;
+                GeneralSettings.SetTransactions();
+                GeneralSettings.SetHistoryItems();
+                GeneralSettings.UpdateTransactions();
+                GeneralSettings.UpdateHistory();
+            }
+            return View("index", "GeneralSettings");
         }
 
         // Function to delete old data
