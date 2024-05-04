@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var expensesTotal = @Html.Raw(Json.Serialize(ViewBag.ExpensesTotal));
+            var incomeTotal = @Html.Raw(Json.Serialize(ViewBag.IncomeTotal));
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Transaction Summary"
+                },
+                legend: {
+                    maxWidth: 350,
+                    itemWidth: 120
+                },
+                data: [{
+                    type: "pie",
+                    showInLegend: true,
+                    legendText: "{indexLabel}",
+                    dataPoints: [
+                        { y: expensesTotal, indexLabel: "Expenses" },
+                        { y: incomeTotal, indexLabel: "Income" }
+                    ]
+                }]
+            });
+            chart.render();
+        }
+    </script>
+    <style>
+        /* Adjust the size of the chart container */
+        #chartContainer {
+            height: 400px; /* Adjust height as needed */
+            width: 100%; /* Full width */
+        }
+    </style>
+</head>
+<body>
+    <div id="chartContainer"></div>
+</body>
+</html>
+

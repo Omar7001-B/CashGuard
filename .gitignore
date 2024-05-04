@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /DataBase/CoinGuard.db-shm
 /DataBase/CoinGuard.db-wal
+/DataBase/CoinGuard.db
+/DataBase/CoinGuard.db
