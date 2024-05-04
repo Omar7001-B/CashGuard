@@ -34,7 +34,8 @@ namespace ThreeFriends.Controllers
             foreach (var iconFile in iconFiles)
             {
                 string iconName = Path.GetFileName(iconFile);
-                iconList.Add(new SelectListItem { Text = iconName, Value = iconName });
+                string newName = Path.GetFileNameWithoutExtension(string.Join(" ", iconName.Split('-').Select(s => s[0].ToString().ToUpper() + s.Substring(1))));
+                iconList.Add(new SelectListItem { Text = newName, Value = iconName });
             }
 
             return iconList;
