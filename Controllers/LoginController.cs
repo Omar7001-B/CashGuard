@@ -61,7 +61,6 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("Index", "Transaction");
             }
 
-
         }
 
         // submit button , store data in the database 
