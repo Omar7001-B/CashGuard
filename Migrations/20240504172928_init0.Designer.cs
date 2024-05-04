@@ -11,8 +11,8 @@ using ThreeFriends.Models;
 namespace ThreeFriends.Migrations
 {
     [DbContext(typeof(Appdbcontxt))]
-    [Migration("20240503191123_init1")]
-    partial class init1
+    [Migration("20240504172928_init0")]
+    partial class init0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

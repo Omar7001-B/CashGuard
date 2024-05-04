@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ThreeFriends.Migrations
 {
-    public partial class init1 : Migration
+    public partial class init0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
