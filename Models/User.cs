@@ -39,6 +39,7 @@ namespace ThreeFriends.Models
 
         [MaxLength(50, ErrorMessage = "Bank Account ID cannot exceed 50 characters")]
         public string? Bank_Account_ID { get; set; }
+        [Required(ErrorMessage = "Please upload a photo")]
         public string photoPath { get; set; }
 
 
