@@ -65,7 +65,7 @@ namespace ThreeFriends.Controllers
             var CurUser = GetCurrentSessionUser();
             if (IsValidPassword(test.Password) && test.Password == confirmPass)
             {
-                CurUser.Password = test.Password;
+                CurUser.Password = Hashing.HashPassword(test.Password);
                 UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
             }

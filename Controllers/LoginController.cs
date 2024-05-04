@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using ThreeFriends.Models;
@@ -17,8 +18,9 @@ namespace ThreeFriends.Controllers
         private void SetSessionData(string username, string password)
         {
             User CurUser = entity.Users.FirstOrDefault(U => U.User_Name == username);
+            string DummyPassword = new string('*', password.Length);
             SharedValues.CurUser = CurUser;
-            SharedValues.CurUser.Password = password;
+            SharedValues.CurUser.Password = DummyPassword;
             if (HttpContext.Session.GetString("LastName") == null)
             {
                 HttpContext.Session.SetString("UserName", CurUser.User_Name);
