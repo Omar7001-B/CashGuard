@@ -79,12 +79,16 @@ namespace ThreeFriends.Controllers
                 ModelState.AddModelError("Confirm_Password", "Enter confirm password same as password");
 
             }
-
+            if (string.IsNullOrEmpty(Nuser.Gender))
+            {
+                ModelState.AddModelError("Gender", "Please select a gender");
+            }
             if (!ModelState.IsValid)
             {
                 return View("Index", Nuser);
             }
 
+            // need another view
             if (Nuser.IsUser(Nuser.User_Name, Nuser.Password))
             {
                 return Content("User already exists");
@@ -92,9 +96,14 @@ namespace ThreeFriends.Controllers
 
             if (file == null || file.Length == 0)
             {
-
-                Nuser.photoPath = "/uploads/blank-profile-picture-973460_1280.png";
-
+                if (Nuser.Gender == "Male")
+                {
+                    Nuser.photoPath = "/uploads/MaleDefault.png";
+                }
+                else
+                {
+                    Nuser.photoPath = "/uploads/FemalDefault.png";
+                }
             }
 
             else if (file != null && !IsImage(file))
@@ -153,7 +162,7 @@ namespace ThreeFriends.Controllers
             return false;
         }
 
-         
+
 
 
         // this fuction is zero refernce but it is important and used in the _layout line 19
