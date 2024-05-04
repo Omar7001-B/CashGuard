@@ -141,6 +141,7 @@ namespace ThreeFriends.Controllers
 
                 string imagePath = "/images/" + uniqueFileName;
                 CurUser.photoPath = imagePath;
+                HttpContext.Session.SetString("PhotoPath", imagePath);
                 UpdateUser(CurUser);
                 return RedirectToAction("AccountSettingPage");
             }
