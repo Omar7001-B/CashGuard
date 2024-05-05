@@ -49,30 +49,30 @@
                             <td>@item.OperationType</td>
                             <td>@item.Details</td>
                             <td>@item.Timestamp</td>
-                            @if (@item.OperationType == "Income Addition")
+                            @if (@item.OperationType.Contains("Income"))
                             {
                                 <td>
                                     <p class="status delivered">Income</p>
                                 </td>
                             }
-                            else if (item.OperationType == "Expense Addition")
+                            else if(@item.OperationType.Contains("Expense"))
+							{
+								<td>
+									<p class="status cancelled">Expense</p>
+								</td>
+							}
+                            else if(@item.OperationType.Contains("Category"))
                             {
                                 <td>
-                                    <p class="status cancelled">Expense</p>
-                                </td>
-                            }
-                            else if (item.OperationType == "Category Addition")
-                            {
-                                <td>
-                                    <p class="status shipped">Category</p>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <p class="status pending">Account</p>
-                                </td>
-                            }
+									<p class="status shipped">Category</p>
+								</td>
+							}
+							else if(@item.OperationType.Contains("Account") || @item.OperationType.Contains("User"))
+							{
+								<td>
+									<p class="status pending">Account</p>
+								</td>
+							}
                         </tr>
                     }
                 </tbody>
