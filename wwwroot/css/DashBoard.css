@@ -26,6 +26,13 @@
     --tran-03: all 0.2s ease;
 }
 
+.inAmount{
+    color: green;
+}
+.exAmount{
+    color: #b30021;
+}
+
 
 .dashboard {
     position: relative;
