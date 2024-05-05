@@ -13,18 +13,32 @@
         }
     }
 
-    <script type="text/javascript">
-        // prevent back button
-        function preventBack() { window.history.forward(); }
-        setTimeout("preventBack()", 0);
-        window.onunload = function () { null };
-    </script>
-
 </head>
 <body>
     @{
         if (context.HttpContext.Session.GetString("UserName") != null)
         {
+            <section id="content">
+                <nav>
+                    <i class='bx bx-menu'></i>
+                    <a href="#" class="nav-link">Categories</a>
+                    <form action="#">
+                        <div class="form-input">
+                            <input type="search" placeholder="Search...">
+                            <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                        </div>
+                    </form>
+                    <input type="checkbox" id="switch-mode" hidden>
+                    <label for="switch-mode" class="switch-mode"></label>
+                    <a href="#" class="notification">
+                        <i class='bx bxs-bell'></i>
+                        <span class="num">8</span>
+                    </a>
+                    <a href="#" class="profile">
+                        <img src="img/people.png">
+                    </a>
+                </nav>
+            </section>
             <div class="sidebar">
                 <div class="top">
                     <div class="logo">
@@ -80,10 +94,10 @@
                         <span class="tooltip">History</span>
 
                         <a href="@Url.Action("History", "Home")">
-							<i class="bx bx-history"></i>
-							<span class="nav-item">History</span>
-						</a>
-						<span class="tooltip">History</span>
+                            <i class="bx bx-history"></i>
+                            <span class="nav-item">History</span>
+                        </a>
+                        <span class="tooltip">History</span>
 
                     </li>
                     <li>
@@ -104,8 +118,8 @@
                     <li></li>
                     <li></li>
                     <li></li>
-                   
-                 
+
+
                     <li>
                         <a href="/Logout/index">
                             <i class="bx bx-log-out"></i>
@@ -115,7 +129,8 @@
                     </li>
                 </ul>
             </div>
-
+            
+            <script src="/js/Nav.js"></script>
             <div class="main-content">
                 <div class="container">
                     <main role="main" class="pb-3">
@@ -123,15 +138,6 @@
                     </main>
                 </div>
             </div>
-
-            <script>
-                let btn = document.querySelector("#btn");
-                let sidebar = document.querySelector(".sidebar");
-
-                btn.onclick = function () {
-                    sidebar.classList.toggle("active");
-                }
-            </script>
         }
     }
     @{
