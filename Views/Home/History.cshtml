@@ -1,78 +1,124 @@
-﻿@{
-    ViewData["Title"] = "History";
-}
+﻿<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-    /* Center the content on the page */
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f8f9fa; /* Set a light background color */
-    }
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/History_Style.css" />
 
-    /* Style for the table container */
-    .table-container {
-        width: 100%; /* Adjust the width as needed */
-        max-width: 1500px; /* Set a maximum width */
-        margin: auto; /* Center the container horizontally */
-    }
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 
-    /* Improved styling for the table */
-    .table-responsive {
-        overflow-x: auto;
-        margin-bottom: 20px; /* Add some bottom margin for spacing */
-    }
+    <!-- Add CSS for animation -->
 
-    #history-table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 8px; /* Add rounded corners to the table */
-        overflow: hidden; /* Hide overflowing content */
-    }
 
-    #history-table th, #history-table td {
-        padding: 20px; /* Increase padding for better spacing */
-        text-align: center; /* Center-align table content */
-        border: 1px solid #dee2e6; /* Set border color */
-    }
+    <title>Admin Dashboard Panel</title>
+</head>
+<body>
 
-    #history-table th {
-        background-color: #343a40; /* Set header background color */
-        color: #ffffff; /* Set header text color */
-        font-weight: bold;
-    }
 
-    #history-table tbody tr:hover {
-        background-color: #e9ecef; /* Set hover background color */
-    }
-</style>
-
-<h1 class="text-center mb-4">History</h1>
-<br />
-<div class="table-container">
-    <div class="table-responsive">
-        <table id="history-table" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Operation Type</th>
-                    <th>Details</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    <main class="table" id="customers_table">
+        <section class="table__header">
+            <h1>History</h1>
+            <div class="export__file">
+                <label for="export-file"
+                       class="export__file-btn"
+                       title="Export File"></label>
+                <input type="checkbox" id="export-file" />
+            </div>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
                     <tr>
-                        <td>@item.OperationType</td>
-                        <td>@item.Details</td>
-                        <td>@item.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <th>Operation Type <span class="icon-arrow">↑</span></th>
+                        <th>Details <span class="icon-arrow">↑</span></th>
+                        <th>Action Date <span class="icon-arrow">↑</span></th>
+                        <th>Type <span class="icon-arrow">↑</span></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+                </thead>
 
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OperationType</td>
+                            <td>@item.Details</td>
+                            <td>@item.Timestamp</td>
+                            @if (@item.OperationType == "Income Addition")
+                            {
+                                <td>
+                                    <p class="status delivered">Income</p>
+                                </td>
+                            }
+                            else if (item.OperationType == "Expense Addition")
+                            {
+                                <td>
+                                    <p class="status cancelled">Expense</p>
+                                </td>
+                            }
+                            else if (item.OperationType == "Category Addition")
+                            {
+                                <td>
+                                    <p class="status shipped">Category</p>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <p class="status pending">Account</p>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+
+    </section>
+    <!-- JavaScript for sorting the table with animation -->
+    <script>
+        // Get the table element
+        const table = document.querySelector('table');
+
+        // Attach click event listeners to the table headers
+        const headers = table.querySelectorAll('th');
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                sortTable(index); // Call the sorting function with the column index
+            });
+        });
+
+        // Function to sort the table based on the clicked column
+        function sortTable(columnIndex) {
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            const sortedRows = rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent;
+                const bValue = b.cells[columnIndex].textContent;
+                return aValue.localeCompare(bValue); // Adjust sorting logic as needed
+            });
+
+            // Animate and update table rows one by one
+            sortedRows.forEach((row, i) => {
+                // Apply the bob-up animation
+                row.classList.add('animate-bob-up');
+
+                setTimeout(() => {
+                    // Move row to its new position
+                    table.querySelector('tbody').appendChild(row);
+
+                    // Remove the animation class after it completes
+                    row.classList.remove('animate-bob-up');
+                }, i * 500); // Delay each row update to create the animation effect
+            });
+        }
+    </script>
+
+</body>
+</html>
