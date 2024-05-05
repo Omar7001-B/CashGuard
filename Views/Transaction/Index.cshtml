@@ -74,7 +74,7 @@
                             <th> Category <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Name <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Action Date <span class="icon-arrow">&UpArrow;</span></th>
-                            <th>       Type <span class="icon-arrow">&UpArrow;</span></th>
+                            <th style="text-align:center"> Type <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Amount <span class="icon-arrow">&UpArrow;</span></th>
                         </tr>
                     </thead>
@@ -88,19 +88,21 @@
                                 <td> <img src="~/icons/@item.Category.Icon" alt="">@item.Category.Name</td>
                                 <td> @item.Title </td>
                                 <td> @item.Timestamp </td>
+								<td>
                                 @if (item.TransactionType == "Income")
                                 {
-                                    <td>
                                         <p class="status delivered">Income</p>
-                                    </td>
                                 }
                                 else
                                 {
-                                    <td>
                                         <p class="status cancelled">Expense</p>
-                                    </td>
                                 }
-                                <td> <strong> $ @item.Amount </strong></td>
+								</td>
+
+
+                                <td>
+                                    <strong> $ @item.Amount </strong>
+                                </td>
                             </tr>
                         }
                     </tbody>
