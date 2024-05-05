@@ -69,6 +69,19 @@
         margin-left: 10px;
         margin-top: -50px;
     }
+@keyframes iconAnimation {
+    0% {
+        transform: scale(1); /* Initial scale */
+    }
+
+    50% {
+        transform: scale(1.2); /* Scale up */
+    }
+
+    100% {
+        transform: scale(1); /* Back to initial scale */
+    }
+}
 
 .dash-content .boxes {
     display: flex;
@@ -91,6 +104,11 @@
 .boxes .box i {
     font-size: 35px;
     color: var(--text-color);
+    transition: transform 0.3s ease; /* Added transition for icon */
+}
+
+.boxes .box:hover i {
+    animation: iconAnimation 0.5s ease; /* Apply custom animation to the icon on hover */
 }
 
 .boxes .box .text {
@@ -115,6 +133,42 @@
 }
 
 
+
+.table__body tr {
+    transition: transform 0.5s ease, top 0.5s ease;
+    position: relative;
+}
+.dash-content .boxes .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    width: calc(100% / 3 - 20px);
+    padding: 30px 20px;
+    transition: var(--tran-05);
+    transform: scale(1);
+}
+
+.boxes .box:hover {
+    transform: scale(1.1); /* Increase the scale on hover */
+}
+@keyframes bobUp {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -20px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+.animate-bob-up {
+    animation: bobUp 0.9s ease;
+}
 
 /* === Table Css codes === */
 
@@ -152,6 +206,9 @@ main.table {
     box-shadow: 0 .4rem .8rem rgba(112, 24, 24, 0.333);
     border-radius: .8rem;
     overflow: hidden;
+    margin-left: 0px;
+    justify-content:space-between ;
+
 }
 
 .table__header {
@@ -202,7 +259,8 @@ main.table {
     margin: .8rem auto;
     border-radius: .6rem;
     overflow: auto;
-    overflow: overlay;
+    justify-content: space-between ;
+    
 }
 
 
@@ -264,7 +322,7 @@ tbody tr {
     }
 
     tbody tr:hover {
-        background-color: #fff6 !important;
+        background-color: #9d98a3 !important;
     }
 
     tbody tr td,
