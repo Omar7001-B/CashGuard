@@ -7,90 +7,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="/css/DashBoard.css" />
+    <link rel="stylesheet" href="/css/History_Style.css" />
 
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet"
           href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 
+    <!-- Add CSS for animation -->
+
+
     <title>Admin Dashboard Panel</title>
 </head>
 <body>
-    <section class="dashboard">
-        <div class="dash-content">
-            <div class="overview">
-                <div class="title">
-                    <i class="bx bx-history"></i>
-                    <span class="text">Histroy</span>
-                </div>
+
+
+    <main class="table" id="customers_table">
+        <section class="table__header">
+            <h1>History</h1>
+            <div class="export__file">
+                <label for="export-file"
+                       class="export__file-btn"
+                       title="Export File"></label>
+                <input type="checkbox" id="export-file" />
             </div>
-        </div>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operation Type <span class="icon-arrow">↑</span></th>
+                        <th>Details <span class="icon-arrow">↑</span></th>
+                        <th>Action Date <span class="icon-arrow">↑</span></th>
+                        <th>Type <span class="icon-arrow">↑</span></th>
+                    </tr>
+                </thead>
 
-        <main class="table" id="customers_table">
-            <section class="table__header">
-                <h1>Recent Actions</h1>
-                <div class="export__file">
-                    <label for="export-file"
-                           class="export__file-btn"
-                           title="Export File"></label>
-                    <input type="checkbox" id="export-file" />
-                </div>
-            </section>
-            <section class="table__body">
-                <table>
-                    <thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th>
-                                Operation Type <span class="icon-arrow">&UpArrow;</span>
-                            </th>
-                            <th>Details <span class="icon-arrow">&UpArrow;</span></th>
-                            <th>Action Date <span class="icon-arrow">&UpArrow;</span></th>
-                            <th>Type <span class="icon-arrow">&UpArrow;</span></th>
+                            <td>@item.OperationType</td>
+                            <td>@item.Details</td>
+                            <td>@item.Timestamp</td>
+                            @if (@item.OperationType == "Income Addition")
+                            {
+                                <td>
+                                    <p class="status delivered">Income</p>
+                                </td>
+                            }
+                            else if (item.OperationType == "Expense Addition")
+                            {
+                                <td>
+                                    <p class="status cancelled">Expense</p>
+                                </td>
+                            }
+                            else if (item.OperationType == "Category Addition")
+                            {
+                                <td>
+                                    <p class="status shipped">Category</p>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <p class="status pending">Account</p>
+                                </td>
+                            }
                         </tr>
-                    </thead>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </main>
 
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.OperationType</td>
-                                <td>@item.Details</td>
-                                <td>@item.Timestamp</td>
-                                @if (@item.OperationType == "Income Addition")
-                                {
-                                    <td>
-                                        <p class="status delivered">Income</p>
-                                    </td>
-                                }
-                                else if (item.OperationType == "Expense Addition")
-                                {
-                                    <td>
-                                        <p class="status cancelled">Expense</p>
-                                    </td>
-                                }
-                                else if (item.OperationType == "Category Addition")
-                                {
-                                    <td>
-                                        <p class="status shipped">Category</p>
-                                    </td>
-                                } 
-                                else
-                                {
-                                    <td>
-                                        <p class="status pending">Account</p>
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </section>
-        </main>
+
     </section>
+    <!-- JavaScript for sorting the table with animation -->
+    <script>
+        // Get the table element
+        const table = document.querySelector('table');
 
-    <!----===== Table code ===== -->
-    <!--End of Table code-->
+        // Attach click event listeners to the table headers
+        const headers = table.querySelectorAll('th');
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                sortTable(index); // Call the sorting function with the column index
+            });
+        });
 
-    <script src="/js/DashBoard.js"></script>
+        // Function to sort the table based on the clicked column
+        function sortTable(columnIndex) {
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            const sortedRows = rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent;
+                const bValue = b.cells[columnIndex].textContent;
+                return aValue.localeCompare(bValue); // Adjust sorting logic as needed
+            });
+
+            // Animate and update table rows one by one
+            sortedRows.forEach((row, i) => {
+                // Apply the bob-up animation
+                row.classList.add('animate-bob-up');
+
+                setTimeout(() => {
+                    // Move row to its new position
+                    table.querySelector('tbody').appendChild(row);
+
+                    // Remove the animation class after it completes
+                    row.classList.remove('animate-bob-up');
+                }, i * 500); // Delay each row update to create the animation effect
+            });
+        }
+    </script>
+
 </body>
 </html>
