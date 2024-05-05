@@ -1,78 +1,96 @@
-﻿@{
-    ViewData["Title"] = "History";
-}
+﻿<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-    /* Center the content on the page */
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f8f9fa; /* Set a light background color */
-    }
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/DashBoard.css" />
 
-    /* Style for the table container */
-    .table-container {
-        width: 100%; /* Adjust the width as needed */
-        max-width: 1500px; /* Set a maximum width */
-        margin: auto; /* Center the container horizontally */
-    }
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 
-    /* Improved styling for the table */
-    .table-responsive {
-        overflow-x: auto;
-        margin-bottom: 20px; /* Add some bottom margin for spacing */
-    }
+    <title>Admin Dashboard Panel</title>
+</head>
+<body>
+    <section class="dashboard">
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="bx bx-history"></i>
+                    <span class="text">Histroy</span>
+                </div>
+            </div>
+        </div>
 
-    #history-table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 8px; /* Add rounded corners to the table */
-        overflow: hidden; /* Hide overflowing content */
-    }
+        <main class="table" id="customers_table">
+            <section class="table__header">
+                <h1>Recent Actions</h1>
+                <div class="export__file">
+                    <label for="export-file"
+                           class="export__file-btn"
+                           title="Export File"></label>
+                    <input type="checkbox" id="export-file" />
+                </div>
+            </section>
+            <section class="table__body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Operation Type <span class="icon-arrow">&UpArrow;</span>
+                            </th>
+                            <th>Details <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Action Date <span class="icon-arrow">&UpArrow;</span></th>
+                            <th>Type <span class="icon-arrow">&UpArrow;</span></th>
+                        </tr>
+                    </thead>
 
-    #history-table th, #history-table td {
-        padding: 20px; /* Increase padding for better spacing */
-        text-align: center; /* Center-align table content */
-        border: 1px solid #dee2e6; /* Set border color */
-    }
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.OperationType</td>
+                                <td>@item.Details</td>
+                                <td>@item.Timestamp</td>
+                                @if (@item.OperationType == "Income Addition")
+                                {
+                                    <td>
+                                        <p class="status delivered">Income</p>
+                                    </td>
+                                }
+                                else if (item.OperationType == "Expense Addition")
+                                {
+                                    <td>
+                                        <p class="status cancelled">Expense</p>
+                                    </td>
+                                }
+                                else if (item.OperationType == "Category Addition")
+                                {
+                                    <td>
+                                        <p class="status shipped">Category</p>
+                                    </td>
+                                } 
+                                else
+                                {
+                                    <td>
+                                        <p class="status pending">Account</p>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </section>
 
-    #history-table th {
-        background-color: #343a40; /* Set header background color */
-        color: #ffffff; /* Set header text color */
-        font-weight: bold;
-    }
+    <!----===== Table code ===== -->
+    <!--End of Table code-->
 
-    #history-table tbody tr:hover {
-        background-color: #e9ecef; /* Set hover background color */
-    }
-</style>
-
-<h1 class="text-center mb-4">History</h1>
-<br />
-<div class="table-container">
-    <div class="table-responsive">
-        <table id="history-table" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Operation Type</th>
-                    <th>Details</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.OperationType</td>
-                        <td>@item.Details</td>
-                        <td>@item.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
+    <script src="/js/DashBoard.js"></script>
+</body>
+</html>
