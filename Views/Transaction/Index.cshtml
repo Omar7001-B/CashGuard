@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<ThreeFriends.Models.Transaction>
+@using Newtonsoft.Json;
+
+
 
 @* Calculate and display the current balance *@
 @{
@@ -20,11 +23,48 @@
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 
+    <!----===== For Charts ===== -->
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+       <script type="text/javascript">
+        window.onload = function () {
+            console.log("Hello");
+			var chart = new CanvasJS.Chart("chartContainer", @Html.Raw(ViewBag.ChartConfig));
+			chart.render();
+
+
+            var ChartConfig2 = @Html.Raw(ViewBag.ChartConfig2);
+            console.log("Before", ChartConfig2);
+            ChartConfig2.data.forEach(function (data) {
+				data.dataPoints.forEach(function (dataPoint) {
+					dataPoint.x = new Date(dataPoint.x);
+				});
+			});
+            console.log("After", ChartConfig2);
+
+
+			var chart2 = new CanvasJS.Chart("chartContainer2", ChartConfig2);
+			chart2.render();
+
+        }
+    </script>
+    <style>
+        #chartContainer,
+		#chartContainer2 {
+			display: inline-block;
+			height: 400px;
+			width: calc(50% - 20px); /* Set width to less than 50% to accommodate both with space between */
+			margin-right: 10px; /* Add some space between the containers */
+			border: 1px solid #ddd; /* Light border */
+			box-sizing: border-box; /* Include padding and border in the width */
+		}
+    </style>
+
     <title>Admin Dashboard Panel</title>
 </head>
 <body>
     <section class="dashboard">
         <div class="dash-content">
+
             <div class="overview">
                 <div class="title">
                     <i class="uil uil-tachometer-fast-alt"></i>
@@ -49,6 +89,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="activity">
+                <div class="title">
+                    <i class="uil uil-clock-three"></i>
+                    <span class="text">Charts</span>
+                </div>
+				<div id="chartContainer"></div>
+				<div id="chartContainer2"></div>
+            </div>
+
             <div class="activity">
                 <div class="title">
                     <i class="uil uil-clock-three"></i>
