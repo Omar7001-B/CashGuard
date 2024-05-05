@@ -16,6 +16,8 @@ namespace ThreeFriends.Models
 
         [StringLength(50, ErrorMessage = "Icon length can't be more than 50 characters")]
         public string Icon { get; set; }
+        
+        public DateTime Timestamp { get; set; } = DateTime.Now;
 
         // Foreign key to User
         [ForeignKey("User")]
