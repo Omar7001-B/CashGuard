@@ -85,7 +85,7 @@
                         @foreach (var item in Model.Where(t => t.TransactionType == "Income" || t.TransactionType == "Expense"))
                         {
                             <tr>
-                                <td> 1 </td>
+                                <td> @item.Id </td>
                                 <td> <img src="~/icons/@item.Category.Icon" alt="">@item.Category.Name</td>
                                 <td> @item.Title </td>
                                 <td> @item.Timestamp </td>
