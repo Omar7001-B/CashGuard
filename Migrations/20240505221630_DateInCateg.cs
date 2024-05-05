@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ThreeFriends.Migrations
 {
-    public partial class init0 : Migration
+    public partial class DateInCateg : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace ThreeFriends.Migrations
                     Phone_Number = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Sign_Up_Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Bank_Account_ID = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
                     photoPath = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -39,6 +39,7 @@ namespace ThreeFriends.Migrations
                     Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Icon = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
