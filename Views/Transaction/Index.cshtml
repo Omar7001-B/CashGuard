@@ -34,14 +34,8 @@
 
             var ChartConfig2 = @Html.Raw(ViewBag.ChartConfig2);
             console.log("Before", ChartConfig2);
-            ChartConfig2.data.forEach(function (data) {
-				data.dataPoints.forEach(function (dataPoint) {
-					dataPoint.x = new Date(dataPoint.x);
-				});
-			});
+            ChartConfig2.data.forEach(function (data) { data.dataPoints.forEach(function (dataPoint) { dataPoint.x = new Date(dataPoint.x); }); });
             console.log("After", ChartConfig2);
-
-
 			var chart2 = new CanvasJS.Chart("chartContainer2", ChartConfig2);
 			chart2.render();
 
