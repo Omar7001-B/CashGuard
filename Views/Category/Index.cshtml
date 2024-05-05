@@ -1,127 +1,36 @@
-﻿@model List<Category>
+﻿
+@model List<Category>
 
-@{
-    ViewBag.Title = "Categories";
-}
 
-<style>
-    /* Custom CSS for table */
-    .table-container {
-        margin-top: 20px;
-    }
-
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-
-    .table th,
-    .table td {
-        padding: 10px;
-        border-bottom: 1px solid #dee2e6;
-        text-align: left;
-    }
-
-    .table th {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #f9f9f9;
-    }
-
-    .table-striped tbody tr:nth-of-type(even) {
-        background-color: #fff;
-    }
-
-    .btn {
-        padding: 6px 12px;
-        margin-bottom: 0;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.42857143;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        cursor: pointer;
-        user-select: none;
-        border: 1px solid transparent;
-        border-radius: 4px;
-    }
-
-    .btn-primary {
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-
-    .btn-danger {
-        color: #fff;
-        background-color: #dc3545;
-        border-color: #dc3545;
-    }
-
-    .btn-danger:hover {
-        background-color: #bd2130;
-        border-color: #bd2130;
-    }
-
-       /* Add custom CSS styles here */
-    .create-button-container {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .create-button {
-        border: 2px solid #28a745; /* Green border */
-        background-color: #28a745; /* Green background */
-        color: #fff; /* White text color */
-    }
-
-    .create-button:hover {
-        background-color: #218838; /* Darker green on hover */
-        border-color: #218838; /* Darker green border on hover */
-    }
-</style>
-
-<h2>Categories</h2>
-<div class="container">
-    <div class="table-container">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Icon</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var category in Model)
-                {
-                    <tr>
-                        <td><img src="~/icons/@category.Icon" alt="@category.Name" width="50" height="50" /></td>
-                        <td>@category.Name</td>
-                        <td>@category.Description</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("Edit", new { id = category.Id })'">Edit</button>
-                            <button class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Details", new { id = category.Id })'">Details</button>
-                            <button class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure you want to delete this category?')) location.href='@Url.Action("Delete", new { id = category.Id })'">Delete</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/CategoryCards.css">
+    <title>Modern Gradient Category Cards</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Category Card -->
+        @foreach (var category in Model)
+        {
+            <div class="card">
+                <img src="~/icons/@category.Icon" alt="Category">
+                <div class="category-name">@category.Name</div>
+                <div class="description">@category.Description</div>
+                <div class="actions">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                    <button class="details">Details</button>
+                </div>
+            </div>
+        }
     </div>
-</div>
-<div class="create-button-container">
-    <button class="btn btn-success btn-lg create-button" onclick="location.href='@Url.Action("Create")'">Create New Category</button>
-</div>
 
+
+    <button class="add-button" onclick="location.href='/Category/Create'">Add New Category</button>
+
+
+</body>
+</html>

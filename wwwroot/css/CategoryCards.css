@@ -1,0 +1,109 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    flex: 0 0 calc(25% - 20px);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease, background-image 0.3s ease;
+    background-image: linear-gradient(to bottom right, #ffffff, #f0f0f0); /* White gradient */
+    color: #363657;
+    margin-bottom: 20px;
+    border: groove;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(to right, #4e4747, #363657);
+        color: #fff; /* Text color changes to white on hover */
+    }
+
+    .card img {
+        max-width: 100px;
+        height: 50px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
+
+    .card .category-name {
+        font-size: 1.5em;
+        margin: 10px 0;
+    }
+
+    .card .description {
+        margin-bottom: 20px;
+    }
+
+    .card .actions {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .card button {
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #eee;
+        font-size: 16px;
+        transition: background-color 0.3s, color 0.3s; /* Added color transition */
+        background-color: #363657; /* Dark grey background for buttons */
+        width: 30%;
+    }
+
+    .card:hover button {
+        background-color: #d4d4d4; /* Buttons change to light grey on hover */
+        color: #000; /* Button text changes to black on hover */
+    }
+
+.add-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+    .add-button:hover {
+        background-color: #218838;
+    }
+
+@media (max-width: 1200px) {
+    .card {
+        flex: 0 0 calc(33.333% - 20px);
+    }
+}
+
+@media (max-width: 900px) {
+    .card {
+        flex: 0 0 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 0 0 100%;
+    }
+}
