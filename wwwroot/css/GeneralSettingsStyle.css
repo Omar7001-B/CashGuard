@@ -44,6 +44,7 @@ form {
     padding: 0 40px;
     height: 100%;
     border-radius: 50px;
+    max-width: 100%;
 }
 
 
@@ -85,17 +86,6 @@ input {
 
 
 
-.DateRangeContainer {
-    
-    position: absolute;
-    left: 50px;
-    top: 50px;
-    bottom: 50px;
-    border-radius: 300px;
-    width: 30%;
-    z-index: 1;
-    
-}
 
 
 
@@ -106,23 +96,32 @@ input {
     background: linear-gradient(to right, #8d99ae, #003049);
     border-color: #8d99ae;
     border-radius: 40px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     position: relative;
     overflow: hidden;
     width: 1800px;
-    height: 900px;
+    height: 860px;
     max-width: 100%;
 }
 
-.CurrencyContainer {
+.DateRangeContainer {
+    
     position: absolute;
-    left: 630px;
-    top: 50px;
-    bottom: 50px;
+    left: 50px;
+    top: 10px;
+    bottom: 100px;
     border-radius: 300px;
-    width: 30%;
+    max-width: 30%;
     z-index: 1;
-  
+    
+}
+.CurrencyContainer {
+    z-index: 1;
+    position: absolute;
+    left: 680px;
+    top: 49px;
+    bottom: 49px;
+    max-width: 35%;
+    border-radius: 300px;
 }
 
 
@@ -133,9 +132,9 @@ input {
     top: 50px;
     bottom: 50px;
     border-radius: 300px;
-    width: 30%;
+    max-width: 30%;
     z-index: 1;
-   
+    padding-right: 5px;
 }
 
 
