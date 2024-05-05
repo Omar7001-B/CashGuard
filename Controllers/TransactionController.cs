@@ -75,8 +75,8 @@ namespace ThreeFriends.Controllers
             var transactions = _context.Transactions.ToList();
 
             // Separate transactions into income and expense
-            var incomeTransactions = transactions.Where(t => t.TransactionType == "Income").ToList();
-            var expenseTransactions = transactions.Where(t => t.TransactionType == "Expense").ToList();
+            var incomeTransactions = transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income").ToList();
+            var expenseTransactions = transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense").ToList();
 
             // Prepare data points for income line
             var incomeDataPoints = incomeTransactions.Select(transaction => new
