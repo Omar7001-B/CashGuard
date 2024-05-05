@@ -137,17 +137,20 @@
                                 @if (item.TransactionType == "Income")
                                 {
                                         <p class="status delivered">Income</p>
+										<td>
+											<strong class="inAmount"> $@item.Amount </strong>
+										</td>
                                 }
                                 else
                                 {
                                         <p class="status cancelled">Expense</p>
+										<td>
+											<strong class="exAmount"> -$@item.Amount </strong>
+										</td>
                                 }
 								</td>
 
 
-                                <td>
-                                    <strong> $ @item.Amount </strong>
-                                </td>
                             </tr>
                         }
                     </tbody>
