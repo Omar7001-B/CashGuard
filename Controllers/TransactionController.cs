@@ -40,10 +40,10 @@ namespace ThreeFriends.Controllers
         public void CreatePieChartIncomeExpense()
         {
             double expensesTotal = 0;
-            foreach(var transaction in _context.Transactions.Where(t => t.TransactionType == "Expense").ToList())
+            foreach(var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense").ToList())
                 expensesTotal += (double)transaction.Amount;
             double incomeTotal = 0;
-            foreach (var transaction in _context.Transactions.Where(t => t.TransactionType == "Income").ToList())
+            foreach (var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income").ToList())
                 incomeTotal += (double)transaction.Amount;
 
             // Prepare data for chart
