@@ -178,6 +178,28 @@ namespace ThreeFriends.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Generator()
+        {
+            var categories = _context.Categories.ToList();
+            var random = new Random();
+            for (int i = 0; i < 100; i++)
+            {
+                var transaction = new Transaction
+                {
+                    Title = "Transaction " + i,
+                    Amount = random.Next(1, 1000),
+                    Info = "Info " + i,
+                    TransactionType = random.Next(0, 2) == 0 ? "Income" : "Expense",
+                    CategoryId = categories[random.Next(0, categories.Count)].Id,
+                    UserId = SharedValues.CurUser.Id,
+                    Timestamp = new DateTime(2020, 1, 1).AddDays(random.Next(0, 365))
+                };
+                _context.Transactions.Add(transaction);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         private void LogToHistory(string operationType, string details)
         {
