@@ -126,7 +126,7 @@
 <div class="create-container">
     <h2>@ViewBag.Title</h2>
 
-    <form action="/Category/Create" method="post">
+    <form id="createForm" action="/Category/Create" method="post">
         @Html.AntiForgeryToken()
 
         <div class="form-group">
@@ -144,27 +144,11 @@
         <div class="form-group">
             <label for="Icon">Select Icon:</label>
             <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn btn btn-primary" id="selectedOption" type="button">
-                    @if (iconList != null && iconList.Any())
-                    {
-                        var firstIcon = iconList.First();
-                        <img src="~/icons/@firstIcon.Value" alt="@firstIcon.Text" width="24" height="24">
-                        <span>@firstIcon.Text</span>
-                    }
-                    else
-                    {
-                        <span>Select an Icon</span>
-                    }
+                <button onclick="loadIcons()" class="dropbtn btn btn-primary" id="selectedOption" type="button">
+                    <span>Select an Icon</span>
                 </button>
                 <div id="myDropdown" class="dropdown-content">
-                    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                    @foreach (var icon in iconList)
-                    {
-                        <a href="#" onclick="selectOption('@icon.Value', '@icon.Text')">
-                            <img src="~/icons/@icon.Value" alt="@icon.Text" width="24" height="24">
-                            @icon.Text
-                        </a>
-                    }
+                    <!-- Icons will be dynamically loaded here -->
                 </div>
             </div>
             @Html.ValidationMessageFor(model => model.Icon)
@@ -177,6 +161,28 @@
 </div>
 
 <script>
+    function loadIcons() {
+        $.ajax({
+            url: '@Url.Action("GetIcons", "Category")', 
+            type: 'GET',
+            success: function(data) {
+                var dropdownContent = $('#myDropdown');
+                dropdownContent.empty(); // Clear existing content
+                $.each(data, function(index, icon) {
+                    var iconHtml = '<a href="#" onclick="selectOption(\'' + icon.Value + '\', \'' + icon.Text + '\')">';
+                    iconHtml += '<img src="/icons/' + icon.Value + '" alt="' + icon.Text + '" width="24" height="24">';
+                    iconHtml += icon.Text + '</a>';
+                    dropdownContent.append(iconHtml);
+                });
+            }
+        });
+    }
+
+    function selectOption(value, text) {
+        $('#selectedOption').html('<img src="/icons/' + value + '" alt="' + text + '" width="24" height="24"> ' + text);
+        $('#Icon').val(value);
+        $('#myDropdown').removeClass("show");
+    }
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
     }

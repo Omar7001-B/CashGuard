@@ -42,6 +42,23 @@ namespace ThreeFriends.Controllers
 
             return iconList;
 
+
+        }
+
+        public ActionResult GetIcons()
+        {
+            string iconsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "icons");
+            string[] iconFiles = Directory.GetFiles(iconsFolderPath);
+
+            List<SelectListItem> iconList = new List<SelectListItem>();
+            foreach (var iconFile in iconFiles)
+            {
+                string iconName = Path.GetFileName(iconFile);
+                string newName = Path.GetFileNameWithoutExtension(string.Join(" ", iconName.Split('-').Select(s => s[0].ToString().ToUpper() + s.Substring(1))));
+                iconList.Add(new SelectListItem { Text = newName, Value = iconName });
+            }
+
+            return Json(iconList);
         }
 
         // GET: Category/Create
