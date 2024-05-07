@@ -1,0 +1,248 @@
+﻿@model ThreeFriends.Models.Transaction
+
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="~/css/Transactoins.css" />
+
+    <style>
+        @@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,500,700);
+
+
+
+        .cards-container {
+            width: 880px;
+            max-height: 950px; /* Adjust the height as needed */
+            height: 100vh;
+            padding: 20px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            border-radius: 20px;
+            position: fixed; /* Position fixed to keep it fixed on the screen */
+            top: 50%; /* Adjust the top position */
+            right: 0; /* Position it to the most right */
+            margin-right: 20px; /* Adjust the margin-right as needed */
+            transform: translateY(-50%); /* Center vertically */
+            overflow-y: scroll; /* Use "scroll" instead of "auto" */
+            scrollbar-width: none; /* Hide the scrollbar for Firefox */
+            overflow-x: auto; /* Enable horizontal scrolling */
+        }
+
+            .cards-container::-webkit-scrollbar {
+                display: none; /* Hide the scrollbar for Chrome/Safari */
+            }
+
+        .cardss-container {
+            width: 880px;
+            max-height: 950px; /* Adjust the height as needed */
+            height: 100vh;
+            padding: 20px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            border-radius: 20px;
+            position: fixed; /* Position fixed to keep it fixed on the screen */
+            top: 50%; /* Adjust the top position */
+            left: 100px; /* Position it to the most right */
+
+            transform: translateY(-50%); /* Center vertically */
+            overflow-y: scroll; /* Use "scroll" instead of "auto" */
+            scrollbar-width: none; /* Hide the scrollbar for Firefox */
+        }
+
+            .cardss-container::-webkit-scrollbar {
+                display: none; /* Hide the scrollbar for Chrome/Safari */
+            }
+
+        .card {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .cards-container.expanded {
+            width: auto;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .photo {
+            padding: 30px;
+            width: 20%;
+            height: 100%;
+            text-align: center;
+            float: left;
+            margin-top: 50px;
+        }
+
+            .photo img {
+                max-height: 240px;
+            }
+
+        .description {
+            padding: 30px;
+            float: left;
+            width: 55%;
+            border-left: 2px solid #efefef;
+        }
+
+        h1,
+        h2,
+        h4,
+        p {
+            color: #515151;
+            margin: 0;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 40px;
+            margin-left: 480px;
+            margin-top: -50px;
+        }
+
+        h2,
+        h4 {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 12px;
+            line-height: 20px;
+            padding: 20px 0;
+        }
+
+        button {
+            outline: 0;
+            border: 0;
+            background: none;
+            border: 1px solid #d9d9d9;
+            padding: 8px 0px;
+            margin-bottom: 10px;
+            color: #515151;
+            text-transform: uppercase;
+            width: 125px;
+            font-family: inherit;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-radius: 50px;
+        }
+
+            button:hover {
+                border: 1px solid #aedaa6;
+                color: rgb(67, 65, 77);
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <div class="cards-container">
+        <!-- Repeat this block for each card -->
+        @foreach (Transaction item in ViewBag.Transactions)
+        {
+            <form action="/Transaction/Edit" method="get">
+                <div class="card">
+                    <div class="photo">
+                        <img src="~/icons/@item.Category.Icon" />
+                    </div>
+                    <div class="description">
+                        <h2>@item.Title</h2>
+                        <h4>@item.Timestamp</h4>
+                        @if (@item.TransactionType == "Income")
+                        {
+                            <h1 style="color: green;">$@item.Amount</h1>
+                        }
+                        else
+                        {
+                            <h1 style="color: red;">$@item.Amount</h1>
+                        }
+                        <p>
+                            @item.Info
+                        </p>
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <button type="submit">Edit</button>
+                        <button type="submit">Delete</button>
+                        <button type="submit">Details</button>
+                    </div>
+                </div>
+            </form>
+        }
+
+    </div>
+
+    <section class="cardss-container">
+        <header>Transaction Creations</header>
+        <form asp-action="TransactionAddition" asp-controller="Transaction" method="post" class="form">
+            <div class="input-box">
+                <label asp-for="Title" class="control-label">Title:</label>
+                <input asp-for="Title" class="form-control" value="@Model.Title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="input-box">
+                <label asp-for="Info" class="control-label">Info:</label>
+                <input asp-for="Info" class="form-control" value="@Model.Info" />
+                <span asp-validation-for="Info" class="text-danger"></span>
+            </div>
+
+            <div class="column">
+                <div class="input-box">
+                    <label asp-for="Amount" class="control-label">Amount:</label>
+                    <input asp-for="Amount" class="form-control" value="@Model.Amount" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <label asp-for="Timestamp" class="control-label">Transaction Date:</label>
+                    <input asp-for="Timestamp" class="form-control" type="date" value="@Model.Timestamp.Date.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Timestamp" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="type-box">
+                <h3>Type Of Transaction</h3>
+                <div class="type-option">
+                    <div class="type">
+                        <input type="radio" name="TransactionType" value="Expense" @(Model.TransactionType == "Expense" ? "checked" : "") />
+                        <label for="TransactionType">Expense</label>
+                    </div>
+                    <div class="type">
+                        <input type="radio" name="TransactionType" value="Income" @(Model.TransactionType == "Income" ? "checked" : "") />
+                        <label for="TransactionType">Income</label>
+                    </div>
+                </div>
+                <span asp-validation-for="TransactionType" class="text-danger"></span>
+            </div>
+
+            <div class="input-box address">
+                <div class="column">
+                    <div class="select-box">
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+
+                    </div>
+                </div>
+            </div>
+            <input asp-for="Id" class="form-control" type="number" value="@Model.Id" hidden />
+           
+            @if(Model.Id == 0)
+            {
+                <button type="submit">Add Transaction</button>
+            }
+            else
+            {
+                <button type="submit">Update Transaction</button>
+            }
+           
+        </form>
+    </section>
+</body>
+</html>

@@ -126,8 +126,7 @@
 <div class="create-container">
     <h2>@ViewBag.Title</h2>
 
-    @using (Html.BeginForm())
-    {
+    <form action="/Category/Create" method="post">
         @Html.AntiForgeryToken()
 
         <div class="form-group">
@@ -173,7 +172,8 @@
         </div>
 
         <button type="submit" class="btn btn-create">Create</button>
-    }
+    </form>
+    
 </div>
 
 <script>
