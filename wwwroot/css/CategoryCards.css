@@ -1,19 +1,13 @@
-﻿body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
-
+﻿
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
+    margin-left: 20px;
 }
 
 .card {
-    flex: 0 0 calc(25% - 20px);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -22,9 +16,9 @@
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease, background-image 0.3s ease;
     background-image: linear-gradient(to bottom right, #ffffff, #f0f0f0); /* White gradient */
     color: #363657;
-    margin-bottom: 20px;
     border: groove;
-    width: 1500px;
+    width: calc(50% - 20px); /* Adjust width of cards to fit two in one row with margin */
+    margin-bottom: 20px; /* Adjust space between rows */
 }
 
     .card:hover {
