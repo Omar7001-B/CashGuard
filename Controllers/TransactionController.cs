@@ -64,6 +64,7 @@ namespace ThreeFriends.Controllers
 
             return new
             {
+                animationEnabled = true,
                 title = new
                 {
                     text = type + " Summary"
