@@ -231,10 +231,6 @@ namespace ThreeFriends.Controllers
             _dbContext.SaveChanges();
         }
 
-        private bool IsValidName(string name)
-        {
-            Regex r = new Regex(@"^[a-zA-Z]+$");
-            return !string.IsNullOrEmpty(name) && r.IsMatch(name);
-        }
+       
     }
 }
