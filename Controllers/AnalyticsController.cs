@@ -212,6 +212,44 @@ namespace ThreeFriends.Controllers
         }
 
 
+        public List<object> GetCategoriesPercentage(List<Transaction> transactions, string type)
+        {
+            List<object> categoriesPercentage = new List<object>();
+
+            // Filter transactions by type
+            var filteredTransactions = transactions.Where(t => t.TransactionType == type).ToList();
+
+            // Calculate total amount for the given transaction type
+            var totalAmount = filteredTransactions.Sum(t => t.Amount);
+
+            // Group transactions by CategoryId and calculate percentage
+            var categories = filteredTransactions
+                .GroupBy(t => t.CategoryId)
+                .Select(group => new
+                {
+                    IconUrl = $"/icons/{ group.First().Category.Icon }",
+                    Title = group.First().Category.Name,
+                    Amount = group.Sum(t => t.Amount),
+                    Percentage = (group.Sum(t => t.Amount) / totalAmount) * 100 // Calculate percentage
+                }).ToList();
+
+            // Convert anonymous type to object
+            foreach (var category in categories)
+            {
+                categoriesPercentage.Add(new
+                {
+                    IconUrl = category.IconUrl,
+                    Title = category.Title,
+                    Amount = category.Amount,
+                    Percentage = category.Percentage
+                });
+            }
+
+            return categoriesPercentage;
+        }
+
+
+
 
         // GET: Transaction/Filtration
         public ActionResult Index()
@@ -221,6 +259,33 @@ namespace ThreeFriends.Controllers
                 Categories = _context.Categories.ToList(),
                 TransactionTypes = new[] { "Expense", "Income" }
             };
+
+            var transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id).ToList();
+
+            foreach (var transaction in transactions) _context.Entry(transaction).Reference(t => t.Category).Load();
+
+            viewModel.Transactions = transactions;
+            viewModel.TransactionTypes = new[] { "Expense", "Income" };
+            viewModel.Categories = _context.Categories.ToList();
+
+            // Charts Config
+            ViewBag.BarChartConfig = JsonConvert.SerializeObject(CreateTransactionBarChart(transactions));
+            ViewBag.IncomePieChartConfig = JsonConvert.SerializeObject(CreateTransactionPierChart(transactions, "Income"));
+            ViewBag.ExpensePieChartConfig = JsonConvert.SerializeObject(CreateTransactionPierChart(transactions, "Expense"));
+            ViewBag.LineChartConfig = JsonConvert.SerializeObject(CreateTransactionLineChart(transactions));
+
+
+            ViewBag.IncomeCategoriesPercentage = GetCategoriesPercentage(transactions, "Income");
+            ViewBag.ExpenseCategoriesPercentage = GetCategoriesPercentage(transactions, "Expense");
+
+
+            ViewBag.TransationCounts = transactions.Count;
+            ViewBag.TotalExpenseAmount = transactions.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount);
+            ViewBag.TotalIncomeAmount = transactions.Where(t => t.TransactionType == "Income").Sum(t => t.Amount);
+
+            ViewBag.AverageAmount = transactions.Count > 0 ? transactions.Average(t => t.Amount) : 0;
+            ViewBag.MaxAmount = transactions.Count > 0 ? transactions.Max(t => t.Amount) : 0;
+            ViewBag.MinAmount = transactions.Count > 0 ? transactions.Min(t => t.Amount) : 0;
             return View(viewModel);
         }
 
@@ -255,6 +320,7 @@ namespace ThreeFriends.Controllers
             }
 
             foreach (var transaction in transactions) _context.Entry(transaction).Reference(t => t.Category).Load();
+
             viewModel.Transactions = transactions;
             viewModel.TransactionTypes = new[] { "Expense", "Income" };
             viewModel.Categories = _context.Categories.ToList();
@@ -264,6 +330,19 @@ namespace ThreeFriends.Controllers
             ViewBag.IncomePieChartConfig = JsonConvert.SerializeObject(CreateTransactionPierChart(transactions, "Income"));
             ViewBag.ExpensePieChartConfig = JsonConvert.SerializeObject(CreateTransactionPierChart(transactions, "Expense"));
             ViewBag.LineChartConfig = JsonConvert.SerializeObject(CreateTransactionLineChart(transactions));
+
+
+            ViewBag.IncomeCategoriesPercentage = GetCategoriesPercentage(transactions, "Income");
+            ViewBag.ExpenseCategoriesPercentage = GetCategoriesPercentage(transactions, "Expense");
+
+
+            ViewBag.TransationCounts = transactions.Count;
+            ViewBag.TotalExpenseAmount = transactions.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount);
+            ViewBag.TotalIncomeAmount = transactions.Where(t => t.TransactionType == "Income").Sum(t => t.Amount);
+
+            ViewBag.AverageAmount = transactions.Count > 0 ? transactions.Average(t => t.Amount) : 0;
+            ViewBag.MaxAmount = transactions.Count > 0 ? transactions.Max(t => t.Amount) : 0;
+            ViewBag.MinAmount = transactions.Count > 0 ? transactions.Min(t => t.Amount) : 0;
 
             return View(viewModel);
         }
