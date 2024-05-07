@@ -39,10 +39,10 @@ namespace ThreeFriends.Controllers
                 string newName = Path.GetFileNameWithoutExtension(string.Join(" ", iconName.Split('-').Select(s => s[0].ToString().ToUpper() + s.Substring(1))));
                 iconList.Add(new SelectListItem { Text = newName, Value = iconName });
             }
-
+            
             return iconList;
 
-
+            
         }
 
         public ActionResult GetIcons()
@@ -96,6 +96,7 @@ namespace ThreeFriends.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.IconList = GetIconList();
             var category = _context.Categories.Include(c => c.Transactions).SingleOrDefault(c => c.Id == id);
             if (category == null)
             {
