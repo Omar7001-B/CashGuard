@@ -40,6 +40,11 @@
 
         }
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/56942480bb.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         #chartContainer,
         #chartContainer2 {
@@ -66,9 +71,8 @@
             border: 1px solid #e7ecfb;
             box-shadow: 0 0 30px rgba(211, 220, 248, .3);
             padding: 30px;
-            margin-top: 20px;
-
- 
+            margin-top: 10px;
+            width : 600px;
         }
 
 
@@ -205,7 +209,7 @@
 
     </style>
 
-    <title>Admin Dashboard Panel</title>
+    <title>Cash Guard</title>
 </head>
 <body>
     <section class="dashboard">
@@ -252,17 +256,17 @@
                 </div>
             </div>
         </div>
-
+    </section>
+    <section class="dashboardd">
         <main class="table" id="customers_table">
-            <section class="table__header">
-                <h1>Recent Actions</h1>
-
-                <div class="export__file">
-                    <label for="export-file" class="export__file-btn" title="Export File"></label>
-                    <input type="checkbox" id="export-file">
-                </div>
-            </section>
             <section class="table__body">
+                <section class="table__header">
+                    <h1>Recent Actions</h1>
+                    <div class="export__file">
+                        <label for="export-file" class="export__file-btn" title="Export File"></label>
+                        <input type="checkbox" id="export-file">
+                    </div>
+                </section>
                 <table>
                     <thead>
                         <tr>
@@ -294,7 +298,7 @@
                                     }
                                     else
                                     {
-										<p class="status cancelled">Expense</p>
+                                    <p class="status cancelled">Expense</p>
                                     <td>
                                         <strong class="exAmount"> $@item.Amount </strong>
                                     </td>
@@ -306,13 +310,6 @@
                 </table>
             </section>
         </main>
-        <!--MEWO-->
-        <!-- Import jQuery, FontAwesome Icons and Open Sans Font -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-        <script src="https://kit.fontawesome.com/56942480bb.js" crossorigin="anonymous"></script>
-
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
         <!-- List wrapper -->
         <div id="listWrapper">
@@ -343,7 +340,7 @@
     <script src="/js/DashBoard.js"></script>
     <script>
         var table = document.getElementById("customers_table");
-        table.style.width = "87vw";
+        table.style.width = "55vw";
     </script>
 </body>
 </html>
