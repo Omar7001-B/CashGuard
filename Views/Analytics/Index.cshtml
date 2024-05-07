@@ -98,10 +98,9 @@
 /* Grid layout for charts */
 .charts-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Adjusted to show only 2 elements */
     gap: 20px;
-    height: 80vh; /* Adjust as needed */
+    height: 80vh;
 }
 
 .chart-container {
@@ -134,6 +133,7 @@
     background-color: lightsalmon;
 }
 
+
 .category-item {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -161,146 +161,80 @@ h2 {
     margin-top: 30px;
 }
 
+.card-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.card {
+	width: 200px; /* Adjust the width as needed */
+	margin: 10px; /* Adjust the margin as needed */
+	flex: 0 0 auto; /* Maintain fixed width */
+}
+
 </style>
-  <div class="container">
-        <div class="row">
-            <!-- First Row -->
-            <div class="col">
-                <section>
-                    <!-- Content for the first section in the first row -->
-                </section>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Second Row -->
-            <div class="col">
-                <section>
-                    <!-- Content for the first section in the second row -->
-                </section>
-            </div>
-            <div class="col">
-                <section>
-                    <!-- Content for the second section in the second row -->
-                </section>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Third Row -->
-            <div class="col">
-                <section>
-                    <!-- Content for the first section in the third row -->
-                </section>
-            </div>
-            <div class="col">
-                <section>
-                    <!-- Content for the second section in the third row -->
-                </section>
-            </div>
-            <div class="col">
-                <section>
-                    <!-- Content for the third section in the third row -->
-                </section>
-            </div>
-        </div>
-        <!-- Repeat the pattern for the remaining rows -->
-    </div>
 
-
+<h1>Analytics</h1>
 <section class="container mt-4">
-    <h1>Analytics</h1>
-	<br />
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Transaction Counts</h5>
-                    <p class="card-text">@ViewBag.TransationCounts</p>
-                </div>
-            </div>
-        </div>G
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Total Expense Amount</h5>
-                    <p class="card-text">@ViewBag.TotalExpenseAmount</p>
-                </div>
+    <div class="row card-container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Transaction Counts</h5>
+                <p class="card-text">@ViewBag.TransationCounts</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Total Income Amount</h5>
-                    <p class="card-text">@ViewBag.TotalIncomeAmount</p>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Expense Amount</h5>
+                <p class="card-text">@ViewBag.TotalExpenseAmount</p>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Average Amount</h5>
-                    <p class="card-text">@ViewBag.AverageAmount</p>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Income Amount</h5>
+                <p class="card-text">@ViewBag.TotalIncomeAmount</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Max Amount</h5>
-                    <p class="card-text">@ViewBag.MaxAmount</p>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Average Amount</h5>
+                <p class="card-text">@ViewBag.AverageAmount</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Min Amount</h5>
-                    <p class="card-text">@ViewBag.MinAmount</p>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Max Amount</h5>
+                <p class="card-text">@ViewBag.MaxAmount</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Min Amount</h5>
+                <p class="card-text">@ViewBag.MinAmount</p>
             </div>
         </div>
     </div>
 </section>
 
 
-<section class="container mt-4">
+
+
+
 <h2>Transaction Filtration</h2>
-
-<br />
-
-@using (Html.BeginForm("Index", "Analytics", FormMethod.Post, new { id = "filterForm" }))
+<section class="container mt-4">
+    @using (Html.BeginForm("Index", "Analytics", FormMethod.Post, new { id = "filterForm" }))
 {
     <div class="form-row">
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.StartDate, "Start Date:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", type = "date", placeholder = "Start Date" })
-        </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.EndDate, "End Date:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", type = "date", placeholder = "End Date" })
-        </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             @Html.LabelFor(model => model.SelectedTransactionType, "Transaction Type:", htmlAttributes: new { @class = "col-form-label" })
             @Html.DropDownListFor(model => model.SelectedTransactionType, new SelectList(Model.TransactionTypes), "Select Transaction Type", new { @class = "form-control" })
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             @Html.LabelFor(model => model.SelectedCategory, "Category:", htmlAttributes: new { @class = "col-form-label" })
             @Html.DropDownListFor(model => model.SelectedCategory, new SelectList(Model.Categories, "Id", "Name"), "Select Category", new { @class = "form-control" })
         </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.MinAmount, "Minimum Amount:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.MinAmount, new { @class = "form-control", placeholder = "Minimum Amount" })
-        </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.MaxAmount, "Maximum Amount:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.MaxAmount, new { @class = "form-control", placeholder = "Maximum Amount" })
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             @Html.LabelFor(model => model.SortBy, "Sort By:", htmlAttributes: new { @class = "col-form-label" })
             @Html.DropDownListFor(model => model.SortBy, new SelectList(new List<SelectListItem>
             {
@@ -310,7 +244,7 @@ h2 {
                 new SelectListItem { Text = "Category", Value = "Category" }
             }, "Value", "Text"), "Select Sorting Option", new { @class = "form-control" })
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             @Html.LabelFor(model => model.SortOrder, "Sort Order:", htmlAttributes: new { @class = "col-form-label" })
             @Html.DropDownListFor(model => model.SortOrder, new SelectList(new List<SelectListItem>
             {
@@ -319,11 +253,30 @@ h2 {
             }, "Value", "Text"), "Select Sorting Order", new { @class = "form-control" })
         </div>
     </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.MinAmount, "Minimum Amount:", htmlAttributes: new { @class = "col-form-label" })
+            @Html.TextBoxFor(model => model.MinAmount, new { @class = "form-control", placeholder = "Minimum Amount" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.MaxAmount, "Maximum Amount:", htmlAttributes: new { @class = "col-form-label" })
+            @Html.TextBoxFor(model => model.MaxAmount, new { @class = "form-control", placeholder = "Maximum Amount" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.StartDate, "Start Date:", htmlAttributes: new { @class = "col-form-label" })
+            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", type = "date", placeholder = "Start Date" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.EndDate, "End Date:", htmlAttributes: new { @class = "col-form-label" })
+            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", type = "date", placeholder = "End Date" })
+        </div>
+    </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Filter Transactions</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Analytics")'">Reset Filters</button>
     </div>
 }
+
 </section>
 
 	<div class="charts-grid">
@@ -380,29 +333,27 @@ else
 
 
 <section class="page-content page-container mt-4">
-<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-            <div class="col-lg-6 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Income Categories</h4>
-                        <p class="card-description">
-                            Analysis of income categories
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Category</th>
-                                        <th>Amount</th>
-                                        <th>Progress</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (ViewBag.IncomeCategoriesPercentage != null)
-                                    {
-                                        foreach (var category in ViewBag.IncomeCategoriesPercentage)
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center">
+                <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card-body">
+                            <h4 class="card-title">Income Categories</h4>
+                            <p class="card-description">
+                                Analysis of income categories
+                            </p>
+                            @if (ViewBag.IncomeCategoriesPercentage != null)
+                            {
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Amount</th>
+                                            <th>Progress</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var category in ViewBag.IncomeCategoriesPercentage)
                                         {
                                             <tr>
                                                 <td class="py-1">
@@ -417,33 +368,30 @@ else
                                                 </td>
                                             </tr>
                                         }
-                                    }
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Expense Categories</h4>
-                        <p class="card-description">
-                            Analysis of expense categories
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Category</th>
-                                        <th>Amount</th>
-                                        <th>Percentage</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (ViewBag.ExpenseCategoriesPercentage != null)
-                                    {
-                                        foreach (var category in ViewBag.ExpenseCategoriesPercentage)
+                <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card-body">
+                            <h4 class="card-title">Expense Categories</h4>
+                            <p class="card-description">
+                                Analysis of expense categories
+                            </p>
+                            @if (ViewBag.ExpenseCategoriesPercentage != null)
+                            {
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Amount</th>
+                                            <th>Progress</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var category in ViewBag.ExpenseCategoriesPercentage)
                                         {
                                             <tr>
                                                 <td class="py-1">
@@ -458,16 +406,17 @@ else
                                                 </td>
                                             </tr>
                                         }
-                                    }
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 </section>
 
 	<div class="charts-grid">
