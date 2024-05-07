@@ -172,5 +172,36 @@ namespace ThreeFriends.Controllers
             _context.History.Add(historyItem);
             _context.SaveChanges();
         }
+
+
+        public IActionResult Generator(int id)
+        {
+            var namesList = new List<string> { "Food", "Transport", "Entertainment", "Health", "Education", "Clothing", "Gifts", "Online Games", "Rent", "Utilities", "Insurance", "Phone", "Internet", "Cable", "Gym", "Subscriptions", "Books", "Movies", "Music", "Software", "Hardware", "Medicine", "Doctor", "Dentist", "Optician", "Therapist", "Tuition", "Books", "Stationery", "Uniform", "Shoes", "Toys", "Decorations", "Cards", "Flowers", "Games", "Skins", "DLC", "Lootboxes" };
+            var descriptionList = new List<string> { "Food Category", "Transport Category", "Entertainment Category", "Health Category", "Education Category", "Clothing Category", "Gifts Category", "Online Games Category", "Rent Category", "Utilities Category", "Insurance Category", "Phone Category", "Internet Category", "Cable Category", "Gym Category", "Subscriptions Category", "Books Category", "Movies Category", "Music Category", "Software Category", "Hardware Category", "Medicine Category", "Doctor Category", "Dentist Category", "Optician Category", "Therapist Category", "Tuition Category", "Books Category", "Stationery Category", "Uniform Category", "Shoes Category", "Toys Category", "Decorations Category", "Cards Category", "Flowers Category", "Games Category", "Skins Category", "DLC Category", "Lootboxes Category" };
+            var iconList = GetIconList(); // Assuming this method is correctly implemented and returns a list of icons
+
+            int step = new Random().Next(1, 10); // Instantiate Random object
+
+            for (int i = 0; i < id; i += step)
+            {
+                int index = new Random().Next(0, namesList.Count);
+                while(_context.Categories.Any(c => c.Name == namesList[index]))
+                    index = new Random().Next(0, namesList.Count);
+                var category = new Category
+                {
+                    Name = namesList[index],
+                    Description = descriptionList[index],
+                    Icon = iconList[new Random().Next(0, iconList.Count)].Value,
+                    UserId = SharedValues.CurUser.Id
+                };
+
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Transaction");
+        }
+
+
     }
 }
