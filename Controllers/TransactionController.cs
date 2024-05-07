@@ -53,7 +53,7 @@ namespace ThreeFriends.Controllers
 
         }
 
-        public void CreatePieChartIncomeExpense()
+        public void ExpensesByCategory()
         {
             double expensesTotal = 0;
             foreach(var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense").ToList())
@@ -62,15 +62,18 @@ namespace ThreeFriends.Controllers
             foreach (var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income").ToList())
                 incomeTotal += (double)transaction.Amount;
 
-            // Prepare data for chart
-            var dataPoints = new[] {
-            new { y = expensesTotal, indexLabel = "Expenses" },
-            new { y = incomeTotal, indexLabel = "Income" }
-        };
+            var dataPoints = new List<object>();
+            foreach (var category in _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList())
+            {
+                double categoryTotal = 0;
+                foreach (var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense" && t.CategoryId == category.Id))
+                    categoryTotal += (double)transaction.Amount;
+                dataPoints.Add(new { y = categoryTotal, indexLabel = category.Name });
+            }
 
             var chartConfig = new
             {
-                title = new { text = "Transaction Summary" },
+                title = new { text = "Expenses by Category" },
                 legend = new { maxWidth = 350, itemWidth = 120 },
                 data = new[] {
                 new {
@@ -114,38 +117,57 @@ namespace ThreeFriends.Controllers
             incomeDataPoints = incomeDataPoints.OrderBy(d => d.x).ToList();
             expenseDataPoints = expenseDataPoints.OrderBy(d => d.x).ToList();
 
+            incomeDataPoints = incomeDataPoints.Skip(Math.Max(0, incomeDataPoints.Count() - 10)).ToList();
+            expenseDataPoints = expenseDataPoints.Skip(Math.Max(0, expenseDataPoints.Count() - 10)).ToList();
+
+            var maxDate = incomeDataPoints.Max(d => d.x);
+            maxDate = maxDate > expenseDataPoints.Max(d => d.x) ? maxDate : expenseDataPoints.Max(d => d.x);
+
+            var minDate = incomeDataPoints.Min(d => d.x);
+            minDate = minDate < expenseDataPoints.Min(d => d.x) ? minDate : expenseDataPoints.Min(d => d.x);
+
+            string intervalType;
+            if ((maxDate - minDate).TotalDays < 30)
+                intervalType = "day";
+            else if ((maxDate - minDate).TotalDays < 365)
+                intervalType = "month";
+            else
+                intervalType = "year";
+
+
             var chartConfig = new
             {
                 theme = "light2",
                 animationEnabled = true,
-                title = new { text = "Transaction Summary" },
+                title = new { text = "Recent Transactions" },
                 axisX = new
                 {
+                    //title = "Date",
                     interval = 1,
-                    intervalType = "month",
-                    valueFormatString = "MMM"
+                    intervalType = intervalType,
+                    //valueFormatString = "MMM"
                 },
                 axisY = new
                 {
-                    title = "Amount (in USD)",
-                    includeZero = true,
-                    valueFormatString = "$#0"
+                    //title = "Amount",
+                    //includeZero = true,
+                    //valueFormatString = "$#0"
                 },
                 data = new[] {
                 new {
                     type = "line",
                     name = "Income",
                     markerSize = 12,
-                    xValueFormatString = "MMM, YYYY",
-                    yValueFormatString = "$###.#",
+                    //xValueFormatString = "MMM, YYYY",
+                    //yValueFormatString = "$###.#",
                     dataPoints = incomeDataPoints
                 },
                 new {
                     type = "line",
                     name = "Expense",
                     markerSize = 12,
-                    xValueFormatString = "MMM, YYYY",
-                    yValueFormatString = "$###.#",
+                    //xValueFormatString = "MMM, YYYY",
+                    //yValueFormatString = "$###.#",
                     dataPoints = expenseDataPoints
                 }
             }
@@ -223,7 +245,7 @@ namespace ThreeFriends.Controllers
             foreach (var transaction in transactions)
                 _context.Entry(transaction).Reference(t => t.Category).Load();
             //PrepareChartData();
-            CreatePieChartIncomeExpense();
+            ExpensesByCategory();
             CreateLineChartIncomeExpense();
             return View(transactions);
         }
