@@ -340,9 +340,13 @@ namespace ThreeFriends.Controllers
             ViewBag.TotalExpenseAmount = transactions.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount);
             ViewBag.TotalIncomeAmount = transactions.Where(t => t.TransactionType == "Income").Sum(t => t.Amount);
 
-            ViewBag.AverageAmount = transactions.Count > 0 ? transactions.Average(t => t.Amount) : 0;
-            ViewBag.MaxAmount = transactions.Count > 0 ? transactions.Max(t => t.Amount) : 0;
-            ViewBag.MinAmount = transactions.Count > 0 ? transactions.Min(t => t.Amount) : 0;
+            ViewBag.AverageAmount = Math.Round(transactions.Count > 0 ? transactions.Average(t => t.Amount) : 0, 2);
+            ViewBag.MaxAmount = Math.Round(transactions.Count > 0 ? transactions.Max(t => t.Amount) : 0, 2);
+            ViewBag.MinAmount = Math.Round(transactions.Count > 0 ? transactions.Min(t => t.Amount) : 0, 2);
+
+            // show only 2 decimal points
+
+
 
             return View(viewModel);
         }
