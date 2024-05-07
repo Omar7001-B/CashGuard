@@ -96,24 +96,63 @@ namespace ThreeFriends.Controllers
         public IActionResult saveNameSetting(User test)
         {
             var CurUser = GetCurrentSessionUser();
-
-            if (!IsValidName(test.First_Name))
+            
+            Regex r = new Regex(@"(^[a-zA-Z][a-zA-Z][a-zA-Z]*$)");
+            bool testfn = !string.IsNullOrEmpty(test.First_Name) && r.Match(test.First_Name).Success;
+            bool testln = !string.IsNullOrEmpty(test.Last_Name) && r.Match(test.Last_Name).Success;
+            if (string.IsNullOrWhiteSpace(test.First_Name) && string.IsNullOrWhiteSpace(test.Last_Name))
             {
-                ModelState.AddModelError("First_Name", "First name must contain only alphabetic characters.");
-                return View("nameSetting", test); 
+                ModelState.AddModelError("both_empty", "please fill either first name or last name");
+                return View("nameSetting", test);
             }
-
-            if (!IsValidName(test.Last_Name))
+            if (test.First_Name != null && string.IsNullOrWhiteSpace(test.Last_Name))
             {
-                ModelState.AddModelError("Last_Name", "Last name must contain only alphabetic characters.");
-                return View("nameSetting", test); 
+                if (testfn == true)
+                {
+                    CurUser.First_Name = test.First_Name;
+                    UpdateUser(CurUser);
+                    return RedirectToAction("AccountSettingPage");
+                }
+                else
+                {
+                    ModelState.AddModelError("correctFirstName", "First name should alphabets only and 2 or more characters");
+                    return View("nameSetting", test);
+                }
+
             }
+            if (test.Last_Name != null && string.IsNullOrWhiteSpace(test.First_Name))
+            {
+                if (testln == true)
+                {
 
-            CurUser.First_Name = test.First_Name;
-            CurUser.Last_Name = test.Last_Name;
-            UpdateUser(CurUser);
+                    CurUser.Last_Name = test.Last_Name;
+                    UpdateUser(CurUser);
+                    return RedirectToAction("AccountSettingPage");
+                }
+                else
+                {
+                    ModelState.AddModelError("correctLastName", "Last name should alphabets only and 2 or more characters");
+                    return View("nameSetting", test);
+                }
+            }
+            if (test.Last_Name != null && test.First_Name != null)
+            {
+                if ((testfn == true) && (testln == true))
+                {
+                    CurUser.Last_Name = test.Last_Name;
+                    CurUser.First_Name = test.First_Name;
+                    UpdateUser(CurUser);
+                    return RedirectToAction("AccountSettingPage");
+                }
+                else
+                {
+                    ModelState.AddModelError("correctBothName", "First and Last name should alphabets only and 2 or more characters");
+                    return View("nameSetting", test);
+                }
 
-            return RedirectToAction("AccountSettingPage");
+            }
+            else
+                return View("nameSetting", test);
         }
 
 
