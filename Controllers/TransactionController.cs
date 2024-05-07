@@ -120,19 +120,23 @@ namespace ThreeFriends.Controllers
             incomeDataPoints = incomeDataPoints.Skip(Math.Max(0, incomeDataPoints.Count() - 10)).ToList();
             expenseDataPoints = expenseDataPoints.Skip(Math.Max(0, expenseDataPoints.Count() - 10)).ToList();
 
-            var maxDate = incomeDataPoints.Max(d => d.x);
-            maxDate = maxDate > expenseDataPoints.Max(d => d.x) ? maxDate : expenseDataPoints.Max(d => d.x);
+            string intervalType = "year";
 
-            var minDate = incomeDataPoints.Min(d => d.x);
-            minDate = minDate < expenseDataPoints.Min(d => d.x) ? minDate : expenseDataPoints.Min(d => d.x);
+            if(incomeDataPoints.Count != 0 && expenseDataPoints.Count != 0)
+            {
+                var maxDate = incomeDataPoints.Max(d => d.x);
+                maxDate = maxDate > expenseDataPoints.Max(d => d.x) ? maxDate : expenseDataPoints.Max(d => d.x);
 
-            string intervalType;
-            if ((maxDate - minDate).TotalDays < 30)
-                intervalType = "day";
-            else if ((maxDate - minDate).TotalDays < 365)
-                intervalType = "month";
-            else
-                intervalType = "year";
+                var minDate = incomeDataPoints.Min(d => d.x);
+                minDate = minDate < expenseDataPoints.Min(d => d.x) ? minDate : expenseDataPoints.Min(d => d.x);
+
+                if ((maxDate - minDate).TotalDays < 30)
+                    intervalType = "day";
+                else if ((maxDate - minDate).TotalDays < 365)
+                    intervalType = "month";
+                else
+                    intervalType = "year";
+            }
 
 
             var chartConfig = new
