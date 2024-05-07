@@ -73,10 +73,6 @@ namespace ThreeFriends.Controllers
                     new
                     {
                         type = "doughnut",
-                        showInLegend = true,
-                        legendText = "{label}",
-                        indexLabel = "{label}: #percent%",
-                        indexLabelPlacement = "inside",
                         dataPoints = DataPoints
                     }
                 }
