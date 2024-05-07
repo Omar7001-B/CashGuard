@@ -18,10 +18,10 @@
             padding: 0;
         }
         .container {
-            /* max-width: 800px; */
+            width:900px ; 
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: white;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             max-height: 100vh;
@@ -34,6 +34,7 @@
         }
         form {
             margin-bottom: 20px;
+            width: 100px;
         }
         label {
             font-weight: bold;
@@ -102,37 +103,7 @@
 </head>
 <body>
 
-    <h1>Expense List</h1>
-    <div class="container">
-		 <table>
-            <thead>
-                <tr>
-                    <th>Category Image</th>
-                    <th>Category Name</th>
-                    <th>Title</th>
-                    <th>Transaction Type</th>
-                    <th>Info</th>
-                    <th>Amount</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Transaction item in ViewBag.Transactions)
-                {
-                    <tr>
-                        <td><img src="~/icons/@item.Category.Icon" alt="Category Icon" width="50" height="50"></td>
-                        <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TransactionType)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Info)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Amount)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-    </div>
+   
     <h1>Create Expense</h1>
     <div class="container">
         <div class="row">

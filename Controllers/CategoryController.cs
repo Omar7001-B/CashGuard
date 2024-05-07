@@ -17,8 +17,10 @@ namespace ThreeFriends.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            var categories = _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
-            return View(categories);
+            var cat = _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
+            ViewBag.IconList = GetIconList();
+            ViewBag.CurUserCategories = cat;
+            return View();
         }
 
         List<SelectListItem> GetIconList()
@@ -67,7 +69,9 @@ namespace ThreeFriends.Controllers
             }
 
             ViewBag.IconList = GetIconList();
-            return View(category);
+            var cat = _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
+            ViewBag.CurUserCategories = cat;
+            return View("Index",category);
         }
 
 
@@ -75,7 +79,7 @@ namespace ThreeFriends.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-             var category = _context.Categories.Include(c => c.Transactions).SingleOrDefault(c => c.Id == id);
+            var category = _context.Categories.Include(c => c.Transactions).SingleOrDefault(c => c.Id == id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -124,13 +128,13 @@ namespace ThreeFriends.Controllers
             return View(category);
         }
 
-		private ActionResult HttpNotFound()
-		{
-			throw new NotImplementedException();
-		}
+        private ActionResult HttpNotFound()
+        {
+            throw new NotImplementedException();
+        }
 
-		// GET: Category/Delete/5
-		public ActionResult Delete(int id)
+        // GET: Category/Delete/5
+        public ActionResult Delete(int id)
         {
             var category = _context.Categories.Find(id);
             if (category == null)
@@ -138,7 +142,11 @@ namespace ThreeFriends.Controllers
                 return HttpNotFound();
             }
 
-            return View(category);
+
+            LogToHistory("Category Deletion", $"Category '{category.Name}' deleted.");
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Category/Delete/5

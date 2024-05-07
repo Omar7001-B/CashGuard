@@ -109,3 +109,17 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var deleteLink = document.getElementById("delete-link");
+        deleteLink.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            var confirmed = window.confirm("Are you sure you want to delete this category?");
+            if (confirmed) {
+                // Submit the form
+                event.target.closest('form').submit();
+            }
+        });
+    });
+</script>

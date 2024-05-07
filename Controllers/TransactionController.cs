@@ -15,6 +15,8 @@ namespace ThreeFriends.Controllers
 
         public TransactionController(Appdbcontxt context) { _context = context; }
 
+
+        // get transactions based on type of transaction
         List<Transaction> GetUserTransactions(string type)
         {
             List<Transaction> transactions;
@@ -24,6 +26,20 @@ namespace ThreeFriends.Controllers
                 transactions = _context.Transactions .Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense") .ToList();
             else
                 transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id).ToList();
+
+            foreach (var transaction in transactions) _context.Entry(transaction).Reference(t => t.Category).Load();
+            return transactions;
+        }
+
+
+        // get all user transactions
+        List<Transaction> GetUserTransactions()
+        {
+            List<Transaction> transactions;
+            transactions = _context.Transactions
+                                 .Where(t => t.UserId == SharedValues.CurUser.Id)
+                                 .OrderByDescending(t => t.Timestamp)
+                                 .ToList();
 
             foreach (var transaction in transactions) _context.Entry(transaction).Reference(t => t.Category).Load();
             return transactions;
@@ -137,7 +153,68 @@ namespace ThreeFriends.Controllers
 
             ViewBag.ChartConfig2 = JsonConvert.SerializeObject(chartConfig);
         }
-        
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///Elaraby COdes OF MErge VIews
+
+        public IActionResult TransactionAddition()
+        {
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            ViewBag.Transactions = GetUserTransactions();
+            return View("TransactionAddition" , new Transaction());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult TransactionAddition(Transaction transactionToCreate)
+        {
+            transactionToCreate.UserId = SharedValues.CurUser.Id;
+
+            if (transactionToCreate.TransactionType == "Income")
+            {
+                if (ModelState.IsValid)
+                {
+                    // check if exist update 
+                    if (transactionToCreate.Id != 0)
+                    {
+                        _context.Transactions.Update(transactionToCreate);
+                        _context.SaveChanges();
+                        LogToHistory("Income Update", $"Income '{transactionToCreate.Title}' updated.");
+                        return RedirectToAction("TransactionAddition", "Transaction");
+                    }
+                    _context.Transactions.Add(transactionToCreate);
+                    _context.SaveChanges();
+                    LogToHistory("Income Addition", $"Income '{transactionToCreate.Title}' added.");
+                    return RedirectToAction("TransactionAddition", "Transaction");
+                }
+            }
+            else if (transactionToCreate.TransactionType == "Expense")
+            {
+                if (ModelState.IsValid)
+                {
+                    if (transactionToCreate.Id != 0)
+                    {
+                        _context.Transactions.Update(transactionToCreate);
+                        _context.SaveChanges();
+                        LogToHistory("Expense Update", $"Expense '{transactionToCreate.Title}' updated.");
+                        return RedirectToAction("TransactionAddition", "Transaction");
+                    }
+                    _context.Transactions.Add(transactionToCreate);
+                    _context.SaveChanges();
+                    LogToHistory("Expense Addition", $"Expense '{transactionToCreate.Title}' added.");
+                    return RedirectToAction("TransactionAddition", "Transaction");
+                }
+            }
+
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            ViewBag.Transactions = GetUserTransactions();
+            return View(transactionToCreate);
+
+        }
+
+        // end of ELAraby Codes
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         // GET: Transaction
         public IActionResult Index()
@@ -152,60 +229,6 @@ namespace ThreeFriends.Controllers
         }
         // GET: Transaction/Income
         [HttpGet]
-        public IActionResult Income()
-        {
-            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
-            ViewBag.Transactions = GetUserTransactions("Income");
-            return View();
-        }
-
-        // POST: Transaction/Income
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Income(Transaction transactionToCreate)
-        {
-            transactionToCreate.UserId = SharedValues.CurUser.Id;
-            if (ModelState.IsValid)
-            {
-                _context.Transactions.Add(transactionToCreate);
-                _context.SaveChanges();
-                LogToHistory("Income Addition", $"Income '{transactionToCreate.Title}' added.");
-                return RedirectToAction("Index", "Transaction");
-            }
-
-            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
-            ViewBag.Transactions = GetUserTransactions("Expense");
-            return View(transactionToCreate);
-        }
-
-        // GET: Transaction/Expense
-        [HttpGet]
-        public IActionResult Expense()
-        {
-            ViewBag.Transactions = GetUserTransactions("Expense");
-            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
-            return View();
-        }
-
-        // POST: Transaction/Expense
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Expense(Transaction transactionToCreate)
-        {
-            transactionToCreate.UserId = SharedValues.CurUser.Id;
-            if (ModelState.IsValid)
-            {
-                _context.Transactions.Add(transactionToCreate);
-                _context.SaveChanges();
-                LogToHistory("Expense Addition", $"Expense '{transactionToCreate.Title}' added.");
-                return RedirectToAction("Index", "Transaction");
-            }
-
-            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
-            ViewBag.Transactions = GetUserTransactions("Expense");
-            return View(transactionToCreate);
-        }
-
 
         // GET: Transaction/Create
         public IActionResult Create()
@@ -230,13 +253,15 @@ namespace ThreeFriends.Controllers
 
 
         // GET: Transaction/Edit/5
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-
             var transaction = _context.Transactions.Find(id);
             if (transaction == null) return NotFound();
-            ViewBag.Categories = GetUserCategories();
-            return View(transaction);
+            var forbag = GetUserCategories();
+            ViewBag.Categories = forbag.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.Transactions = GetUserTransactions();
+            return View("TransactionAddition",transaction);
         }
 
         // POST: Transaction/Edit/5
@@ -251,7 +276,8 @@ namespace ThreeFriends.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Categories = GetUserCategories();
-            return View(transaction);
+            ViewBag.Transactions = GetUserTransactions();
+            return View("TransactionAddition" ,transaction);
         }
 
         // GET: Transaction/Details/5
@@ -322,6 +348,60 @@ namespace ThreeFriends.Controllers
             _context.History.Add(historyItem);
             _context.SaveChanges();
         }
+        public IActionResult Income()
+        {
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            ViewBag.Transactions = GetUserTransactions("Income");
+            return View();
+        }
+
+        // POST: Transaction/Income
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Income(Transaction transactionToCreate)
+        {
+            transactionToCreate.UserId = SharedValues.CurUser.Id;
+            if (ModelState.IsValid)
+            {
+                _context.Transactions.Add(transactionToCreate);
+                _context.SaveChanges();
+                LogToHistory("Income Addition", $"Income '{transactionToCreate.Title}' added.");
+                return RedirectToAction("income", "Transaction");
+            }
+
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            ViewBag.Transactions = GetUserTransactions("Income");
+            return View(transactionToCreate);
+        }
+
+        // GET: Transaction/Expense
+        [HttpGet]
+        public IActionResult Expense()
+        {
+            ViewBag.Transactions = GetUserTransactions("Expense");
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            return View();
+        }
+
+        // POST: Transaction/Expense
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Expense(Transaction transactionToCreate)
+        {
+            transactionToCreate.UserId = SharedValues.CurUser.Id;
+            if (ModelState.IsValid)
+            {
+                _context.Transactions.Add(transactionToCreate);
+                _context.SaveChanges();
+                LogToHistory("Expense Addition", $"Expense '{transactionToCreate.Title}' added.");
+                return RedirectToAction("Index", "Transaction");
+            }
+
+            ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
+            ViewBag.Transactions = GetUserTransactions("Expense");
+            return View(transactionToCreate);
+        }
+
     }
 }
 

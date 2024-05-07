@@ -1,0 +1,132 @@
+﻿/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+
+
+
+.container header {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container .form {
+    margin-top:;
+}
+
+.form .input-box {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.input-box label {
+    color: #333;
+}
+
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 60px;
+    padding: 0 15px;
+}
+
+.input-box input:focus {
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.form .type-box {
+    margin-top: 20px;
+}
+
+.type-box h3 {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.form :where(.type-option, .type) {
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+    flex-wrap: wrap;
+}
+
+.form .type {
+    column-gap: 10px;
+}
+
+.type input {
+    accent-color: rgb(150, 146, 146);
+}
+
+.form :where(.type input, .type label) {
+    cursor: pointer;
+}
+
+.type label {
+    color: #707070;
+}
+
+.address :where(input, .select-box) {
+    margin-top: 15px;
+}
+
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #707070;
+    font-size: 1rem;
+}
+
+.form button {
+    height: 55px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 310px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgb(67, 65, 77);
+    border-radius: 60px;
+}
+
+    .form button:hover {
+        background: rgb(139, 139, 143);
+    }
+
+.text-danger {
+    color: #dc3545; /* Bootstrap's default danger color */
+}
+
+/*Responsive*/
+@media screen and (max-width: 500px) {
+    .container {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+}
