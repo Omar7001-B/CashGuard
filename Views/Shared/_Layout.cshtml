@@ -145,6 +145,7 @@
                 let sidebar = document.querySelector(".sidebar");
 
                 btn.onclick = function () {
+                    sidebar.style.zIndex = 1000 - sidebar.style.zIndex;
                     sidebar.classList.toggle("active");
                 }
             </script>
