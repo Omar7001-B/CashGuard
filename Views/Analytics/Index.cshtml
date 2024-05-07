@@ -4,6 +4,14 @@
     ViewBag.Title = "Transaction Filtration";
 }
 
+ @* 
+<link rel="stylesheet" href="~/css/FilterCategoryTable.css" />
+ *@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
    <script type="text/javascript">
@@ -126,9 +134,140 @@
     background-color: lightsalmon;
 }
 
-</style>
+.category-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
 
+.category-icon {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.progress {
+    height: 20px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    border-radius: 5px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+</style>
+  <div class="container">
+        <div class="row">
+            <!-- First Row -->
+            <div class="col">
+                <section>
+                    <!-- Content for the first section in the first row -->
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Second Row -->
+            <div class="col">
+                <section>
+                    <!-- Content for the first section in the second row -->
+                </section>
+            </div>
+            <div class="col">
+                <section>
+                    <!-- Content for the second section in the second row -->
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Third Row -->
+            <div class="col">
+                <section>
+                    <!-- Content for the first section in the third row -->
+                </section>
+            </div>
+            <div class="col">
+                <section>
+                    <!-- Content for the second section in the third row -->
+                </section>
+            </div>
+            <div class="col">
+                <section>
+                    <!-- Content for the third section in the third row -->
+                </section>
+            </div>
+        </div>
+        <!-- Repeat the pattern for the remaining rows -->
+    </div>
+
+
+<section class="container mt-4">
+    <h1>Analytics</h1>
+	<br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Transaction Counts</h5>
+                    <p class="card-text">@ViewBag.TransationCounts</p>
+                </div>
+            </div>
+        </div>G
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Expense Amount</h5>
+                    <p class="card-text">@ViewBag.TotalExpenseAmount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Income Amount</h5>
+                    <p class="card-text">@ViewBag.TotalIncomeAmount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Average Amount</h5>
+                    <p class="card-text">@ViewBag.AverageAmount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Max Amount</h5>
+                    <p class="card-text">@ViewBag.MaxAmount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Min Amount</h5>
+                    <p class="card-text">@ViewBag.MinAmount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="container mt-4">
 <h2>Transaction Filtration</h2>
+
+<br />
 
 @using (Html.BeginForm("Index", "Analytics", FormMethod.Post, new { id = "filterForm" }))
 {
@@ -185,29 +324,23 @@
         <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Analytics")'">Reset Filters</button>
     </div>
 }
+</section>
 
-<div class="charts-grid">
-    <div class="chart-container">
-        <div id="incomePieChartPreivew"></div>
-    </div>
+	<div class="charts-grid">
+		<div class="chart-container">
+			<div id="barChartPreview"></div>
+		</div>
 
-    <div class="chart-container">
-        <div id="expensePieChartPreivew"></div>
-    </div>
+		<div class="chart-container">
+			<div id="lineChartPreview"></div>
+		</div>
+	</div>
 
-    <div class="chart-container">
-        <div id="barChartPreview"></div>
-    </div>
-
-    <div class="chart-container">
-        <div id="lineChartPreview"></div>
-    </div>
-</div>
-
+<section class="container mt-4">
 @if (Model.Transactions != null && Model.Transactions.Any())
 {
-    <h3>Filtered Transactions</h3>
     <div class="table-responsive">
+		<h3>Filtered Transactions</h3>
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -242,5 +375,159 @@
 else
 {
     <p>No transactions match the selected filters.</p>
+}
+</section>
+
+
+<section class="page-content page-container mt-4">
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Income Categories</h4>
+                        <p class="card-description">
+                            Analysis of income categories
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Progress</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.IncomeCategoriesPercentage != null)
+                                    {
+                                        foreach (var category in ViewBag.IncomeCategoriesPercentage)
+                                        {
+                                            <tr>
+                                                <td class="py-1">
+                                                    <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
+                                                    @category.Title
+                                                </td>
+                                                <td>@category.Amount</td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Expense Categories</h4>
+                        <p class="card-description">
+                            Analysis of expense categories
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Percentage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.ExpenseCategoriesPercentage != null)
+                                    {
+                                        foreach (var category in ViewBag.ExpenseCategoriesPercentage)
+                                        {
+                                            <tr>
+                                                <td class="py-1">
+                                                    <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
+                                                    @category.Title
+                                                </td>
+                                                <td>@category.Amount</td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+	<div class="charts-grid">
+		<div class="chart-container">
+			<div id="incomePieChartPreivew"></div>
+		</div>
+
+		<div class="chart-container">
+			<div id="expensePieChartPreivew"></div>
+		</div>
+	</div>
+
+
+@{
+    /*
+     * 
+    if (ViewBag.IncomeCategoriesPercentage != null)
+    {
+        <h2>Income Categories</h2>
+        <div class="row">
+            @foreach (var category in @ViewBag.IncomeCategoriesPercentage)
+            {
+                <div class="col-md-4">
+                    <div class="category-item">
+                        <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
+                        <h3>@category.Title</h3>
+                        <p>Amount: @category.Amount</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100">
+                                <span class="sr-only">@category.Percentage%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    if (ViewBag.ExpenseCategoriesPercentage != null)
+    {
+        <h2>Expense Categories</h2>
+        <div class="row">
+            @foreach (var category in @ViewBag.ExpenseCategoriesPercentage)
+            {
+                <div class="col-md-4">
+                    <div class="category-item">
+                        <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
+                        <h3>@category.Title</h3>
+                        <p>Amount: @category.Amount</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100">
+                                <span class="sr-only">@category.Percentage%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+     */
 }
 
