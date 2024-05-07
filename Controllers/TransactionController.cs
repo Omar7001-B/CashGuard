@@ -51,40 +51,43 @@ namespace ThreeFriends.Controllers
             return categories;
 
 
+
         }
+
+        public static object CreateTransactionPierChart(List<Transaction> transactions, string type)
+        {
+            var DataPoints = transactions.Where(t => t.TransactionType == type).GroupBy(t => t.CategoryId).Select(group => new
+            {
+                y = group.Sum(t => t.Amount),
+                label = group.First().Category?.Name
+            }).ToList();
+
+            return new
+            {
+                title = new
+                {
+                    text = type + " Summary"
+                },
+                data = new[]
+                {
+                    new
+                    {
+                        type = "doughnut",
+                        showInLegend = true,
+                        legendText = "{label}",
+                        indexLabel = "{label}: #percent%",
+                        indexLabelPlacement = "inside",
+                        dataPoints = DataPoints
+                    }
+                }
+
+            };
+        }
+
 
         public void ExpensesByCategory()
         {
-            double expensesTotal = 0;
-            foreach(var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense").ToList())
-                expensesTotal += (double)transaction.Amount;
-            double incomeTotal = 0;
-            foreach (var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income").ToList())
-                incomeTotal += (double)transaction.Amount;
-
-            var dataPoints = new List<object>();
-            foreach (var category in _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList())
-            {
-                double categoryTotal = 0;
-                foreach (var transaction in _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense" && t.CategoryId == category.Id))
-                    categoryTotal += (double)transaction.Amount;
-                dataPoints.Add(new { y = categoryTotal, indexLabel = category.Name });
-            }
-
-            var chartConfig = new
-            {
-                title = new { text = "Expenses by Category" },
-                legend = new { maxWidth = 350, itemWidth = 120 },
-                data = new[] {
-                new {
-                    type = "doughnut",
-                    showInLegend = true,
-                    legendText = "{indexLabel}",
-                    dataPoints = dataPoints
-                }
-            }
-            };
-
+            var chartConfig = CreateTransactionPierChart(GetUserTransactions(), "Expense");
             ViewBag.ChartConfig = JsonConvert.SerializeObject(chartConfig);
         }
 
