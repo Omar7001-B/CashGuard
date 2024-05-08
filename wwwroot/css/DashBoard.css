@@ -177,27 +177,24 @@
     animation: bobUp 0.9s ease;
 }
 
-/* === Table Css codes === */
 
-main#customers_table {
-    width: 55vw;
-}
 
 
 main.table {
+    width: 87vw;
+    height: 90vh;
     background-color: rgba(79, 82, 117, 0.333);
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem rgba(112, 24, 24, 0.333);
     border-radius: .8rem;
     overflow: hidden;
-    margin-left: 0px;
-    z-index:99999999 ;
-    
+    margin-left: 5px;
+    margin-top: 30px;
+    justify-content: space-between;
 }
 
-
-
 .table__header {
+    width: 100%;
     height: 10%;
     background-color: #fff4;
     padding: .8rem 1rem;
@@ -244,8 +241,7 @@ main.table {
     margin: .8rem auto;
     border-radius: .6rem;
     overflow: auto;
-    justify-content: space-between ;
-    
+    justify-content: space-between;
 }
 
 
@@ -287,9 +283,11 @@ thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #d5d1defe;
+    background-color: #d5d1de;
     cursor: pointer;
     text-transform: capitalize;
+    z-index:99999999;
+
 }
 
 tbody tr:nth-child(even) {
@@ -302,7 +300,7 @@ tbody tr {
 }
 
     tbody tr.hide {
-        opacity: 0;
+        opacity: 1;
         transform: translateX(100%);
     }
 
@@ -359,6 +357,11 @@ tbody tr {
     }
 
 
+@media (max-width: 1000px) {
+    td:not(:first-of-type) {
+        min-width: 12.1rem;
+    }
+}
 
 thead th span.icon-arrow {
     display: inline-block;
@@ -462,4 +465,3 @@ thead th.active, tbody td.active {
         width: 2rem;
         height: auto;
     }
-
