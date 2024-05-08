@@ -270,6 +270,7 @@ thead th {
     background-color: #d5d1defe;
     cursor: pointer;
     text-transform: capitalize;
+    z-index: 99999999;
 }
 
 tbody tr:nth-child(even) {
