@@ -74,6 +74,7 @@ namespace ThreeFriends.Controllers
                     new
                     {
                         type = "doughnut",
+                        showInLegend = false,
                         dataPoints = DataPoints
                     }
                 }
@@ -162,6 +163,10 @@ namespace ThreeFriends.Controllers
                     type = "line",
                     name = "Income",
                     markerSize = 12,
+                    legendText = "Income",
+                    showInLegend = true,
+                    lineColor = "green",
+                    color = "green",
                     //xValueFormatString = "MMM, YYYY",
                     //yValueFormatString = "$###.#",
                     dataPoints = incomeDataPoints
@@ -170,6 +175,10 @@ namespace ThreeFriends.Controllers
                     type = "line",
                     name = "Expense",
                     markerSize = 12,
+                    legendText = "Expense",
+                    showInLegend = true,
+                    lineColor = "red",
+                    color = "red",
                     //xValueFormatString = "MMM, YYYY",
                     //yValueFormatString = "$###.#",
                     dataPoints = expenseDataPoints
