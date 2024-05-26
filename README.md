@@ -1,4 +1,17 @@
 # Coin Guard 🛡️💰
+![image](https://github.com/Omar7001-B/CoinGuard/assets/115028809/b0fc971c-fab9-4070-9de7-4f62756da822)
+
+
+## Table of Contents
+- [Purpose](#purpose)
+- [Project Description](#project-description)
+- [Key Features](#key-features)
+- [Structure](#structure)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [Installation Instructions](#installation-instructions)
+- [Usage Instructions](#usage-instructions)
+- [Contribution](#contribution)
 
 ## Purpose
 The primary goal of Coin Guard is to track your income and expenses.
@@ -93,3 +106,4 @@ To install and set up Coin Guard, follow these steps:
 
 ## Contribution 🤝
 We welcome contributions from the community. Please fork the repository and submit pull requests for any improvements or bug fixes.
+
