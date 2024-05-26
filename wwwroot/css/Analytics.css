@@ -4,6 +4,7 @@
 
 .form-group {
     margin-bottom: 15px;
+
     
 }
 
@@ -74,6 +75,8 @@
 
 #form-barChartPreview {
     background-color: lightcoral;
+    border-radius : 20px ;
+    
 }
 
 #form-lineChartPreview {
