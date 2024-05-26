@@ -60,7 +60,6 @@
             border-radius: 30px;
             transition: all 0.3s;
             overflow: hidden;
- 
         }
 
         .cards-container.expanded {
@@ -123,7 +122,6 @@
         button {
             outline: 0;
             border: 0;
-         
             border: 1px solid #d9d9d9;
             padding: 8px 0px;
             margin-bottom: 10px;
@@ -169,7 +167,7 @@
                             @item.Info
                         </p>
                         <input type="hidden" name="Id" value="@item.Id" />
-                        <button type="submit">Edit</button>
+                        <button type="submit" onclick="ChangeColor()">Edit</button>
                         <button type="submit">Delete</button>
                         <button type="submit">Details</button>
                     </div>
@@ -233,7 +231,7 @@
 
             @if (Model.Id == 0)
             {
-                <button type="submit">Add Transaction</button>
+                <button type="submit" onclick="defColor()">Add Transaction</button>
             }
             else
             {
@@ -245,6 +243,27 @@
 
     <script>
         document.body.style.overflow = 'hidden';
+        function ChangeColor() {
+            var container = document.getElementsByClassName("cardss-container")[0];
+            container.style.backgroundColor = "#fff";
+        }
+        function defColor() {
+            var container = document.getElementsByClassName("cardss-container")[0];
+            container.style.backgroundColor = "#d5d5d5";
+        }
     </script>
+    @if (Model.Title != null)
+    {
+        <script>
+            ChangeColor();
+            setTimeout(defColor, 2000);
+        </script>
+    }
+    else
+    {
+        <script>
+            defColor();
+        </script>
+    }
 </body>
 </html>
