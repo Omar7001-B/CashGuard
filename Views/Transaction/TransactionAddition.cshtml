@@ -167,8 +167,8 @@
                             @item.Info
                         </p>
                         <input type="hidden" name="Id" value="@item.Id" />
+                        <button type="button" onclick="submitFormWithAction(this.form, '/Transaction/Delete')">Delete</button>
                         <button type="submit" onclick="ChangeColor()">Edit</button>
-                        <button type="submit">Delete</button>
                         <button type="submit">Details</button>
                     </div>
                 </div>
@@ -242,6 +242,12 @@
     </section>
 
     <script>
+	    function submitFormWithAction(form, action) {
+           if (confirm("Are you sure you want to remove the transaction?")) {
+                form.action = action;
+                form.submit();
+            } 
+        }
         document.body.style.overflow = 'hidden';
         function ChangeColor() {
             var container = document.getElementsByClassName("cardss-container")[0];
