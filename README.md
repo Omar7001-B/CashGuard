@@ -23,6 +23,33 @@ The application provides a summary of all expenses and income, displays the late
 - **Password Encryption:** Ensures security by encrypting passwords in the database.
 - **Delete Options:** Users can delete any category or transaction.
 
+##  Structure
+
+```
+└── CoinGuard/
+    ├── Controllers/
+    │   ├── HomeController.cs
+    │   ├── AnalyticsController.cs
+    │   ├── CategoryController.cs
+    │   └── TransactionController.cs
+    │   ├── AccountSettingsController.cs
+    │   ├── GeneralSettingsController.cs
+    │   ├── LoginController.cs
+    ├── Models/
+    │   ├── Category.cs
+    │   ├── Transaction.cs
+    │   ├── GeneralSettings.cs
+    │   ├── HistoryItem.cs
+    │   └── User.cs
+    └── Views/
+        ├── Home/
+        ├── Category/
+        ├── GeneralSettings/
+        ├── AccountSettings/
+        ├── Analytics/
+        └── Login/
+```
+
 ## Usage 🚀
 Coin Guard can be accessed easily through the following link: [Coin Guard GitHub Repository](https://github.com/Omar7001-B/CoinGuard)
 
