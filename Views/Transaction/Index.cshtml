@@ -101,66 +101,61 @@
                     <span class="text">Recent Activity</span>
                 </div>
             </div>
-        </div>
+            <main class="table" id="customers_table">
+                <section class="table__header">
+                    <h1>Recent Actions</h1>
 
-        <main class="table" id="customers_table">
-            <section class="table__header">
-                <h1>Recent Actions</h1>
-
-                <div class="export__file">
-                    <label for="export-file" class="export__file-btn" title="Export File"></label>
-                    <input type="checkbox" id="export-file">
-                </div>
-            </section>
-            <section class="table__body">
-                <table>
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable(0)">Id <span class="icon-arrow">&#9650;</span></th>
-                            <th onclick="sortTable(1)">Category <span class="icon-arrow">&#9650;</span></th>
-                            <th onclick="sortTable(2)">Name <span class="icon-arrow">&#9650;</span></th>
-                            <th onclick="sortTable(3)">Action Date <span class="icon-arrow">&#9650;</span></th>
-                            <th onclick="sortTable(4)" style="text-align:center">Type <span class="icon-arrow">&#9650;</span></th>
-                            <th onclick="sortTable(5)">Amount <span class="icon-arrow">&#9650;</span></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <!-- For Each Here Class De-->
-                        @foreach (var item in Model.Where(t => t.TransactionType == "Income" || t.TransactionType == "Expense"))
-                        {
+                    <div class="export__file">
+                        <label for="export-file" class="export__file-btn" title="Export File"></label>
+                        <input type="checkbox" id="export-file">
+                    </div>
+                </section>
+                <section class="table__body">
+                    <table>
+                        <thead>
                             <tr>
-                                <td> @item.Id </td>
-                                <td> <img src="~/icons/@item.Category.Icon" alt="">@item.Category.Name</td>
-                                <td> @item.Title </td>
-                                <td> @item.Timestamp </td>
-                                <td>
+                                <th onclick="sortTable(0)">Id <span class="icon-arrow">&#9650;</span></th>
+                                <th onclick="sortTable(1)">Category <span class="icon-arrow">&#9650;</span></th>
+                                <th onclick="sortTable(2)">Name <span class="icon-arrow">&#9650;</span></th>
+                                <th onclick="sortTable(3)">Action Date <span class="icon-arrow">&#9650;</span></th>
+                                <th onclick="sortTable(4)" style="text-align:center">Type <span class="icon-arrow">&#9650;</span></th>
+                                <th onclick="sortTable(5)">Amount <span class="icon-arrow">&#9650;</span></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- For Each Here Class De-->
+                            @foreach (var item in Model.Where(t => t.TransactionType == "Income" || t.TransactionType == "Expense"))
+                            {
+                                <tr>
+                                    <td> @item.Id </td>
+                                    <td> <img src="~/icons/@item.Category.Icon" alt="">@item.Category.Name</td>
+                                    <td> @item.Title </td>
+                                    <td> @item.Timestamp </td>
                                     @if (item.TransactionType == "Income")
                                     {
-                                        <p class="status delivered">Income</p>
-                                    <td>
-                                        <strong class="inAmount"> $@item.Amount </strong>
-                                    </td>
+                                        <td> <p class="status delivered">Income</p> </td>
+                                        <td>
+                                            <strong class="inAmount"> $@item.Amount </strong>
+                                        </td>
                                     }
                                     else
                                     {
-                                    <p class="status cancelled">Expense</p>
-                                    <td>
-                                        <strong class="exAmount"> $@item.Amount </strong>
-                                    </td>
+                                        <td> <p class="status cancelled">Expense</p></td>
+                                        <td>
+                                            <strong class="exAmount"> $@item.Amount </strong>
+                                        </td>
                                     }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </section>
-        </main>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            </main>
+        </div>
+
     </section>
     <script src="/js/DashBoard.js"></script>
-    <script>
-        var table = document.getElementById("customers_table");
-        table.style.width = "87vw";
-    </script>
 </body>
 </html>
