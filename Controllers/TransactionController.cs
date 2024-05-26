@@ -325,19 +325,11 @@ namespace ThreeFriends.Controllers
             {
                 return NotFound();
             }
-            return View(transaction);
-        }
-
-        // POST: Transaction/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var transaction = _context.Transactions.Find(id);
             _context.Transactions.Remove(transaction);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("TransactionAddition", "Transaction");
         }
+
         public IActionResult Generator(int id)
         {
             var categories = _context.Categories.ToList();
