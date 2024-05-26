@@ -23,6 +23,7 @@ namespace ThreeFriends.Controllers
             return View();
         }
 
+
         List<SelectListItem> GetIconList()
         {
             // Define the icons folder path
@@ -60,6 +61,28 @@ namespace ThreeFriends.Controllers
 
             return Json(iconList);
         }
+
+
+        /*
+        public ActionResult GetIcons(int page = 1, int pageSize = 20)
+        {
+            string iconsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "icons");
+            string[] iconFiles = Directory.GetFiles(iconsFolderPath);
+
+            // Perform pagination
+            var paginatedIcons = iconFiles.Skip((page - 1) * pageSize).Take(pageSize);
+
+            List<SelectListItem> iconList = new List<SelectListItem>();
+            foreach (var iconFile in paginatedIcons)
+            {
+                string iconName = Path.GetFileName(iconFile);
+                string newName = Path.GetFileNameWithoutExtension(string.Join(" ", iconName.Split('-').Select(s => s[0].ToString().ToUpper() + s.Substring(1))));
+                iconList.Add(new SelectListItem { Text = newName, Value = iconName });
+            }
+
+            return Json(iconList);
+        }
+        */
 
         // GET: Category/Create
         public ActionResult Create()
