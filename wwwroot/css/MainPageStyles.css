@@ -1,171 +1,187 @@
-﻿
-*{
+﻿/* =========== Google Fonts ============ */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+/* =============== Globals ============== */
+* {
+    font-family: "Ubuntu", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.user-img{
-    width: 60px;
-    height: 60px;
-    border-radius: 100% ; 
-    border: 1px solid #eee;
 }
 
-.sidebar {
-    background: -webkit-linear-gradient(to right, #6f5c5c, #244619);
-    background: linear-gradient(to right, #4e4747, #363657);
-    background-repeat: no-repeat;
+:root {
+    --blue: #2a2185;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+/* =============== Navigation ================ */
+.navigation {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 80px;
-    padding: 0.4rem 0.8rem;
-    transition: all 0.5s ease;
+    width: 250px;
+    height: 100%;
+    background: #4e4b62;
+    border-left: 10px solid #464551;
+    transition: 0.5s;
+    overflow: hidden;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
-.sidebar.active ~ .main-content{
-    left : 250px ; 
-    width: calc(100% - 250px) ; 
-    position:fixed ;
-}
-
-    .sidebar.active {
-        width: 250px;
-        position: fixed;
-        z-index: 99999;
+    .navigation.active {
+        width: 80px;
     }
 
-.sidebar #btn{
-    position:absolute ; 
-    color: #fff ;
-    top : .4rem ; 
-    left: 50% ; 
-    font-size:1.2rem ; 
-    line-height: 50px ;
-    transform: translateX(-50%) ;
-    cursor: pointer ;
+    .navigation ul {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+        .navigation ul li {
+            position: relative;
+            width: 100%;
+            list-style: none;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+
+            .navigation ul li:hover,
+            .navigation ul li.hovered {
+                background-color: var(--white);
+            }
+
+            .navigation ul li:nth-child(1) {
+                margin-bottom: 40px;
+                pointer-events: none;
+            }
+
+            .navigation ul li a {
+                position: relative;
+                display: block;
+                width: 100%;
+                display: flex;
+                text-decoration: none;
+                color: var(--white);
+            }
+
+            .navigation ul li:hover a,
+            .navigation ul li.hovered a {
+                color: var(--blue);
+            }
+
+            .navigation ul li a .icon {
+                position: relative;
+                display: block;
+                min-width: 60px;
+                height: 60px;
+                line-height: 75px;
+                text-align: center;
+            }
+
+                .navigation ul li a .icon ion-icon {
+                    font-size: 1.75rem;
+                }
+
+            .navigation ul li a .title {
+                position: relative;
+                display: block;
+                padding: 0 10px;
+                height: 60px;
+                line-height: 60px;
+                text-align: start;
+                white-space: nowrap;
+            }
+
+            /* --------- curve outside ---------- */
+            .navigation ul li:hover a::before,
+            .navigation ul li.hovered a::before {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: -50px;
+                width: 50px;
+                height: 50px;
+                background-color: transparent;
+                border-radius: 50%;
+                box-shadow: 35px 35px 0 10px var(--white);
+                pointer-events: none;
+            }
+
+            .navigation ul li:hover a::after,
+            .navigation ul li.hovered a::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                bottom: -50px;
+                width: 50px;
+                height: 50px;
+                background-color: transparent;
+                border-radius: 50%;
+                box-shadow: 35px -35px 0 10px var(--white);
+                pointer-events: none;
+            }
+
+/* ===================== Main ===================== */
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 250px;
+    min-height: 100vh;
+    background: var(--white);
+    transition: 0.5s;
 }
 
-.sidebar.active #btn{
-    left: 90% ; 
+    .main.active {
+        width: calc(100% - 80px);
+        left: 80px;
+    }
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    left:-100px;
 }
 
-.sidebar .top .logo{
-    color: #fff ; 
-    display: flex ;
-    height: 50px ;
-    width: 100% ;
-    align-items : center ; 
-    pointer-events: none ;
-    opacity: 0;
+.toggle {
+    font-size: 2.5rem;
+    cursor: pointer;
+    margin-left: -10px;
 }
 
-.sidebar.active .top .logo{
-    opacity: 1;
+.user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.top .logo i{
-    font-size: 2rem ; 
-    margin-right: 5px ; 
-}
+    .user img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-.user{
-    display: flex ; 
-    align-items: center ;
-    margin : 1rem 0 ; 
-}
-.user p {
-    color : #fff ; 
-    opacity:1 ; 
-    margin-left: 1rem ;
-}
-
-.bold{
-    font-weight : 600 ; 
-}
-
-.sidebar p{
-    opacity: 0 ; 
-}
-
-.sidebar.active p{
-    opacity: 1 ; 
-}
-
-.sidebar ul li{
-    position: relative ;
-    list-style-type : none ;
-    height: 50px ;
-    width: 90% ;
-    margin: 0.8rem auto ;
-    line-height: 1px ;
-}
-
-.sidebar ul li a{
-    color: #fff ; 
-    display: flex ; 
-    align-items: center ; 
-    text-decoration: none ;
-    border-radius: 0.8rem ; 
-    transition: all 0.3s ease ; 
-}
-
-.sidebar ul li a:hover{
-    background-color: #fff ;
-    color: #12171e ;
-}
-
-.sidebar ul li a i{
-    min-width: 50px ;
-    text-align: center ;
-    height: 50px ;
-    border-radius : 12px ; 
-    line-height: 50px ;
-}
-
-.sidebar .nav-item{
-    opacity: 0 ; 
-}
-
-.sidebar.active .nav-item{
-    opacity: 1 ; 
-}
-
-.sidebar ul li .tooltip{
-    position: absolute ;
-    left: 60px ; 
-    top : 10% ;
-    transform: translate(-50%-50%) ; 
-    box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2) ; 
-    border-radius: .6rem ;
-    padding: .4rem 1.2rem ; 
-    line-height: 1.8rem ; 
-    z-index:20 ; 
-    opacity:0 ; 
-}
-
-.sidebar ul li:hover .tooltip{
-    opacity: 1 ; 
-}
-
-.sidebar.active ul li .tooltip{
-    display: none ; 
-}
-
-.main-content{
-    position: relative ; 
-    background-color: #eee ; 
-    min-height : 100vh ;
-    top: 0 ; 
-    left: 80px ; 
-    transition: all 0.5s ease ; 
-    width: calc(100% - 80px) ; 
-    padding:1rem ; 
-}
-
-.container{
-    display: flex ;
-    justify-content: space-between ; 
-}
+/* ======================= Cards ====================== *
