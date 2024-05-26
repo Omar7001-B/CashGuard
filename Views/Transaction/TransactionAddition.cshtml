@@ -279,12 +279,6 @@
         }
 
         window.onload = function() {
-            if ('@Model.Title' !== '') {
-                ChangeColor();
-                setTimeout(defColor, 2000);
-            } else {
-                defColor();
-            }
 
             const inputs = [
                 { id: 'TitleInput', text: '@Model.Title', originalType: 'text' },
@@ -297,7 +291,13 @@
             const maxTextLength = Math.max(...inputs.map(input => input.text.length));
             const delay = totalDuration / maxTextLength;
 
-            inputs.forEach(input => typeText(input.id, input.text, delay, input.originalType));
+            if ('@Model.Title' !== '') {
+                ChangeColor();
+                setTimeout(defColor, 2000);
+				inputs.forEach(input => typeText(input.id, input.text, delay, input.originalType));
+            } else {
+                defColor();
+            }
         }
     </script>
 </body>
