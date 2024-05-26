@@ -1,22 +1,21 @@
-# Coin Guard 🛡️💰
-![image](https://github.com/Omar7001-B/CoinGuard/assets/115028809/b0fc971c-fab9-4070-9de7-4f62756da822)
-
+# Coin Guard 🛡️💰👛
+[![Coin Guard](https://github.com/Omar7001-B/CoinGuard/assets/115028809/b0fc971c-fab9-4070-9de7-4f62756da822)](https://github.com/Omar7001-B/CoinGuard) 
 
 ## Table of Contents
-- [Purpose](#purpose)
-- [Project Description](#project-description)
-- [Key Features](#key-features)
-- [Structure](#structure)
-- [Usage](#usage)
-- [Dependencies](#dependencies)
-- [Installation Instructions](#installation-instructions)
-- [Usage Instructions](#usage-instructions)
-- [Contribution](#contribution)
+- [Purpose](#purpose) 🎯
+- [Project Description](#project-description) 📝
+- [Key Features](#key-features) ✨
+- [Structure](#structure) 🏗️
+- [Usage](#usage) 🚀
+- [Dependencies](#dependencies) 🛠️
+- [Installation Instructions](#installation-instructions) ⚙️
+- [Usage Instructions](#usage-instructions) 📖
+- [Contribution](#contribution) 🤝
 
-## Purpose
+## Purpose 🎯
 The primary goal of Coin Guard is to track your income and expenses.
 
-## Project Description
+## Project Description 📝
 Coin Guard is a web application developed using ASP.NET MVC C#. With Coin Guard, users can:
 
 - **Register:** Create an account by entering their details and uploading a profile picture.
@@ -36,7 +35,7 @@ The application provides a summary of all expenses and income, displays the late
 - **Password Encryption:** Ensures security by encrypting passwords in the database.
 - **Delete Options:** Users can delete any category or transaction.
 
-##  Structure
+##  Structure 🏗️
 
 ```
 └── CoinGuard/
@@ -106,4 +105,3 @@ To install and set up Coin Guard, follow these steps:
 
 ## Contribution 🤝
 We welcome contributions from the community. Please fork the repository and submit pull requests for any improvements or bug fixes.
-
