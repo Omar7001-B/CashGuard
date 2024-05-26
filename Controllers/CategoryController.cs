@@ -206,27 +206,35 @@ namespace ThreeFriends.Controllers
             var descriptionList = new List<string> { "Food Category", "Transport Category", "Entertainment Category", "Health Category", "Education Category", "Clothing Category", "Gifts Category", "Online Games Category", "Rent Category", "Utilities Category", "Insurance Category", "Phone Category", "Internet Category", "Cable Category", "Gym Category", "Subscriptions Category", "Books Category", "Movies Category", "Music Category", "Software Category", "Hardware Category", "Medicine Category", "Doctor Category", "Dentist Category", "Optician Category", "Therapist Category", "Tuition Category", "Books Category", "Stationery Category", "Uniform Category", "Shoes Category", "Toys Category", "Decorations Category", "Cards Category", "Flowers Category", "Games Category", "Skins Category", "DLC Category", "Lootboxes Category" };
             var iconList = GetIconList(); // Assuming this method is correctly implemented and returns a list of icons
 
-            int step = new Random().Next(1, 10); // Instantiate Random object
+            var random = new Random();
 
-            for (int i = 0; i < id; i += step)
+            var usedIndexes = new HashSet<int>(); // Track used indexes to prevent repeats
+
+            while (usedIndexes.Count < id)
             {
-                int index = new Random().Next(0, namesList.Count);
-                while(_context.Categories.Any(c => c.Name == namesList[index]))
-                    index = new Random().Next(0, namesList.Count);
+                int index = random.Next(0, namesList.Count);
+
+                // If the index is already used, find another index
+                if (usedIndexes.Contains(index))
+                    continue;
+
                 var category = new Category
                 {
                     Name = namesList[index],
                     Description = descriptionList[index],
-                    Icon = iconList[new Random().Next(0, iconList.Count)].Value,
+                    Icon = iconList[random.Next(0, iconList.Count)].Value,
                     UserId = SharedValues.CurUser.Id
                 };
 
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+
+                usedIndexes.Add(index);
             }
 
             return RedirectToAction("Index", "Transaction");
         }
+
 
 
     }
