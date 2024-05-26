@@ -254,6 +254,7 @@ namespace ThreeFriends.Controllers
         // GET: Transaction/Filtration
         public ActionResult Index()
         {
+            SharedValues.setHover("Analytics");
             var viewModel = new TransactionFilterViewModel
             {
                 Categories = _context.Categories.ToList(),

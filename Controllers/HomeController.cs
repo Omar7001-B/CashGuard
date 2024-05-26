@@ -45,6 +45,7 @@ namespace ThreeFriends.Controllers
 
         public ActionResult History()
         {
+            SharedValues.setHover("History");
             var historyItems = entity.History.Where(h => h.UserId == SharedValues.CurUser.Id).ToList();
             historyItems.Reverse(); // Reverse the list to show the latest history items first
             return View(historyItems);

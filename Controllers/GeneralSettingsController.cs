@@ -10,6 +10,7 @@ namespace ThreeFriends.Controllers
 
         public IActionResult Index()
         {
+            SharedValues.setHover("Settings");
             return View();
         }
         public IActionResult SetDateRange(DateTime DataRangeFrom, DateTime DateRangeTo)

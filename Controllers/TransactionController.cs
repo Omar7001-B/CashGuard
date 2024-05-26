@@ -185,6 +185,7 @@ namespace ThreeFriends.Controllers
 
         public IActionResult TransactionAddition()
         {
+            SharedValues.setHover("Tranaction");
             ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             ViewBag.Transactions = GetUserTransactions();
             return View("TransactionAddition" , new Transaction());
@@ -195,7 +196,6 @@ namespace ThreeFriends.Controllers
         public IActionResult TransactionAddition(Transaction transactionToCreate)
         {
             transactionToCreate.UserId = SharedValues.CurUser.Id;
-
             if (transactionToCreate.TransactionType == "Income")
             {
                 if (ModelState.IsValid)
@@ -251,6 +251,7 @@ namespace ThreeFriends.Controllers
             //PrepareChartData();
             ExpensesByCategory();
             CreateLineChartIncomeExpense();
+            SharedValues.setHover("Dashboard");
             return View(transactions);
         }
         // GET: Transaction/Income
