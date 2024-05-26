@@ -220,7 +220,7 @@ namespace ThreeFriends.Controllers
             var filteredTransactions = transactions.Where(t => t.TransactionType == type).ToList();
 
             // Calculate total amount for the given transaction type
-            var totalAmount = filteredTransactions.Sum(t => t.Amount);
+            var totalAmount = Math.Round(filteredTransactions.Sum(t => t.Amount), 2);
 
             // Group transactions by CategoryId and calculate percentage
             var categories = filteredTransactions
@@ -229,8 +229,8 @@ namespace ThreeFriends.Controllers
                 {
                     IconUrl = $"/icons/{ group.First().Category.Icon }",
                     Title = group.First().Category.Name,
-                    Amount = group.Sum(t => t.Amount),
-                    Percentage = (group.Sum(t => t.Amount) / totalAmount) * 100 // Calculate percentage
+                    Amount = Math.Round(group.Sum(t => t.Amount), 2),
+                    Percentage = Math.Round((group.Sum(t => t.Amount) / totalAmount) * 100, 2) // Calculate percentage
                 }).ToList();
 
             // Convert anonymous type to object
@@ -280,12 +280,12 @@ namespace ThreeFriends.Controllers
 
 
             ViewBag.TransationCounts = transactions.Count;
-            ViewBag.TotalExpenseAmount = transactions.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount);
-            ViewBag.TotalIncomeAmount = transactions.Where(t => t.TransactionType == "Income").Sum(t => t.Amount);
+            ViewBag.TotalExpenseAmount = Math.Round(transactions.Where(t => t.TransactionType == "Expense").Sum(t => t.Amount), 2);
+            ViewBag.TotalIncomeAmount = Math.Round(transactions.Where(t => t.TransactionType == "Income").Sum(t => t.Amount), 2);
 
-            ViewBag.AverageAmount = transactions.Count > 0 ? transactions.Average(t => t.Amount) : 0;
-            ViewBag.MaxAmount = transactions.Count > 0 ? transactions.Max(t => t.Amount) : 0;
-            ViewBag.MinAmount = transactions.Count > 0 ? transactions.Min(t => t.Amount) : 0;
+            ViewBag.AverageAmount = Math.Round(transactions.Count > 0 ? transactions.Average(t => t.Amount) : 0, 2);
+            ViewBag.MaxAmount = Math.Round(transactions.Count > 0 ? transactions.Max(t => t.Amount) : 0, 2);
+            ViewBag.MinAmount = Math.Round(transactions.Count > 0 ? transactions.Min(t => t.Amount) : 0, 2);
             return View(viewModel);
         }
 
