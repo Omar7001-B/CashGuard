@@ -29,6 +29,7 @@ namespace ThreeFriends.Controllers
         public IActionResult AccountSettingPage()
         {
             var CurUser = GetCurrentSessionUser();
+            SharedValues.setHover("Account");
             return View(CurUser);
         }
 

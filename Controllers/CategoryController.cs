@@ -20,6 +20,7 @@ namespace ThreeFriends.Controllers
             var cat = _context.Categories.Where(c => c.UserId == SharedValues.CurUser.Id).ToList();
             ViewBag.IconList = GetIconList();
             ViewBag.CurUserCategories = cat;
+            SharedValues.setHover("AddCat");
             return View();
         }
 

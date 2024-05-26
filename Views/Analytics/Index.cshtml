@@ -37,7 +37,40 @@
             margin-right: 30px;
             width:100px ;
             flex: 1 1 calc(20% - 40px); /* Makes boxes responsive */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+            .box:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+            }
+
+            .box:nth-child(1) {
+                background: #F4F4F4;
+            }
+            /* Light Gray */
+            .box:nth-child(2) {
+                background: #D7E4F2;
+            }
+            /* Pale Blue */
+            .box:nth-child(3) {
+                background: #F1E9D8;
+            }
+            /* Ivory */
+            .box:nth-child(4) {
+                background: #E6F0D4;
+            }
+            /* Pale Green */
+            .box:nth-child(5) {
+                background: #F8EDED;
+            }
+            /* Rose Quartz */
+            .box:nth-child(6) {
+                background: #E5E5E5;
+            }
+            /* Light Silver */
+            /* Light Purple */
+
         .box i {
             font-size: 2em;
             margin-bottom: 10px;
@@ -51,7 +84,7 @@
             display: block;
             font-size: 2em;
             font-weight: bold;
-            color: #007bff;
+            color: #565f69;
         }
         .statistics-overview {
             display: grid;
@@ -59,9 +92,9 @@
             gap: 20px;
         }
         .form-section, .table-section, .charts-section, .category-section {
-            background: #ffffff;
+            background: #ebebeb;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             margin-left: 30px;
@@ -80,6 +113,8 @@
         }
         .charts-section .chart {
             height: 300px;
+            
+
         }
         .category-section .table th, .category-section .table td {
             vertical-align: middle;
@@ -97,40 +132,40 @@
     <h1>Analytics</h1>
 
     <div class="box-container">
-        <div class="box">
+        <div class="box box1">
             <i class="bx bx-wallet"></i>
             <span class="text">Transaction Counts</span>
             <span class="number">@ViewBag.TransationCounts</span>
         </div>
-        <div class="box">
+        <div class="box box2">
             <i class="bx bx-upvote"></i>
             <span class="text">Total Expense Amount</span>
             <span class="number">@ViewBag.TotalExpenseAmount</span>
         </div>
-        <div class="box">
+        <div class="box box3">
             <i class="bx bx-downvote"></i>
             <span class="text">Total Income Amount</span>
             <span class="number">@ViewBag.TotalIncomeAmount</span>
         </div>
-        <div class="box">
+        <div class="box box4">
             <i class="bx bx-bar-chart-alt"></i>
             <span class="text">Average Amount</span>
             <span class="number">@ViewBag.AverageAmount</span>
         </div>
-        <div class="box">
+        <div class="box box5">
             <i class="bx bx-line-chart"></i>
             <span class="text">Max Amount</span>
             <span class="number">@ViewBag.MaxAmount</span>
         </div>
-        <div class="box">
+        <div class="box box6">
             <i class="bx bx-pie-chart-alt"></i>
             <span class="text">Min Amount</span>
             <span class="number">@ViewBag.MinAmount</span>
         </div>
     </div>
 
-    <h2>Transaction Filtration</h2>
     <div class="form-section">
+        <h2>Transaction Filtration</h2>
         @using (Html.BeginForm("Index", "Analytics", FormMethod.Post, new { id = "filterForm" }))
         {
             <div>
@@ -231,7 +266,7 @@
     <div class="charts-section">
         <div class="row">
             <div class="col-md-6">
-                <div id="barChartPreview" class="chart"></div>
+                <div id="barChartPreview" class="chart" ></div>
             </div>
             <div class="col-md-6">
                 <div id="lineChartPreview" class="chart"></div>

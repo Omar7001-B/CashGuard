@@ -31,7 +31,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.Dashboard">
                             <a href="@Url.Action("Index", "Transaction")">
                                 <span class="iconn">
                                     <ion-icon name="home-outline"></ion-icon>
@@ -40,7 +40,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.Tranaction">
                             <a href="@Url.Action("TransactionAddition", "Transaction")">
                                 <span class="iconn">
                                     <ion-icon name="wallet-outline"></ion-icon>
@@ -49,7 +49,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.AddCat">
                             <a href="@Url.Action("Index", "Category")">
                                 <span class="iconn">
                                     <ion-icon name="grid-outline"></ion-icon>
@@ -58,7 +58,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.Analytics">
                             <a href="@Url.Action("Index", "Analytics")">
                                 <span class="iconn">
                                     <ion-icon name="bar-chart-outline"></ion-icon>
@@ -67,7 +67,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.History">
                             <a href="@Url.Action("History", "Home")">
                                 <span class="iconn">
                                     <ion-icon name="receipt-outline"></ion-icon>
@@ -76,7 +76,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.Account">
                             <a href="/EnsureUser/index">
                                 <span class="iconn">
                                     <ion-icon name="person-outline"></ion-icon>
@@ -85,7 +85,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="@SharedValues.Settings">
                             <a href="@Url.Action("index", "GeneralSettings")">
                                 <span class="iconn">
                                     <ion-icon name="settings-outline"></ion-icon>
@@ -149,7 +149,4 @@
     function preventBack() { window.history.forward(); }
     setTimeout("preventBack()", 0);
     window.onunload = function () { null };
-
-    // edit the .sidebar make its z-index to zero
-    let sidebar22 = document.querySelector('.sidebar');
 </script>
