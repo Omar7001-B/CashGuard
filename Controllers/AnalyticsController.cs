@@ -136,8 +136,9 @@ namespace ThreeFriends.Controllers
                     new
                     {
                         type = "doughnut",
-                        showInLegend = true,
-                        legendText = "{label}",
+                        showInLegend = false,
+                        legendText = "",
+                        showInLabel = false,
                         indexLabel = "{label}: #percent%",
                         indexLabelPlacement = "inside",
                         dataPoints = DataPoints
@@ -191,19 +192,27 @@ namespace ThreeFriends.Controllers
                 data = new[] {
                 new {
                     type = "line",
-                    name = "Income",
-                    markerSize = 12,
-                    xValueFormatString = "MMM, YYYY",
-                    yValueFormatString = "$###.#",
-                    dataPoints = incomeDataPoints
-                },
-                new {
-                    type = "line",
                     name = "Expense",
+                    showInLegend = true,
+                    legendText = "Expense",
+                    color = "red",
+                    lineColor = "red",
                     markerSize = 12,
                     xValueFormatString = "MMM, YYYY",
                     yValueFormatString = "$###.#",
                     dataPoints = expenseDataPoints
+                },
+                new {
+                    type = "line",
+                    name = "Income",
+                    showInLegend = true,
+                    legendText = "Income",
+                    color = "green",
+                    lineColor = "green",
+                    markerSize = 12,
+                    xValueFormatString = "MMM, YYYY",
+                    yValueFormatString = "$###.#",
+                    dataPoints = incomeDataPoints
                 }
             }
             };
@@ -230,7 +239,7 @@ namespace ThreeFriends.Controllers
                     IconUrl = $"/icons/{ group.First().Category.Icon }",
                     Title = group.First().Category.Name,
                     Amount = Math.Round(group.Sum(t => t.Amount), 2),
-                    Percentage = Math.Round((group.Sum(t => t.Amount) / totalAmount) * 100, 2) // Calculate percentage
+                    Percentage = Math.Round((group.Sum(t => t.Amount) / totalAmount) * 100, 0) // Calculate percentage
                 }).ToList();
 
             // Convert anonymous type to object
