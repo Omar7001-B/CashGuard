@@ -342,6 +342,12 @@ namespace ThreeFriends.Controllers
         {
             var categories = _context.Categories.ToList();
             var random = new Random();
+
+            // Define start and end date for the range
+            var startDate = DateTime.Now.AddMonths(-1); // One month before the current date
+            var endDate = DateTime.Now.AddMonths(1); // One month after the current date
+            var range = (endDate - startDate).Days; // Get the range in days
+
             for (int i = 0; i < id; i++)
             {
                 var transaction = new Transaction
@@ -352,10 +358,11 @@ namespace ThreeFriends.Controllers
                     TransactionType = random.Next(0, 2) == 0 ? "Income" : "Expense",
                     CategoryId = categories[random.Next(0, categories.Count)].Id,
                     UserId = SharedValues.CurUser.Id,
-                    Timestamp = new DateTime(2020, 1, 1).AddDays(random.Next(0, 365))
+                    Timestamp = startDate.AddDays(random.Next(range)) // Add random days within the range
                 };
                 _context.Transactions.Add(transaction);
             }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
