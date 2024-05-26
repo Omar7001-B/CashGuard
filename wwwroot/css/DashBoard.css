@@ -19,6 +19,11 @@
     --box1-color: #4DA3FF;
     --box2-color: #FFE6AC;
     --box3-color: #E7D1FC;
+    --box4-color: #c0c0c0;
+    --box5-color: #b0b0b0;
+    --box6-color: #a0a0a0;
+    --text-color: #333;
+    
     --title-icon-color: #fff;
     /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
@@ -137,6 +142,17 @@
 
 .boxes .box.box3 {
     background-color: #cdb5e9;
+}
+.boxes .box.box4 {
+    background-color: var(--box4-color);
+}
+
+.boxes .box.box5 {
+    background-color: var(--box5-color);
+}
+
+.boxes .box.box6 {
+    background-color: var(--box6-color);
 }
 
 
