@@ -19,136 +19,114 @@
     @{
         if (context.HttpContext.Session.GetString("UserName") != null)
         {
-            <div class="sidebar">
-                <div class="top">
-                    <div class="logo">
-                        <i class="bx bxl-codepen"></i>
-                        <span>Cash Guard</span>
+            <div class="container">
+                <div class="navigation active">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <span class="icon">
+                                    <ion-icon name="cash-outline"></ion-icon>
+                                </span>
+                                <span class="title">Cash Guard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Transaction")">
+                                <span class="icon">
+                                    <ion-icon name="home-outline"></ion-icon>
+                                </span>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("TransactionAddition", "Transaction")">
+                                <span class="icon">
+                                    <ion-icon name="wallet-outline"></ion-icon>
+                                </span>
+                                <span class="title">Transactions</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Category")">
+                                <span class="icon">
+                                    <ion-icon name="grid-outline"></ion-icon>
+                                </span>
+                                <span class="title">Add Category</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Analytics")">
+                                <span class="icon">
+                                    <ion-icon name="bar-chart-outline"></ion-icon>
+                                </span>
+                                <span class="title">Analytics</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("History", "Home")">
+                                <span class="icon">
+                                    <ion-icon name="receipt-outline"></ion-icon>
+                                </span>
+                                <span class="title">History</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/EnsureUser/index">
+                                <span class="icon">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                </span>
+                                <span class="title">Account</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("index", "GeneralSettings")">
+                                <span class="icon">
+                                    <ion-icon name="settings-outline"></ion-icon>
+                                </span>
+                                <span class="title">Settings</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Logout/index">
+                                <span class="icon">
+                                    <ion-icon name="log-out-outline"></ion-icon>
+                                </span>
+                                <span class="title">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- ========================= Main ==================== -->
+                <div class="main active">
+                    <div class="topbar">
+                        <div class="toggle">
+                            <ion-icon name="menu-outline"></ion-icon>
+                        </div>
+                        <div class="user">
+                            <img src="@SharedValues.CurUser.photoPath" alt="">
+                        </div>
                     </div>
-                    <i class="bx bx-menu" id="btn"></i>
-                </div>
-                <div class="user">
-                    <img src="@context.HttpContext.Session.GetString("PhotoPath")" alt="me" class="user-img">
-                    <div>
-                        <p class="bold">@context.HttpContext.Session.GetString("FirsName")</p>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <a href="@Url.Action("Index", "Transaction")">
-                            <i class="bx bxs-grid-alt"></i>
-                            <span class="nav-item">Dashboard</span>
-                        </a>
-                        <span class="tooltip">Dashboard</span>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("TransactionAddition", "Transaction")">
-                            <i class="bx bxs-add-to-queue"></i>
-                            <span class="nav-item">Income</span>
-                        </a>
-                        <span class="tooltip">Income</span>
-                    </li>
 
-                    @*
-                    // Delete the Expense Button
-                    <li>
-                        <a href="@Url.Action("Expense", "Transaction")">
-                            <i class="bx bxs-grid-alt"></i>
-                            <span class="nav-item">Expense</span>
-                        </a>
-                        <span class="tooltip">Expense</span>
-                    </li>
-                    *@
-                    <li>
-                        <a href="@Url.Action("Index", "Category")">
-                            <i class="bx bx-category-alt"></i>
-                            <span class="nav-item">Add Category</span>
-                        </a>
-                        <span class="tooltip">Add Category</span>
-                    </li>
-                    <li>
+                    <!-- ========================= Main ==================== -->
+                    @RenderBody()
 
-                        <a href="@Url.Action("Index", "Analytics")">
-                            <i class="bx bxs-filter-alt"></i>
-                            <span class="nav-item">Filttering</span>
-                        </a>
-                        <span class="tooltip">Filttering</span>
-                    </li>
-                    <li>
-                        <span class="tooltip">History</span>
-
-                        <a href="@Url.Action("History", "Home")">
-                            <i class="bx bx-history"></i>
-                            <span class="nav-item">History</span>
-                        </a>
-                        <span class="tooltip">History</span>
-
-                    </li>
-                    <li>
-                        <a href="/EnsureUser/index">
-                            <i class="bx bxs-user-account"></i>
-                            <span class="nav-item">User Settings</span>
-                        </a>
-                        <span class="tooltip">User Settings</span>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("index", "GeneralSettings")">
-                            <i class="bx bx-cog"></i>
-                            <span class="nav-item">General Settings</span>
-                        </a>
-                        <span class="tooltip">General Settings</span>
-                    </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-
-
-                    <li>
-                        <a href="/Logout/index">
-                            <i class="bx bx-log-out"></i>
-                            <span class="nav-item">Log Out</span>
-                        </a>
-                        <span class="tooltip">Log Out</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="main-content">
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+                    <!-- ========================= Main ==================== -->
+                    
                 </div>
             </div>
-            <script>
-                let lastScrollTop = 0;
-
-                window.addEventListener('scroll', function () {
-                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                    if (scrollTop > lastScrollTop) {
-                        // Scrolling down
-                        document.getElementById('sidebar').classList.add('scrolled-down');
-                        document.getElementById('main-content').classList.add('scrolled-down');
-                    } else {
-                        // Scrolling up
-                        document.getElementById('sidebar').classList.remove('scrolled-down');
-                        document.getElementById('main-content').classList.remove('scrolled-down');
-                    }
-
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-                });
-            </script>
-            <script>
-                let btn = document.querySelector("#btn");
-                let sidebar = document.querySelector(".sidebar");
-
-                btn.onclick = function () {
-                    sidebar.style.zIndex = 1000 - sidebar.style.zIndex;
-                    sidebar.classList.toggle("active");
-                }
-            </script>
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            <script src="/js/MainPageStyles.js"></script>
         }
     }
     @{
@@ -168,11 +146,10 @@
 </html>
 
 <script type="text/javascript">
-		function preventBack() { window.history.forward(); }
-		setTimeout("preventBack()", 0);
-		window.onunload = function () { null };
+    function preventBack() { window.history.forward(); }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { null };
 
-		// edit the .sidebar make its z-index to zero
-		let sidebar22 = document.querySelector('.sidebar');
-		sidebar22.style.zIndex = 0;
+    // edit the .sidebar make its z-index to zero
+    let sidebar22 = document.querySelector('.sidebar');
 </script>

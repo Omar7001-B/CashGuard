@@ -4,7 +4,7 @@
     ViewBag.Title = "Transaction Filtration";
 }
 
- @* 
+@*
 <link rel="stylesheet" href="~/css/FilterCategoryTable.css" />
  *@
 
@@ -14,21 +14,21 @@
 
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-   <script type="text/javascript">
-	window.onload = function () {
-		console.log("Hello");
+<script type="text/javascript">
+    window.onload = function () {
+        console.log("Hello");
         var BarChartConfiguration = @Html.Raw(ViewBag.BarChartConfig);
         var LineChartConfiguration = @Html.Raw(ViewBag.LineChartConfig);
         var IncomePieChartConfiguration = @Html.Raw(ViewBag.IncomePieChartConfig);
         var ExpensePieChartConfiguration = @Html.Raw(ViewBag.ExpensePieChartConfig);
 
-		console.log(BarChartConfiguration);
+        console.log(BarChartConfiguration);
         console.log(LineChartConfiguration);
         console.log(IncomePieChartConfiguration);
         console.log(ExpensePieChartConfiguration);
 
         // Fix Date in Line Chart
-		LineChartConfiguration.data.forEach(function (data) { data.dataPoints.forEach(function (dataPoint) { dataPoint.x = new Date(dataPoint.x); }); });
+        LineChartConfiguration.data.forEach(function (data) { data.dataPoints.forEach(function (dataPoint) { dataPoint.x = new Date(dataPoint.x); }); });
 
 
 
@@ -39,141 +39,135 @@
 
 
 
-        /*
-			var ChartConfig2 = @Html.Raw(ViewBag.ChartConfig2);
-			console.log("Before", ChartConfig2);
-			ChartConfig2.data.forEach(function (data) { data.dataPoints.forEach(function (dataPoint) { dataPoint.x = new Date(dataPoint.x); }); });
-			console.log("After", ChartConfig2);
-			var chart2 = new CanvasJS.Chart("chartContainer2", ChartConfig2);
-			chart2.render();
-		*/
-	}
+    }
 </script>
 
 <style>
     /* Style for form rows */
-.form-row {
-    margin-bottom: 20px;
-}
+    .form-row {
+        margin-bottom: 20px;
+    }
 
-.form-group {
-    margin-bottom: 15px;
-}
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-.col-form-label {
-    font-weight: bold;
-}
+    .col-form-label {
+        font-weight: bold;
+    }
 
-/* Style for buttons */
-.btn {
-    margin-right: 10px;
-}
+    /* Style for buttons */
+    .btn {
+        margin-right: 10px;
+    }
 
-/* Style for table */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+    /* Style for table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
 
-.table th,
-.table td {
-    padding: 8px;
-    text-align: left;
-}
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+        }
 
-.table th {
-    background-color: #343a40;
-    color: #fff;
-}
+        .table th {
+            background-color: #343a40;
+            color: #fff;
+        }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f8f9fa;
-}
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa;
+    }
 
-.table-hover tbody tr:hover {
-    background-color: #e9ecef;
-}
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
 
-/* Grid layout for charts */
-.charts-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Adjusted to show only 2 elements */
-    gap: 20px;
-    height: 80vh;
-}
+    /* Grid layout for charts */
+    .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Adjusted to show only 2 elements */
+        gap: 20px;
+        height: 80vh;
+    }
 
-.chart-container {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Prevent content from overflowing */
-}
+    .chart-container {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Prevent content from overflowing */
+    }
 
-.chart-container > div {
-    width: 100%;
-    height: 100%;
-}
+        .chart-container > div {
+            width: 100%;
+            height: 100%;
+        }
 
-/* Background colors for charts */
-#incomePieChartPreivew {
-    background-color: lightblue;
-}
+    /* Background colors for charts */
+    #incomePieChartPreivew {
+        background-color: lightblue;
+    }
 
-#expensePieChartPreivew {
-    background-color: lightgreen;
-}
+    #expensePieChartPreivew {
+        background-color: lightgreen;
+    }
 
-#barChartPreview {
-    background-color: lightcoral;
-}
+    #barChartPreview {
+        background-color: lightcoral;
+    }
 
-#lineChartPreview {
-    background-color: lightsalmon;
-}
+    #lineChartPreview {
+        background-color: lightsalmon;
+    }
 
 
-.category-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    text-align: center;
-}
+    .category-item {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
 
-.category-icon {
-    max-width: 50px;
-    max-height: 50px;
-}
+    .category-icon {
+        max-width: 50px;
+        max-height: 50px;
+    }
 
-.progress {
-    height: 20px;
-    margin-top: 10px;
-}
+    .progress {
+        height: 20px;
+        margin-top: 10px;
+    }
 
-.progress-bar {
-    border-radius: 5px;
-}
+    .progress-bar {
+        border-radius: 5px;
+    }
 
-h2 {
-    margin-top: 30px;
-}
+    h2 {
+        margin-top: 30px;
+    }
 
-.card-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-}
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
 
-.card {
-	width: 200px; /* Adjust the width as needed */
-	margin: 10px; /* Adjust the margin as needed */
-	flex: 0 0 auto; /* Maintain fixed width */
-}
+    .card {
+        width: 200px; /* Adjust the width as needed */
+        margin: 10px; /* Adjust the margin as needed */
+        flex: 0 0 auto; /* Maintain fixed width */
+    }
 
 </style>
+<body>
+
 
 <h1>Analytics</h1>
 <section class="container mt-4">
@@ -224,111 +218,112 @@ h2 {
 <h2>Transaction Filtration</h2>
 <section class="container mt-4">
     @using (Html.BeginForm("Index", "Analytics", FormMethod.Post, new { id = "filterForm" }))
-{
-    <div class="form-row">
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.SelectedTransactionType, "Transaction Type:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.DropDownListFor(model => model.SelectedTransactionType, new SelectList(Model.TransactionTypes), "Select Transaction Type", new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.SelectedCategory, "Category:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.DropDownListFor(model => model.SelectedCategory, new SelectList(Model.Categories, "Id", "Name"), "Select Category", new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.SortBy, "Sort By:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.DropDownListFor(model => model.SortBy, new SelectList(new List<SelectListItem>
+    {
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.SelectedTransactionType, "Transaction Type:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.DropDownListFor(model => model.SelectedTransactionType, new SelectList(Model.TransactionTypes), "Select Transaction Type", new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.SelectedCategory, "Category:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.DropDownListFor(model => model.SelectedCategory, new SelectList(Model.Categories, "Id", "Name"), "Select Category", new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.SortBy, "Sort By:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.DropDownListFor(model => model.SortBy, new SelectList(new List<SelectListItem>
             {
-                new SelectListItem { Text = "Date", Value = "Date", Selected = true, Disabled = true },
-                new SelectListItem { Text = "Amount", Value = "Amount" },
-                new SelectListItem { Text = "Title", Value = "Title" },
-                new SelectListItem { Text = "Category", Value = "Category" }
+            new SelectListItem { Text = "Date", Value = "Date", Selected = true, Disabled = true },
+            new SelectListItem { Text = "Amount", Value = "Amount" },
+            new SelectListItem { Text = "Title", Value = "Title" },
+            new SelectListItem { Text = "Category", Value = "Category" }
             }, "Value", "Text"), "Select Sorting Option", new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.SortOrder, "Sort Order:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.DropDownListFor(model => model.SortOrder, new SelectList(new List<SelectListItem>
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.SortOrder, "Sort Order:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.DropDownListFor(model => model.SortOrder, new SelectList(new List<SelectListItem>
             {
-                new SelectListItem { Text = "Ascending", Value = "Asc" },
-                new SelectListItem { Text = "Descending", Value = "Desc" }
+            new SelectListItem { Text = "Ascending", Value = "Asc" },
+            new SelectListItem { Text = "Descending", Value = "Desc" }
             }, "Value", "Text"), "Select Sorting Order", new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.MinAmount, "Minimum Amount:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.MinAmount, new { @class = "form-control", placeholder = "Minimum Amount" })
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.MinAmount, "Minimum Amount:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.MinAmount, new { @class = "form-control", placeholder = "Minimum Amount" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.MaxAmount, "Maximum Amount:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.MaxAmount, new { @class = "form-control", placeholder = "Maximum Amount" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.StartDate, "Start Date:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", type = "date", placeholder = "Start Date" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.EndDate, "End Date:", htmlAttributes: new { @class = "col-form-label" })
+                @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", type = "date", placeholder = "End Date" })
+            </div>
         </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.MaxAmount, "Maximum Amount:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.MaxAmount, new { @class = "form-control", placeholder = "Maximum Amount" })
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Filter Transactions</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Analytics")'">Reset Filters</button>
         </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.StartDate, "Start Date:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", type = "date", placeholder = "Start Date" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.EndDate, "End Date:", htmlAttributes: new { @class = "col-form-label" })
-            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", type = "date", placeholder = "End Date" })
-        </div>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Filter Transactions</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "Analytics")'">Reset Filters</button>
-    </div>
-}
+    }
 
 </section>
 
-	<div class="charts-grid">
-		<div class="chart-container">
-			<div id="barChartPreview"></div>
-		</div>
+<div class="charts-grid">
+    <div class="chart-container">
+        <div id="barChartPreview"></div>
+    </div>
 
-		<div class="chart-container">
-			<div id="lineChartPreview"></div>
-		</div>
-	</div>
+    <div class="chart-container">
+        <div id="lineChartPreview"></div>
+    </div>
+</div>
+
 
 <section class="container mt-4">
-@if (Model.Transactions != null && Model.Transactions.Any())
-{
-    <div class="table-responsive">
-		<h3>Filtered Transactions</h3>
-        <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Icon</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Info</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var transaction in Model.Transactions)
-                {
+    @if (Model.Transactions != null && Model.Transactions.Any())
+    {
+        <div class="table-responsive">
+            <h3>Filtered Transactions</h3>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
                     <tr>
-                        <td>@transaction.Title</td>
-                        <td>@transaction.TransactionType</td>
-                        <td>
-                            <img src="~/icons/@transaction.Category.Icon" />
-                        </td>
-                        <td>@transaction.Category?.Name</td>
-                        <td>@transaction.Amount</td>
-                        <td>@transaction.Timestamp.ToShortDateString()</td>
-                        <td>@transaction.Info</td>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Icon</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Info</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <p>No transactions match the selected filters.</p>
-}
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transactions)
+                    {
+                        <tr>
+                            <td>@transaction.Title</td>
+                            <td>@transaction.TransactionType</td>
+                            <td>
+                                <img src="~/icons/@transaction.Category.Icon" />
+                            </td>
+                            <td>@transaction.Category?.Name</td>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.Timestamp.ToShortDateString()</td>
+                            <td>@transaction.Info</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No transactions match the selected filters.</p>
+    }
 </section>
 
 
@@ -337,146 +332,145 @@ else
         <div class="padding">
             <div class="row container d-flex justify-content-center">
                 <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card-body">
-                            <h4 class="card-title">Income Categories</h4>
-                            <p class="card-description">
-                                Analysis of income categories
-                            </p>
-                            @if (ViewBag.IncomeCategoriesPercentage != null)
-                            {
-                                <table class="table table-striped">
-                                    <thead>
+                    <div class="card-body">
+                        <h4 class="card-title">Income Categories</h4>
+                        <p class="card-description">
+                            Analysis of income categories
+                        </p>
+                        @if (ViewBag.IncomeCategoriesPercentage != null)
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Progress</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var category in ViewBag.IncomeCategoriesPercentage)
+                                    {
                                         <tr>
-                                            <th>Category</th>
-                                            <th>Amount</th>
-                                            <th>Progress</th>
+                                            <td class="py-1">
+                                                <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
+                                                @category.Title
+                                            </td>
+                                            <td>@category.Amount</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var category in ViewBag.IncomeCategoriesPercentage)
-                                        {
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
-                                                    @category.Title
-                                                </td>
-                                                <td>@category.Amount</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        }
                     </div>
                 </div>
-                <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card-body">
-                            <h4 class="card-title">Expense Categories</h4>
-                            <p class="card-description">
-                                Analysis of expense categories
-                            </p>
-                            @if (ViewBag.ExpenseCategoriesPercentage != null)
-                            {
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Category</th>
-                                            <th>Amount</th>
-                                            <th>Progress</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var category in ViewBag.ExpenseCategoriesPercentage)
-                                        {
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
-                                                    @category.Title
-                                                </td>
-                                                <td>@category.Amount</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                        </div>
-                    </div>
+            </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card-body">
+                    <h4 class="card-title">Expense Categories</h4>
+                    <p class="card-description">
+                        Analysis of expense categories
+                    </p>
+                    @if (ViewBag.ExpenseCategoriesPercentage != null)
+                    {
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Progress</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var category in ViewBag.ExpenseCategoriesPercentage)
+                                {
+                                    <tr>
+                                        <td class="py-1">
+                                            <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
+                                            @category.Title
+                                        </td>
+                                        <td>@category.Amount</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-</section>
 
-	<div class="charts-grid">
-		<div class="chart-container">
-			<div id="incomePieChartPreivew"></div>
-		</div>
 
-		<div class="chart-container">
-			<div id="expensePieChartPreivew"></div>
-		</div>
-	</div>
+<div class="charts-grid">
+    <div class="chart-container">
+        <div id="incomePieChartPreivew"></div>
+    </div>
+
+    <div class="chart-container">
+        <div id="expensePieChartPreivew"></div>
+    </div>
+</div>
 
 
 @{
     /*
-     * 
+    *
     if (ViewBag.IncomeCategoriesPercentage != null)
-    {
+        {
         <h2>Income Categories</h2>
-        <div class="row">
+            <div class="row">
             @foreach (var category in @ViewBag.IncomeCategoriesPercentage)
-            {
-                <div class="col-md-4">
+                {
+                    <div class="col-md-4">
                     <div class="category-item">
                         <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
                         <h3>@category.Title</h3>
                         <p>Amount: @category.Amount</p>
-                        <div class="progress">
+                            <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100">
                                 <span class="sr-only">@category.Percentage%</span>
-                            </div>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
+    </div>
     }
 
     if (ViewBag.ExpenseCategoriesPercentage != null)
-    {
+        {
         <h2>Expense Categories</h2>
-        <div class="row">
+            <div class="row">
             @foreach (var category in @ViewBag.ExpenseCategoriesPercentage)
-            {
-                <div class="col-md-4">
+                {
+                    <div class="col-md-4">
                     <div class="category-item">
                         <img src="@category.IconUrl" alt="@category.Title" class="category-icon" />
                         <h3>@category.Title</h3>
                         <p>Amount: @category.Amount</p>
-                        <div class="progress">
+                            <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: @(category.Percentage)%;" aria-valuenow="@category.Percentage" aria-valuemin="0" aria-valuemax="100">
                                 <span class="sr-only">@category.Percentage%</span>
-                            </div>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
+     </div>
     }
 
-     */
+    */
 }
 
+</body>
