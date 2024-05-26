@@ -113,7 +113,7 @@
                             <ion-icon name="menu-outline"></ion-icon>
                         </div>
                         <div class="user">
-                            <img src="@SharedValues.CurUser.photoPath" alt="">
+                            <img src="@context.HttpContext.Session.GetString("PhotoPath")" alt="">
                         </div>
                     </div>
 
