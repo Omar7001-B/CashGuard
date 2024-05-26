@@ -365,4 +365,4 @@ FodyWeavers.xsd
 /DataBase/CoinGuard.db-wal
 /DataBase/CoinGuard.db
 /DataBase/CoinGuard.db
-/Migrations/20240526145253_init.cs
+/Migrations
