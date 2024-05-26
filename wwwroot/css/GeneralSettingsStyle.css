@@ -15,8 +15,6 @@ button {
     transition: transform 80ms ease-in;
     margin-top: 400px;
     width: 50%;
-   
-
 }
 
     button:active {
@@ -101,7 +99,6 @@ input {
     border-radius: 300px;
     width: 30%;
     z-index: 1;
-  
 }
 
 
@@ -114,7 +111,6 @@ input {
     border-radius: 300px;
     width: 30%;
     z-index: 1;
-   
 }
 
 
@@ -197,7 +193,7 @@ input {
 
 
 
-.DateRangeContainer h1{
+.DateRangeContainer h1 {
     text-align: center;
     margin-top: -10px;
     margin-bottom: 10px; /* Add some space between headings and inputs */
@@ -223,11 +219,9 @@ input {
 
 
 .DateRangeContainer button {
-   
     margin-top: 30px;
-    margin-bottom: 10px; 
-    width: 60%; 
-    
+    margin-bottom: 10px;
+    width: 60%;
 }
 
 
