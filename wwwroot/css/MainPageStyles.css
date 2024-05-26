@@ -22,7 +22,7 @@ body {
     overflow-x: hidden;
 }
 
-.container {
+.containerr {
     position: relative;
     width: 100%;
 }
@@ -83,7 +83,7 @@ body {
                 color: var(--blue);
             }
 
-            .navigation ul li a .icon {
+            .navigation ul li a .iconn {
                 position: relative;
                 display: block;
                 min-width: 60px;
@@ -92,7 +92,7 @@ body {
                 text-align: center;
             }
 
-                .navigation ul li a .icon ion-icon {
+                .navigation ul li a .iconn ion-iconn {
                     font-size: 1.75rem;
                 }
 

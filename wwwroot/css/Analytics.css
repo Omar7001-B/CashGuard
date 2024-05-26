@@ -4,52 +4,53 @@
 
 .form-group {
     margin-bottom: 15px;
+    
 }
 
-.col-form-label {
+.form-col-form-label {
     font-weight: bold;
 }
 
 /* Style for buttons */
-.btn {
+.form-btn {
     margin-right: 10px;
 }
 
 /* Style for table */
-.table {
+.form-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-    .table th,
-    .table td {
+    .form-table th,
+    .form-table td {
         padding: 8px;
         text-align: left;
     }
 
-    .table th {
+    .form-table th {
         background-color: #343a40;
         color: #fff;
     }
 
-.table-striped tbody tr:nth-of-type(odd) {
+.form-table-striped tbody tr:nth-of-type(odd) {
     background-color: #f8f9fa;
 }
 
-.table-hover tbody tr:hover {
+.form-table-hover tbody tr:hover {
     background-color: #e9ecef;
 }
 
 /* Grid layout for charts */
-.charts-grid {
+.form-charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Adjusted to show only 2 elements */
     gap: 20px;
     height: 80vh;
 }
 
-.chart-container {
+.form-chart-container {
     width: 100%;
     height: 100%;
     border: 1px solid #ccc;
@@ -57,30 +58,29 @@
     overflow: hidden; /* Prevent content from overflowing */
 }
 
-    .chart-container > div {
+    .form-chart-container > div {
         width: 100%;
         height: 100%;
     }
 
 /* Background colors for charts */
-#incomePieChartPreivew {
+#form-incomePieChartPreivew {
     background-color: lightblue;
 }
 
-#expensePieChartPreivew {
+#form-expensePieChartPreivew {
     background-color: lightgreen;
 }
 
-#barChartPreview {
+#form-barChartPreview {
     background-color: lightcoral;
 }
 
-#lineChartPreview {
+#form-lineChartPreview {
     background-color: lightsalmon;
 }
 
-
-.category-item {
+.form-category-item {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 15px;
@@ -89,31 +89,31 @@
     text-align: center;
 }
 
-.category-icon {
+.form-category-icon {
     max-width: 50px;
     max-height: 50px;
 }
 
-.progress {
+.form-progress {
     height: 20px;
     margin-top: 10px;
 }
 
-.progress-bar {
+.form-progress-bar {
     border-radius: 5px;
 }
 
-h2 {
+.form-h2 {
     margin-top: 30px;
 }
 
-.card-container {
+.form-card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
 
-.card {
+.form-card {
     width: 200px; /* Adjust the width as needed */
     margin: 10px; /* Adjust the margin as needed */
     flex: 0 0 auto; /* Maintain fixed width */

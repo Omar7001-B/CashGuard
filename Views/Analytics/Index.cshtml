@@ -13,15 +13,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <style>
-		body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
+		
         h1, h2 {
             text-align: center;
             margin-bottom: 20px;
         }
+        /* Container for the boxes */
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; 
+        }
+
+        
         .box {
             background: #ffffff;
             padding: 20px;
@@ -29,6 +33,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             margin-bottom: 20px;
+            margin-left: 30px;
+            margin-right: 30px;
+            width:100px ;
+            flex: 1 1 calc(20% - 40px); /* Makes boxes responsive */
         }
         .box i {
             font-size: 2em;
@@ -56,6 +64,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            margin-left: 30px;
+            margin-right: 30px;
         }
         .form-section div, .form-section label, .form-section select, .form-section input {
             margin-bottom: 10px;
@@ -86,7 +96,7 @@
 
     <h1>Analytics</h1>
 
-    <div class="statistics-overview">
+    <div class="box-container">
         <div class="box">
             <i class="bx bx-wallet"></i>
             <span class="text">Transaction Counts</span>
