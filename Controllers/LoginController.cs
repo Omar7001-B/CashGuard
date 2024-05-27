@@ -32,6 +32,7 @@ namespace ThreeFriends.Controllers
                 HttpContext.Session.SetString("Email", CurUser.Email);
                 HttpContext.Session.SetString("PhoneNumber", CurUser.Phone_Number);
                 HttpContext.Session.SetString("Id", CurUser.Id.ToString());
+                GeneralSettings.SetAllNull();
             }
             else
             {
