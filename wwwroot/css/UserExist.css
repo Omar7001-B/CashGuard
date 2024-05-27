@@ -269,7 +269,7 @@ button.go-back-btn {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 100px;
+
 }
 
     button.go-back-btn:hover {
