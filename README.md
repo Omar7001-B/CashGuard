@@ -1,4 +1,4 @@
-# Coin Guard 🛡️💰👛
+# Cash Guard 🛡️💰
 [![Coin Guard](https://github.com/Omar7001-B/CoinGuard/assets/115028809/b0fc971c-fab9-4070-9de7-4f62756da822)](https://github.com/Omar7001-B/CoinGuard) 
 
 ## Table of Contents
@@ -13,10 +13,10 @@
 - [Contribution](#contribution) 🤝
 
 ## Purpose 🎯
-The primary goal of Coin Guard is to track your income and expenses.
+The primary goal of Cash Guard is to track your income and expenses.
 
 ## Project Description 📝
-Coin Guard is a web application developed using ASP.NET MVC C#. With Coin Guard, users can:
+Cash Guard is a web application developed using ASP.NET MVC C#. With Cash Guard, users can:
 
 - **Register:** Create an account by entering their details and uploading a profile picture.
 - **Create Categories:** Organize their finances by creating different categories.
@@ -38,7 +38,7 @@ The application provides a summary of all expenses and income, displays the late
 ##  Structure 🏗️
 
 ```
-└── CoinGuard/
+└── CashGuard/
     ├── Controllers/
     │   ├── LoginController.cs
     │   ├── HomeController.cs
@@ -63,7 +63,7 @@ The application provides a summary of all expenses and income, displays the late
 ```
 
 ## Usage 🚀
-Coin Guard can be accessed easily through the following link: [Coin Guard GitHub Repository](https://github.com/Omar7001-B/CoinGuard)
+Cash Guard can be accessed easily through the following link: [Cash Guard GitHub Repository](https://github.com/Omar7001-B/CashGuard)
 
 <details>
 <summary>Dependencies 🛠️</summary>
@@ -81,9 +81,9 @@ The project utilizes the following packages, all at version 6:
 <details>
 <summary>Installation Instructions ⚙️</summary>
 
-To install and set up Coin Guard, follow these steps:
+To install and set up Cash Guard, follow these steps:
 1. Clone the repository from GitHub.
-   git clone https://github.com/Omar7001-B/CoinGuard.git
+   git clone https://github.com/Omar7001-B/CashGuard.git
 2. Ensure you have .NET 6.0 installed on your machine.
 3. Navigate to the project directory and restore the necessary packages using:
    dotnet restore
