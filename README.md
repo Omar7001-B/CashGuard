@@ -10,7 +10,7 @@
 - [Dependencies](#dependencies) 🛠️
 - [Installation Instructions](#installation-instructions) ⚙️
 - [Usage Instructions](#usage-instructions) 📖
-- [Usage Instructions](#Demo-Video) 📺
+- [Demo Video](#Demo-Video) 📺
 - [Contribution](#contribution) 🤝
 
 ## Purpose 🎯
