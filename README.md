@@ -40,13 +40,13 @@ The application provides a summary of all expenses and income, displays the late
 ```
 └── CoinGuard/
     ├── Controllers/
+    │   ├── LoginController.cs
     │   ├── HomeController.cs
+    │   ├── TransactionController.cs
     │   ├── AnalyticsController.cs
     │   ├── CategoryController.cs
-    │   └── TransactionController.cs
     │   ├── AccountSettingsController.cs
-    │   ├── GeneralSettingsController.cs
-    │   ├── LoginController.cs
+    │   └── GeneralSettingsController.cs
     ├── Models/
     │   ├── Category.cs
     │   ├── Transaction.cs
