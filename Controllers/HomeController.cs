@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging.Signing;
 using System.Diagnostics;
 using ThreeFriends.Models;
 
@@ -46,7 +47,8 @@ namespace ThreeFriends.Controllers
         public ActionResult History()
         {
             SharedValues.setHover("History");
-            var historyItems = entity.History.Where(h => h.UserId == SharedValues.CurUser.Id).ToList();
+            var historyItems = entity.History.Where(h => h.UserId == SharedValues.CurUser.Id 
+            && h.Timestamp.Date>=GeneralSettings.DataRangeFrom && h.Timestamp.Date <=GeneralSettings.DataRangeTo).ToList();
             historyItems.Reverse(); // Reverse the list to show the latest history items first
             return View(historyItems);
         }
