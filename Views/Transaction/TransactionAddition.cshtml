@@ -144,7 +144,6 @@
 </head>
 <body>
     <div class="cards-container">
-        <!-- Repeat this block for each card -->
         @foreach (Transaction item in ViewBag.Transactions)
         {
             <form action="/Transaction/Edit" method="get">
@@ -174,7 +173,6 @@
                 </div>
             </form>
         }
-
     </div>
 
     <section class="cardss-container">
@@ -182,25 +180,25 @@
         <form asp-action="TransactionAddition" asp-controller="Transaction" method="post" class="form">
             <div class="input-box">
                 <label asp-for="Title" class="control-label">Title:</label>
-                <input asp-for="Title" class="form-control" value="@Model.Title" />
+                <input asp-for="Title" class="form-control" value="@Model.Title" id="TitleInput" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
             <div class="input-box">
                 <label asp-for="Info" class="control-label">Info:</label>
-                <input asp-for="Info" class="form-control" value="@Model.Info" />
+                <input asp-for="Info" class="form-control" value="@Model.Info" id="InfoInput" />
                 <span asp-validation-for="Info" class="text-danger"></span>
             </div>
 
             <div class="column">
                 <div class="input-box">
                     <label asp-for="Amount" class="control-label">Amount:</label>
-                    <input asp-for="Amount" type="number" step="0.01" class="form-control" value="@Model.Amount" />
+                    <input asp-for="Amount" type="number" step="0.01" class="form-control" value="@Model.Amount" id="AmountInput" />
                     <span asp-validation-for="Amount" class="text-danger"></span>
                 </div>
                 <div class="input-box">
                     <label asp-for="Timestamp" class="control-label">Transaction Date:</label>
-                    <input asp-for="Timestamp" class="form-control" type="date" value="@Model.Timestamp.Date.ToString("yyyy-MM-dd")" />
+                    <input asp-for="Timestamp" class="form-control" type="date" value="@Model.Timestamp.Date.ToString("yyyy-MM-dd")" id="TimestampInput" />
                     <span asp-validation-for="Timestamp" class="text-danger"></span>
                 </div>
             </div>
@@ -223,7 +221,6 @@
                 <div class="column">
                     <div class="select-box">
                         <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
-
                     </div>
                 </div>
             </div>
@@ -236,39 +233,72 @@
             else if(Model.Id != 0 )
             {
                 <button type="submit">Update Transaction</button>
-            } 
+            }
         </form>
     </section>
 
     <script>
-	    function submitFormWithAction(form, action) {
-           if (confirm("Are you sure you want to remove the transaction?")) {
+        function submitFormWithAction(form, action) {
+            if (confirm("Are you sure you want to remove the transaction?")) {
+                defColor();
                 form.action = action;
                 form.submit();
-            } 
+            }
         }
+
         document.body.style.overflow = 'hidden';
+
         function ChangeColor() {
             var container = document.getElementsByClassName("cardss-container")[0];
             container.style.backgroundColor = "#fff";
         }
+
         function defColor() {
             var container = document.getElementsByClassName("cardss-container")[0];
             container.style.backgroundColor = "#d5d5d5";
         }
+
+        function typeText(inputId, text, delay, originalType) {
+            const inputElement = document.getElementById(inputId);
+            inputElement.type = 'text'; // Temporarily change to text type
+            inputElement.value = '';
+            let index = 0;
+
+            function typeCharacter() {
+                if (index < text.length) {
+                    inputElement.value += text.charAt(index);
+                    index++;
+                    setTimeout(typeCharacter, delay);
+                } else {
+                    inputElement.type = originalType; // Revert to the original type
+                    inputElement.value = text; // Set the final value
+                }
+            }
+
+            typeCharacter();
+        }
+
+        window.onload = function() {
+
+            const inputs = [
+                { id: 'TitleInput', text: '@Model.Title', originalType: 'text' },
+                { id: 'InfoInput', text: '@Model.Info', originalType: 'text' },
+                { id: 'AmountInput', text: '@Model.Amount', originalType: 'number' },
+                { id: 'TimestampInput', text: '@Model.Timestamp.Date.ToString("yyyy-MM-dd")', originalType: 'date' }
+            ];
+
+            const totalDuration = 2000;
+            const maxTextLength = Math.max(...inputs.map(input => input.text.length));
+            const delay = totalDuration / maxTextLength;
+
+            if ('@Model.Title' !== '') {
+                ChangeColor();
+                setTimeout(defColor, 2000);
+				inputs.forEach(input => typeText(input.id, input.text, delay, input.originalType));
+            } else {
+                defColor();
+            }
+        }
     </script>
-    @if (Model.Title != null)
-    {
-        <script>
-            ChangeColor();
-            setTimeout(defColor, 2000);
-        </script>
-    }
-    else
-    {
-        <script>
-            defColor();
-        </script>
-    }
 </body>
 </html>
