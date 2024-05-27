@@ -21,9 +21,9 @@ namespace ThreeFriends.Controllers
         {
             List<Transaction> transactions;
             if (type == "Income")
-                transactions = _context.Transactions .Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income") .ToList(); 
-            else if(type == "Expense")
-                transactions = _context.Transactions .Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense") .ToList();
+                transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income" && t.Timestamp >= GeneralSettings.DataRangeFrom && t.Timestamp <= GeneralSettings.DataRangeTo).ToList();
+            else if (type == "Expense")
+                transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense" && t.Timestamp >= GeneralSettings.DataRangeFrom && t.Timestamp <= GeneralSettings.DataRangeTo).ToList();
             else
                 transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id).ToList();
 
@@ -37,7 +37,7 @@ namespace ThreeFriends.Controllers
         {
             List<Transaction> transactions;
             transactions = _context.Transactions
-                                 .Where(t => t.UserId == SharedValues.CurUser.Id)
+                                 .Where(t => t.UserId == SharedValues.CurUser.Id && t.Timestamp >= GeneralSettings.DataRangeFrom && t.Timestamp <= GeneralSettings.DataRangeTo)
                                  .OrderByDescending(t => t.Timestamp)
                                  .ToList();
 
@@ -95,8 +95,8 @@ namespace ThreeFriends.Controllers
             var transactions = _context.Transactions.ToList();
 
             // Separate transactions into income and expense
-            var incomeTransactions = transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income").ToList();
-            var expenseTransactions = transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense").ToList();
+            var incomeTransactions = transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Income" && t.Timestamp >= GeneralSettings.DataRangeFrom && t.Timestamp <= GeneralSettings.DataRangeTo).ToList();
+            var expenseTransactions = transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.TransactionType == "Expense" && t.Timestamp >= GeneralSettings.DataRangeFrom && t.Timestamp <= GeneralSettings.DataRangeTo).ToList();
 
             // Prepare data points for income line
             var incomeDataPoints = incomeTransactions.Select(transaction => new
@@ -123,7 +123,7 @@ namespace ThreeFriends.Controllers
 
             string intervalType = "year";
 
-            if(incomeDataPoints.Count != 0 && expenseDataPoints.Count != 0)
+            if (incomeDataPoints.Count != 0 && expenseDataPoints.Count != 0)
             {
                 var maxDate = incomeDataPoints.Max(d => d.x);
                 maxDate = maxDate > expenseDataPoints.Max(d => d.x) ? maxDate : expenseDataPoints.Max(d => d.x);
@@ -197,7 +197,7 @@ namespace ThreeFriends.Controllers
             SharedValues.setHover("Tranaction");
             ViewBag.Categories = new SelectList(GetUserCategories(), "Id", "Name");
             ViewBag.Transactions = GetUserTransactions();
-            return View("TransactionAddition" , new Transaction());
+            return View("TransactionAddition", new Transaction());
         }
 
         [HttpPost]
@@ -254,7 +254,8 @@ namespace ThreeFriends.Controllers
         // GET: Transaction
         public IActionResult Index()
         {
-            var transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id).ToList();
+            var transactions = _context.Transactions.Where(t => t.UserId == SharedValues.CurUser.Id && t.Timestamp >= GeneralSettings.DataRangeFrom
+            && t.Timestamp <= GeneralSettings.DataRangeTo).ToList();
             foreach (var transaction in transactions)
                 _context.Entry(transaction).Reference(t => t.Category).Load();
             //PrepareChartData();
@@ -297,7 +298,7 @@ namespace ThreeFriends.Controllers
             var forbag = GetUserCategories();
             ViewBag.Categories = forbag.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
             ViewBag.Transactions = GetUserTransactions();
-            return View("TransactionAddition",transaction);
+            return View("TransactionAddition", transaction);
         }
 
         // POST: Transaction/Edit/5
@@ -313,7 +314,7 @@ namespace ThreeFriends.Controllers
             }
             ViewBag.Categories = GetUserCategories();
             ViewBag.Transactions = GetUserTransactions();
-            return View("TransactionAddition" ,transaction);
+            return View("TransactionAddition", transaction);
         }
 
         // GET: Transaction/Details/5
