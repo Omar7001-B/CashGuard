@@ -11,8 +11,8 @@
         // we will not delete anything from the history
         public static void SetAllNull()
         {
-            GeneralSettings.DataRangeFrom = default(DateTime);
-            GeneralSettings.DataRangeTo = default(DateTime);
+            GeneralSettings.DataRangeFrom = DateTime.MinValue;
+            GeneralSettings.DataRangeTo = DateTime.MaxValue;
             GeneralSettings.Currency = null;
             GeneralSettings.DeleteOldTo = default(DateTime);
         }
@@ -34,7 +34,7 @@
             List<Transaction> NewTransactions = new List<Transaction>();
             foreach (var transaction in GeneralSettings.Transactions)
             {
-                if (transaction.Timestamp <= GeneralSettings.DeleteOldTo)
+                if (transaction.Timestamp < GeneralSettings.DeleteOldTo)
                 {
                     NewTransactions.Add(transaction);
                 }
@@ -56,7 +56,7 @@
             List<HistoryItem> NewHistory = new List<HistoryItem>();
             foreach (var hstory in GeneralSettings.history)
             {
-                if (hstory.Timestamp <= GeneralSettings.DeleteOldTo)
+                if (hstory.Timestamp < GeneralSettings.DeleteOldTo)
                 {
                     NewHistory.Add(hstory);
                 }
@@ -71,6 +71,8 @@
                 GeneralSettings.history = NewHistory;
             }
         }
+
+
 
     }
 }
