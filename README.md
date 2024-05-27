@@ -107,6 +107,5 @@ To install and set up Cash Guard, follow these steps:
 https://github.com/Omar7001-B/CashGuard/assets/115028809/6d4248a4-5f5d-49bf-886d-381c755a799d
 
 
-
 ## Contribution 🤝
 We welcome contributions from the community. Please fork the repository and submit pull requests for any improvements or bug fixes.
