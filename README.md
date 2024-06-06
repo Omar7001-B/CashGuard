@@ -6,6 +6,7 @@
 - [Project Description](#project-description) 📝
 - [Key Features](#key-features) ✨
 - [Structure](#structure) 🏗️
+- [Technologies Used](#Technologies-Used) 🏹
 - [Usage](#usage) 🚀
 - [Dependencies](#dependencies) 🛠️
 - [Installation Instructions](#installation-instructions) ⚙️
@@ -62,6 +63,18 @@ The application provides a summary of all expenses and income, displays the late
         ├── Analytics/
         └── Login/
 ```
+
+## Technologies Used
+
+- **Backend:** ASP.NET MVC, C#
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap
+- **Database:** Entity Framework Core, SQLite
+- **Validation:** Data Annotations, JavaScript
+- **Authentication & Authorization:** ASP.NET Identity
+- **Version Control:** Git
+- **Development Tools:** Visual Studio
+
+
 
 ## Usage 🚀
 Cash Guard can be accessed easily through the following link: [Cash Guard GitHub Repository](https://github.com/Omar7001-B/CashGuard)
